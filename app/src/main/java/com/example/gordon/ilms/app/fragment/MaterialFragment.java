@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -19,6 +22,8 @@ import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Announcement;
 import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.Material;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +38,9 @@ public class MaterialFragment extends Fragment {
     private ListView listView;
     private MaterialListAdapter listAdapter;
 
+    private ProgressBar progressBar;
+    private TextView msgTxt;
+
     public MaterialFragment(Course course) {
         this.course = course;
     }
@@ -46,12 +54,18 @@ public class MaterialFragment extends Fragment {
                     @Override
                     public void onResponse(List<Material> response) {
                         listAdapter.addItems(response);
+                        progressBar.setVisibility(View.INVISIBLE);
+
+                        if (listAdapter.getCount() == 0) {
+                            msgTxt.setText("目前尚無資料");
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Toast.makeText(getContext(), "連線問題", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
                 });
 
@@ -60,6 +74,9 @@ public class MaterialFragment extends Fragment {
         listAdapter = new MaterialListAdapter(getContext(), new ArrayList<Material>());
         listView = (ListView) view.findViewById(R.id.list_view);
         listView.setAdapter(listAdapter);
+
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        msgTxt = (TextView) view.findViewById(R.id.list_msg);
 
         return view;
     }

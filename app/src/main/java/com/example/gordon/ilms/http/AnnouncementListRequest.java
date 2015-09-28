@@ -52,6 +52,7 @@ public class AnnouncementListRequest extends Request<List<Announcement>> {
         String responseHtml = new String(response.data);
         Document document = Jsoup.parse(responseHtml);
         Elements elements = document.select(".BlockItem");
+
         for (Element element: elements) {
             String idStr = element.select("a").attr("href").split("\\(")[1].split(",")[0];
             String timeStr = element.select("span").attr("title");

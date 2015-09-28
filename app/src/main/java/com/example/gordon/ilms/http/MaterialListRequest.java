@@ -58,8 +58,12 @@ public class MaterialListRequest extends Request<List<Material>> {
         String responseHtml = new String(response.data);
         Document document = Jsoup.parse(responseHtml);
         Elements tr = document.select("tr");
+
         for (int i = 1; i < tr.size(); i++) {
             Elements td = tr.eq(i).select("td");
+
+            if (tr.size() == 2 && td.size() == 1)
+                return Response.success(materials, HttpHeaderParser.parseCacheHeaders(response));
 /*
             Log.d(LOG_TAG, td.eq(0).html());
             Log.d(LOG_TAG, td.eq(1).select("a").eq(0).html());
