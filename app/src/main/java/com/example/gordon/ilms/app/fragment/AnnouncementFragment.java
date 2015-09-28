@@ -20,10 +20,12 @@ import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.app.AnnouncementDetailActivity;
 import com.example.gordon.ilms.app.DetailActivity;
 import com.example.gordon.ilms.app.adapter.AnnouncementListAdapter;
+import com.example.gordon.ilms.app.adapter.HomeworkListAdapter;
 import com.example.gordon.ilms.http.AnnouncementListRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Announcement;
 import com.example.gordon.ilms.model.Course;
+import com.example.gordon.ilms.model.Homework;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,30 +33,41 @@ import java.util.List;
 /**
  * Created by gordon on 9/28/15.
  */
-public class AnnouncementFragment extends Fragment {
+public class AnnouncementFragment extends CoursePageFragment<Announcement> {
     final static String LOG_TAG = "AnnounceFragment";
-    private Course course;
-
-    private ListView listView;
-    private AnnouncementListAdapter listAdapter;
-
-    private ProgressBar progressBar;
-    private TextView msgTxt;
-
-    public AnnouncementFragment(Course course) {
-        this.course = course;
-    }
 
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d(LOG_TAG, "on create view");
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+
+        listAdapter = new AnnouncementListAdapter(getContext(), new ArrayList<Announcement>());
+        listView.setAdapter(listAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Announcement announcement = (Announcement) parent.getItemAtPosition(position);
+                Intent intent = new Intent(AnnouncementFragment.this.getActivity(), AnnouncementDetailActivity.class);
+                intent.putExtra("item", announcement);
+                intent.putExtra("course", course);
+                startActivity(intent);
+            }
+        });
+
+        refreshList();
+
+        return view;
+    }
+
+    public void refreshList() {
+        super.refreshList();
         AnnouncementListRequest request = new AnnouncementListRequest(course.getId(),
                 new Response.Listener<List<Announcement>>() {
                     @Override
                     public void onResponse(List<Announcement> response) {
                         listAdapter.addItems(response);
                         progressBar.setVisibility(View.INVISIBLE);
+                        swipeRefreshLayout.setRefreshing(false);
 
                         if (listAdapter.getCount() == 0) {
                             msgTxt.setText("目前尚無公告");
@@ -68,26 +81,6 @@ public class AnnouncementFragment extends Fragment {
                         progressBar.setVisibility(View.INVISIBLE);
                     }
                 });
-
         RequestQueueSingleton.getInstance(getContext()).addToRequestQueue(request);
-        View view = inflater.inflate(R.layout.course_fragment, container, false);
-        listAdapter = new AnnouncementListAdapter(getContext(), new ArrayList<Announcement>());
-        listView = (ListView) view.findViewById(R.id.list_view);
-        listView.setAdapter(listAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Announcement announcement = (Announcement) parent.getItemAtPosition(position);
-                Intent intent = new Intent(AnnouncementFragment.this.getActivity(), AnnouncementDetailActivity.class);
-                intent.putExtra("item", announcement);
-                intent.putExtra("course", course);
-                startActivity(intent);
-            }
-        });
-
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        msgTxt = (TextView) view.findViewById(R.id.list_msg);
-
-        return view;
     }
 }

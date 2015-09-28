@@ -41,4 +41,9 @@ public abstract class ListAdapter<T> extends BaseAdapter {
         this.items.addAll(items);
         notifyDataSetChanged();
     }
+
+    public void clearItems() {
+        this.items.clear();
+        notifyDataSetChanged();
+    }
 }

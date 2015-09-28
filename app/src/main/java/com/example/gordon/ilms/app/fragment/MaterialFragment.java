@@ -34,30 +34,41 @@ import java.util.List;
 /**
  * Created by gordon on 9/28/15.
  */
-public class MaterialFragment extends Fragment {
+public class MaterialFragment extends CoursePageFragment<Material> {
     final static String LOG_TAG = "MaterialFragment";
-    private Course course;
-
-    private ListView listView;
-    private MaterialListAdapter listAdapter;
-
-    private ProgressBar progressBar;
-    private TextView msgTxt;
-
-    public MaterialFragment(Course course) {
-        this.course = course;
-    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d(LOG_TAG, "on create view");
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+
+        listAdapter = new MaterialListAdapter(getContext(), new ArrayList<Material>());
+        listView.setAdapter(listAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Material material = (Material) parent.getItemAtPosition(position);
+                Intent intent = new Intent(MaterialFragment.this.getActivity(), MaterialDetailActivity.class);
+                intent.putExtra("item", material);
+                intent.putExtra("course", course);
+                startActivity(intent);
+            }
+        });
+
+        refreshList();
+
+        return view;
+    }
+
+    public void refreshList() {
+        super.refreshList();
         MaterialListRequest request = new MaterialListRequest(course.getId(),
                 new Response.Listener<List<Material>>() {
                     @Override
                     public void onResponse(List<Material> response) {
                         listAdapter.addItems(response);
                         progressBar.setVisibility(View.INVISIBLE);
+                        swipeRefreshLayout.setRefreshing(false);
 
                         if (listAdapter.getCount() == 0) {
                             msgTxt.setText("目前尚無資料");
@@ -71,26 +82,6 @@ public class MaterialFragment extends Fragment {
                         progressBar.setVisibility(View.INVISIBLE);
                     }
                 });
-
         RequestQueueSingleton.getInstance(getContext()).addToRequestQueue(request);
-        View view = inflater.inflate(R.layout.course_fragment, container, false);
-        listAdapter = new MaterialListAdapter(getContext(), new ArrayList<Material>());
-        listView = (ListView) view.findViewById(R.id.list_view);
-        listView.setAdapter(listAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Material material = (Material) parent.getItemAtPosition(position);
-                Intent intent = new Intent(MaterialFragment.this.getActivity(), MaterialDetailActivity.class);
-                intent.putExtra("item", material);
-                intent.putExtra("course", course);
-                startActivity(intent);
-            }
-        });
-
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        msgTxt = (TextView) view.findViewById(R.id.list_msg);
-
-        return view;
     }
 }

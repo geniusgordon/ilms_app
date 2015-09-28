@@ -1,11 +1,11 @@
 package com.example.gordon.ilms.app.adapter;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.gordon.ilms.app.fragment.AnnouncementFragment;
-import com.example.gordon.ilms.app.CoursePageFragment;
 import com.example.gordon.ilms.app.fragment.HomeworkFragment;
 import com.example.gordon.ilms.app.fragment.MaterialFragment;
 import com.example.gordon.ilms.model.Course;
@@ -23,9 +23,15 @@ public class CourseFragmentPagerAdapter extends FragmentPagerAdapter {
         super(fm);
         this.course = course;
         fragments = new Fragment[PAGE_COUNT];
-        fragments[0] = new AnnouncementFragment(course);
-        fragments[1] = new MaterialFragment(course);
-        fragments[2] = new HomeworkFragment(course);
+        fragments[0] = new AnnouncementFragment();
+        fragments[1] = new MaterialFragment();
+        fragments[2] = new HomeworkFragment();
+
+        for (int i = 0; i < fragments.length; i++) {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("course", course);
+            fragments[i].setArguments(bundle);
+        }
     }
 
     @Override

@@ -34,7 +34,7 @@ public class CourseEmailRequest extends BaseRequest<CourseEmail> {
 
         CourseEmail.Email email1 = new CourseEmail.Email();
         email1.setName(e1.text().split(":")[1].trim());
-        email1.setEmail(e1.select("img").attr("title"));
+        email1.setEmail(e1.select("img").attr("title").trim());
         email1.setIsProfessor(true);
 
         Log.d(LOG_TAG, email1.getName());
@@ -48,7 +48,7 @@ public class CourseEmailRequest extends BaseRequest<CourseEmail> {
             for (int i = 0; i < names.length; i++) {
                 CourseEmail.Email email = new CourseEmail.Email();
                 email.setName(names[i].trim());
-                email.setEmail(e2.select("img").eq(i).attr("title"));
+                email.setEmail(e2.select("img").eq(i).attr("title").trim());
                 email.setIsProfessor(false);
                 courseEmail.addEmail(email);
 

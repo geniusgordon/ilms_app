@@ -33,30 +33,42 @@ import java.util.List;
 /**
  * Created by gordon on 9/28/15.
  */
-public class HomeworkFragment extends Fragment {
+public class HomeworkFragment extends CoursePageFragment<Homework> {
     final static String LOG_TAG = "HomeworkFragment";
-    private Course course;
-
-    private ListView listView;
-    private HomeworkListAdapter listAdapter;
-
-    private ProgressBar progressBar;
-    private TextView msgTxt;
-
-    public HomeworkFragment(Course course) {
-        this.course = course;
-    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d(LOG_TAG, "on create view");
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+
+        listAdapter = new HomeworkListAdapter(getContext(), new ArrayList<Homework>());
+        listView.setAdapter(listAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Homework homework = (Homework) parent.getItemAtPosition(position);
+                Intent intent = new Intent(HomeworkFragment.this.getActivity(), HomeworkDetailActivity.class);
+                intent.putExtra("item", homework);
+                intent.putExtra("course", course);
+                startActivity(intent);
+            }
+        });
+
+        refreshList();
+
+        return view;
+    }
+
+    @Override
+    public void refreshList() {
+        super.refreshList();
         HomeworkListRequest request = new HomeworkListRequest(course.getId(),
                 new Response.Listener<List<Homework>>() {
                     @Override
                     public void onResponse(List<Homework> response) {
                         listAdapter.addItems(response);
                         progressBar.setVisibility(View.INVISIBLE);
+                        swipeRefreshLayout.setRefreshing(false);
 
                         if (listAdapter.getCount() == 0) {
                             msgTxt.setText("目前尚無資料");
@@ -72,24 +84,5 @@ public class HomeworkFragment extends Fragment {
                 });
 
         RequestQueueSingleton.getInstance(getContext()).addToRequestQueue(request);
-        View view = inflater.inflate(R.layout.course_fragment, container, false);
-        listAdapter = new HomeworkListAdapter(getContext(), new ArrayList<Homework>());
-        listView = (ListView) view.findViewById(R.id.list_view);
-        listView.setAdapter(listAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Homework homework = (Homework) parent.getItemAtPosition(position);
-                Intent intent = new Intent(HomeworkFragment.this.getActivity(), HomeworkDetailActivity.class);
-                intent.putExtra("item", homework);
-                intent.putExtra("course", course);
-                startActivity(intent);
-            }
-        });
-
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        msgTxt = (TextView) view.findViewById(R.id.list_msg);
-
-        return view;
     }
 }
