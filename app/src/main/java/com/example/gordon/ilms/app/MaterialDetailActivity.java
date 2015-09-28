@@ -1,9 +1,17 @@
 package com.example.gordon.ilms.app;
 
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.gordon.ilms.R;
+import com.example.gordon.ilms.http.MaterialRequest;
+import com.example.gordon.ilms.http.RequestQueueSingleton;
+import com.example.gordon.ilms.model.Attachment;
 import com.example.gordon.ilms.model.Material;
 
 import java.text.DateFormat;
@@ -26,7 +34,35 @@ public class MaterialDetailActivity extends DetailActivity<Material> {
         titleTxt.setText(item.getTitle());
         authorTxt.setText(item.getAuthor());
         timeTxt.setText(df.format(item.getTime()));
-    }
 
+        MaterialRequest request = new MaterialRequest(course, item,
+            new Response.Listener<Material>() {
+                @Override
+                public void onResponse(Material response) {
+                    item = response;
+                    contentTxt.setText(Html.fromHtml(response.getContent()));
+                    progressBar.setVisibility(View.INVISIBLE);
+
+                    if (item.getAttachments().size() > 0) {
+                        StringBuilder stringBuilder = new StringBuilder();
+                        stringBuilder.append("<p><strong>附件</strong><br><br>");
+                        for (Attachment attach : item.getAttachments()) {
+                            String a = "<a href='%s'>%s</a><br><br>";
+                            stringBuilder.append(String.format(a, attach.getUrl(), attach.getTitle()));
+                        }
+                        stringBuilder.append("</p>");
+                        contentTxt.append(Html.fromHtml(stringBuilder.toString()));
+                    }
+                }
+            },
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), "連線問題", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.INVISIBLE);
+                }
+            });
+        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+    }
 
 }

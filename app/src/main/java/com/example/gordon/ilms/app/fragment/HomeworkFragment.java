@@ -82,6 +82,7 @@ public class HomeworkFragment extends Fragment {
                 Homework homework = (Homework) parent.getItemAtPosition(position);
                 Intent intent = new Intent(HomeworkFragment.this.getActivity(), HomeworkDetailActivity.class);
                 intent.putExtra("item", homework);
+                intent.putExtra("course", course);
                 startActivity(intent);
             }
         });

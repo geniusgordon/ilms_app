@@ -1,6 +1,7 @@
 package com.example.gordon.ilms.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,8 +14,13 @@ public class Material implements Serializable {
     private String title;
     private Date time;
     private String author;
+    private String content;
     private List<Attachment> attachments;
     private long popularity;
+
+    public Material() {
+        attachments = new ArrayList<Attachment>();
+    }
 
     public long getId() {
         return id;
@@ -66,5 +72,13 @@ public class Material implements Serializable {
 
     public void setPopularity(long popularity) {
         this.popularity = popularity;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

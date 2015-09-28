@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -44,7 +45,8 @@ public class AnnouncementDetailActivity extends DetailActivity<Announcement> {
             new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
+                    Toast.makeText(getApplicationContext(), "連線問題", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.INVISIBLE);
                 }
             });
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);

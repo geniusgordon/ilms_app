@@ -13,12 +13,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.gordon.ilms.R;
+import com.example.gordon.ilms.model.Course;
 
 public class DetailActivity<T> extends AppCompatActivity {
     final static String LOG_TAG = "DetailActivity";
 
     protected Toolbar toolbar;
     protected T item;
+    protected Course course;
 
     protected TextView titleTxt;
     protected TextView authorTxt;
@@ -32,6 +34,7 @@ public class DetailActivity<T> extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         item = (T) getIntent().getSerializableExtra("item");
+        course = (Course) getIntent().getSerializableExtra("course");
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

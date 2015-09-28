@@ -83,6 +83,7 @@ public class MaterialFragment extends Fragment {
                 Material material = (Material) parent.getItemAtPosition(position);
                 Intent intent = new Intent(MaterialFragment.this.getActivity(), MaterialDetailActivity.class);
                 intent.putExtra("item", material);
+                intent.putExtra("course", course);
                 startActivity(intent);
             }
         });

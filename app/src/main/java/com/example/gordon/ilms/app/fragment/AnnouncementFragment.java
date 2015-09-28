@@ -80,6 +80,7 @@ public class AnnouncementFragment extends Fragment {
                 Announcement announcement = (Announcement) parent.getItemAtPosition(position);
                 Intent intent = new Intent(AnnouncementFragment.this.getActivity(), AnnouncementDetailActivity.class);
                 intent.putExtra("item", announcement);
+                intent.putExtra("course", course);
                 startActivity(intent);
             }
         });

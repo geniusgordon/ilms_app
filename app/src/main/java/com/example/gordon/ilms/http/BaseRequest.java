@@ -17,9 +17,9 @@ import java.util.Map;
  */
 public abstract class BaseRequest<T> extends Request<T> {
 
-    protected Response.Listener mListener;
+    protected Response.Listener<T> mListener;
 
-    public BaseRequest(int method, String url, Response.Listener listener, Response.ErrorListener errorListener) {
+    public BaseRequest(int method, String url, Response.Listener<T> listener, Response.ErrorListener errorListener) {
         super(method, url, errorListener);
         this.mListener = listener;
     }

@@ -37,6 +37,7 @@ public class AnnouncementRequest extends BaseRequest<Announcement> {
 
     public AnnouncementRequest(Announcement announcement, Response.Listener<Announcement> listener, Response.ErrorListener errorListener) {
         super(Request.Method.POST, URL, listener, errorListener);
+        this.announcement = announcement;
     }
 
     @Override
