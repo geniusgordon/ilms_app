@@ -1,0 +1,90 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.gordon.ilms.app.LoginActivity">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="192dp"
+                android:background="?attr/colorPrimary"
+                >
+            </RelativeLayout>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                android:background="?attr/colorPrimaryDark"
+                android:layout_height="?android:attr/actionBarSize"
+                android:layout_width="match_parent" >
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:padding="24dp"
+            android:layout_below="@+id/appBarLayout">
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:id="@+id/username"
+                android:hint="username"
+                android:singleLine="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:inputType="textPassword"
+                android:id="@+id/password"
+                android:hint="password"
+                android:singleLine="true"
+                android:layout_below="@+id/username"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp" />
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/loginProgressBar"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:indeterminate="false"
+                android:visibility="invisible"
+                />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:background="#FFECB3"
+            android:layout_height="?android:attr/actionBarSize"
+            android:layout_alignParentBottom="true"
+            android:clipChildren="true"
+            android:layout_width="match_parent" >
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:text="Login"
+                android:textColor="?android:attr/textColorPrimary"
+                android:id="@+id/loginBtn"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="36dp"
+                style="@style/Base.Widget.AppCompat.Toolbar.Button.Navigation" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
