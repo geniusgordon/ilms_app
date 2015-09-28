@@ -37,4 +37,18 @@ public class Course {
         setChi_title(chi_title);
         setEng_title(eng_title);
     }
+
+    public void setTitle(String title) {
+        String chi_title = title;
+        String eng_title = "";
+        for (int i = 0; i < title.length(); i++) {
+            char c = title.charAt(i);
+            if (('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z')) {
+                chi_title = title.substring(0, i);
+                eng_title = title.substring(i);
+                break;
+            }
+        }
+        setTitle(chi_title, eng_title);
+    }
 }

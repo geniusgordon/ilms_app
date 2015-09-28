@@ -29,7 +29,6 @@ import com.example.gordon.ilms.model.Preferences;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
-    final static String LOGIN_URL = "http://lms.nthu.edu.tw/sys/lib/ajax/login_submit.php";
 
     private Toolbar toolbar;
     private EditText usernameTxt;
@@ -85,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
         loginProgressBar.setVisibility(View.VISIBLE);
         final String username = usernameTxt.getText().toString();
         String password = passwordTxt.getText().toString();
-        LoginRequest request = new LoginRequest(LOGIN_URL, username, password,
+        LoginRequest request = new LoginRequest(username, password,
             new Response.Listener<LoginStatus>() {
                 @Override
                 public void onResponse(LoginStatus response) {

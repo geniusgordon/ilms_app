@@ -6,9 +6,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.gordon.ilms.R;
+import com.example.gordon.ilms.http.CourseListRequest;
 import com.example.gordon.ilms.http.LoginRequest;
+import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Account;
+import com.example.gordon.ilms.model.Course;
+import com.example.gordon.ilms.model.CourseList;
 import com.example.gordon.ilms.model.Preferences;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -21,11 +27,15 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
+import java.util.List;
+
 /**
  * Created by gordon on 9/26/15.
  */
 public class DrawerActivity extends AppCompatActivity {
     protected String semester;
+    protected List<Course> courses;
+
     protected Toolbar toolbar;
     protected AccountHeader accountHeader;
     protected Drawer drawer;
@@ -70,22 +80,6 @@ public class DrawerActivity extends AppCompatActivity {
                 .withDivider(true)
                 .withName("課程");
 
-        SecondaryDrawerItem course1 = new SecondaryDrawerItem()
-                .withName("First")
-                .withIcon(R.drawable.ic_view_list_black_24dp)
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {
-                        Intent intent = new Intent(DrawerActivity.this, CourseActivity.class);
-                        startActivity(intent);
-                        return true;
-                    }
-                });
-
-        SecondaryDrawerItem course2 = new SecondaryDrawerItem()
-                .withName("First")
-                .withIcon(R.drawable.ic_view_list_black_24dp);
-
         SectionDrawerItem calendarHeader = new SectionDrawerItem()
                 .withDivider(true)
                 .withName("行事曆");
@@ -104,12 +98,10 @@ public class DrawerActivity extends AppCompatActivity {
                 .withAccountHeader(accountHeader)
                 .addDrawerItems(
                         home,
-                        courseHeader,
-                        course1,
-                        course2,
                         calendarHeader,
                         myCalendar,
-                        schoolCalendar)
+                        schoolCalendar,
+                        courseHeader)
                 .withSelectedItem(-1)
                 .build();
 
@@ -141,5 +133,28 @@ public class DrawerActivity extends AppCompatActivity {
                         .withName(account.getStudentId())
                         .withEmail(account.getEmail())
         );
+        getCourseList();
+    }
+
+    private void getCourseList() {
+        CourseListRequest request = new CourseListRequest(
+                new Response.Listener<CourseList>() {
+                    @Override
+                    public void onResponse(CourseList response) {
+                        for (Course course: response.getCourses()) {
+                            drawer.addItem(new SecondaryDrawerItem()
+                            .withIcon(R.drawable.ic_view_list_black_24dp)
+                            .withName(course.getChi_title()));
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }
+        );
+        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 }
