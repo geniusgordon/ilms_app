@@ -28,28 +28,12 @@ import java.util.Map;
 /**
  * Created by gordon on 9/28/15.
  */
-public class MaterialListRequest extends Request<List<Material>> {
+public class MaterialListRequest extends BaseRequest<List<Material>> {
     final static String URL = "http://lms.nthu.edu.tw/course.php?courseID=%s&f=doclist";
     final static String LOG_TAG = "MaterialListRequest";
 
-    private Response.Listener mListener;
-
     public MaterialListRequest(Long courseId, Response.Listener<List<Material>> listener, Response.ErrorListener errorListener) {
-        super(Request.Method.GET, String.format(URL, courseId), errorListener);
-        this.mListener = listener;
-    }
-
-    @Override
-    protected void onFinish() {
-        super.onFinish();
-        mListener = null;
-    }
-
-    @Override
-    protected void deliverResponse(List<Material> response) {
-        if (mListener != null) {
-            mListener.onResponse(response);
-        }
+        super(Request.Method.GET, String.format(URL, courseId), listener, errorListener);
     }
 
     @Override
@@ -89,15 +73,4 @@ public class MaterialListRequest extends Request<List<Material>> {
         return Response.success(materials, HttpHeaderParser.parseCacheHeaders(response));
     }
 
-    @Override
-    public Map<String, String> getHeaders() throws AuthFailureError {
-        Map<String, String> headers = new HashMap<String, String>();
-        Preferences prefs = Preferences.getInstance();
-        if (prefs != null) {
-            String cookie = prefs.getCookie();
-            if (!cookie.equals(""))
-                headers.put("cookie", cookie);
-        }
-        return headers;
-    }
 }

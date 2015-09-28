@@ -9,6 +9,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.gordon.ilms.R;
@@ -23,6 +24,7 @@ public class DetailActivity<T> extends AppCompatActivity {
     protected TextView authorTxt;
     protected TextView timeTxt;
     protected TextView contentTxt;
+    protected ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class DetailActivity<T> extends AppCompatActivity {
         authorTxt = (TextView) findViewById(R.id.author);
         timeTxt = (TextView) findViewById(R.id.time);
         contentTxt = (TextView) findViewById(R.id.content);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Log.d(LOG_TAG, "setStatusBarColor");

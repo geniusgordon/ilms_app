@@ -18,84 +18,90 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/appBarLayout"
-        android:background="#fff" >
-
-        <TextView
-            android:id="@+id/title"
-            android:text="AAAAAAAAAAAAAAAAAAAAAAAAAA"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
-            />
-
-        <View
-            android:id="@+id/divider_1"
-            android:layout_below="@+id/title"
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="#ccc"
-            android:layout_margin="8dp" />
+        android:fillViewport="true"
+        android:layout_below="@+id/appBarLayout" >
 
         <RelativeLayout
-            android:id="@+id/header"
-            android:layout_below="@+id/divider_1"
-            android:layout_width="fill_parent"
-            android:layout_height="?android:attr/listPreferredItemHeightLarge">
-            
-            <RelativeLayout
-                android:id="@+id/icon"
-                android:layout_width="72dp"
-                android:layout_height="72dp"></RelativeLayout>
-
-            <LinearLayout
-                android:layout_toRightOf="@+id/icon"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical"
-                android:padding="8dp">
-
-                <TextView
-                    android:id="@+id/author"
-                    android:text="QQQQQQQQ"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
-
-                <TextView
-                    android:id="@+id/time"
-                    android:text="qqqqqqqq"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_below="@+id/header"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:padding="8dp" >
+            android:background="#fff" >
 
             <TextView
-                android:id="@+id/content"
+                android:id="@+id/title"
+                android:text="AAAAAAAAAAAAAAAAAAAAAAAAAA"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-
-            <ProgressBar
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/progressBar"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
+                android:padding="16dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+                />
 
+            <View
+                android:id="@+id/divider_1"
+                android:layout_below="@+id/title"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#ccc"
+                android:layout_margin="8dp" />
+
+            <RelativeLayout
+                android:id="@+id/header"
+                android:layout_below="@+id/divider_1"
+                android:layout_width="fill_parent"
+                android:layout_height="?android:attr/listPreferredItemHeightLarge">
+
+                <RelativeLayout
+                    android:id="@+id/icon"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"></RelativeLayout>
+
+                <LinearLayout
+                    android:layout_toRightOf="@+id/icon"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/author"
+                        android:text="QQQQQQQQ"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+                    <TextView
+                        android:id="@+id/time"
+                        android:text="qqqqqqqq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_below="@+id/header"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:padding="16dp" >
+
+                <TextView
+                    android:id="@+id/content"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/progressBar"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
+
+
+            </RelativeLayout>
 
         </RelativeLayout>
-
-    </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

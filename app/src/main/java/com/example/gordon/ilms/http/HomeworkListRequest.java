@@ -27,28 +27,12 @@ import java.util.Map;
  * Created by gordon on 9/28/15.
  */
 
-public class HomeworkListRequest extends Request<List<Homework>> {
+public class HomeworkListRequest extends BaseRequest<List<Homework>> {
     final static String URL = "http://lms.nthu.edu.tw/course.php?courseID=%s&f=hwlist";
     final static String LOG_TAG = "HomeworkListRequest";
 
-    private Response.Listener mListener;
-
     public HomeworkListRequest(Long courseId, Response.Listener<List<Homework>> listener, Response.ErrorListener errorListener) {
-        super(Request.Method.GET, String.format(URL, courseId), errorListener);
-        this.mListener = listener;
-    }
-
-    @Override
-    protected void onFinish() {
-        super.onFinish();
-        mListener = null;
-    }
-
-    @Override
-    protected void deliverResponse(List<Homework> response) {
-        if (mListener != null) {
-            mListener.onResponse(response);
-        }
+        super(Request.Method.GET, String.format(URL, courseId), listener, errorListener);
     }
 
     @Override
@@ -83,15 +67,4 @@ public class HomeworkListRequest extends Request<List<Homework>> {
         return Response.success(homeworks, HttpHeaderParser.parseCacheHeaders(response));
     }
 
-    @Override
-    public Map<String, String> getHeaders() throws AuthFailureError {
-        Map<String, String> headers = new HashMap<String, String>();
-        Preferences prefs = Preferences.getInstance();
-        if (prefs != null) {
-            String cookie = prefs.getCookie();
-            if (!cookie.equals(""))
-                headers.put("cookie", cookie);
-        }
-        return headers;
-    }
 }

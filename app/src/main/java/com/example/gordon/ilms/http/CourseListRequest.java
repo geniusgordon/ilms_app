@@ -30,31 +30,15 @@ import java.util.Map;
 /**
  * Created by gordon on 9/28/15.
  */
-public class CourseListRequest extends Request<CourseList> {
+public class CourseListRequest extends BaseRequest<CourseList> {
     final static String URL = "http://lms.nthu.edu.tw/home.php";
     final static String LOG_TAG = "CourseListRequest";
 
-    private Response.Listener mListener;
-
     public CourseListRequest(Response.Listener<CourseList> listener, Response.ErrorListener errorListener) {
-        super(Request.Method.GET, URL, errorListener);
-        this.mListener = listener;
+        super(Request.Method.GET, URL, listener, errorListener);
     }
 
-    @Override
-    protected void onFinish() {
-        super.onFinish();
-        mListener = null;
-    }
-
-    @Override
-    protected void deliverResponse(CourseList response) {
-        if (mListener != null) {
-            mListener.onResponse(response);
-        }
-    }
-
-    @Override
+  @Override
     protected Response<CourseList> parseNetworkResponse(NetworkResponse response) {
         CourseList courseList = new CourseList();
         List<Course> courses = new ArrayList<Course>();
@@ -82,15 +66,4 @@ public class CourseListRequest extends Request<CourseList> {
         return Response.success(courseList, HttpHeaderParser.parseCacheHeaders(response));
     }
 
-    @Override
-    public Map<String, String> getHeaders() throws AuthFailureError {
-        Map<String, String> headers = new HashMap<String, String>();
-        Preferences prefs = Preferences.getInstance();
-        if (prefs != null) {
-            String cookie = prefs.getCookie();
-            if (!cookie.equals(""))
-                headers.put("cookie", cookie);
-        }
-        return headers;
-    }
 }

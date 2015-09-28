@@ -29,21 +29,12 @@ import java.util.Map;
 /**
  * Created by gordon on 9/28/15.
  */
-public class AnnouncementListRequest extends Request<List<Announcement>> {
+public class AnnouncementListRequest extends BaseRequest<List<Announcement>> {
     final static String URL = "http://lms.nthu.edu.tw/course.php?courseID=%d&f=activity";
     final static String LOG_TAG = "AncmtListRequest";
 
-    private Response.Listener mListener;
-
     public AnnouncementListRequest(Long courseId, Response.Listener<List<Announcement>> listener, Response.ErrorListener errorListener) {
-        super(Request.Method.GET, String.format(URL, courseId), errorListener);
-        this.mListener = listener;
-    }
-
-    @Override
-    protected void onFinish() {
-        super.onFinish();
-        mListener = null;
+        super(Request.Method.GET, String.format(URL, courseId), listener, errorListener);
     }
 
     @Override
@@ -80,22 +71,4 @@ public class AnnouncementListRequest extends Request<List<Announcement>> {
         return Response.success(announcements, HttpHeaderParser.parseCacheHeaders(response));
     }
 
-    @Override
-    protected void deliverResponse(List<Announcement> response) {
-        if (mListener != null) {
-            mListener.onResponse(response);
-        }
-    }
-
-    @Override
-    public Map<String, String> getHeaders() throws AuthFailureError {
-        Map<String, String> headers = new HashMap<String, String>();
-        Preferences prefs = Preferences.getInstance();
-        if (prefs != null) {
-            String cookie = prefs.getCookie();
-            if (!cookie.equals(""))
-                headers.put("cookie", cookie);
-        }
-        return headers;
-    }
 }
