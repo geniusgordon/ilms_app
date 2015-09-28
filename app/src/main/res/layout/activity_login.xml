@@ -69,7 +69,7 @@
 
         </RelativeLayout>
         <RelativeLayout
-            android:background="#FFECB3"
+            android:background="@color/primary_light"
             android:layout_height="?android:attr/actionBarSize"
             android:layout_alignParentBottom="true"
             android:clipChildren="true"

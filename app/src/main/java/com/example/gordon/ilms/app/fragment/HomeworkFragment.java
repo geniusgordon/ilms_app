@@ -1,6 +1,7 @@
 package com.example.gordon.ilms.app.fragment;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -16,6 +18,8 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.gordon.ilms.R;
+import com.example.gordon.ilms.app.AnnouncementDetailActivity;
+import com.example.gordon.ilms.app.HomeworkDetailActivity;
 import com.example.gordon.ilms.app.adapter.HomeworkListAdapter;
 import com.example.gordon.ilms.app.adapter.HomeworkListAdapter;
 import com.example.gordon.ilms.http.HomeworkListRequest;
@@ -72,6 +76,15 @@ public class HomeworkFragment extends Fragment {
         listAdapter = new HomeworkListAdapter(getContext(), new ArrayList<Homework>());
         listView = (ListView) view.findViewById(R.id.list_view);
         listView.setAdapter(listAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Homework homework = (Homework) parent.getItemAtPosition(position);
+                Intent intent = new Intent(HomeworkFragment.this.getActivity(), HomeworkDetailActivity.class);
+                intent.putExtra("item", homework);
+                startActivity(intent);
+            }
+        });
 
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         msgTxt = (TextView) view.findViewById(R.id.list_msg);

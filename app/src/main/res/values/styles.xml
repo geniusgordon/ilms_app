@@ -5,4 +5,16 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="AppThemeGrey" parent="MaterialDrawerTheme.Light.DarkToolbar">
+        <item name="colorPrimary">#607D8B</item>
+        <item name="colorPrimaryDark">#455A64</item>
+        <item name="colorAccent">#9E9E9E</item>
+    </style>
+
+    <style name="AppThemeWhite" parent="MaterialDrawerTheme.Light.DarkToolbar">
+        <item name="colorPrimary">#fff</item>
+        <item name="colorPrimaryDark">#9E9E9E</item>
+        <item name="colorAccent">#eee</item>
+    </style>
+
 </resources>

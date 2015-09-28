@@ -1,5 +1,6 @@
 package com.example.gordon.ilms.app.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -15,6 +17,8 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.gordon.ilms.R;
+import com.example.gordon.ilms.app.AnnouncementDetailActivity;
+import com.example.gordon.ilms.app.DetailActivity;
 import com.example.gordon.ilms.app.adapter.AnnouncementListAdapter;
 import com.example.gordon.ilms.http.AnnouncementListRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
@@ -43,7 +47,7 @@ public class AnnouncementFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "on create view");
         AnnouncementListRequest request = new AnnouncementListRequest(course.getId(),
                 new Response.Listener<List<Announcement>>() {
@@ -70,6 +74,15 @@ public class AnnouncementFragment extends Fragment {
         listAdapter = new AnnouncementListAdapter(getContext(), new ArrayList<Announcement>());
         listView = (ListView) view.findViewById(R.id.list_view);
         listView.setAdapter(listAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Announcement announcement = (Announcement) parent.getItemAtPosition(position);
+                Intent intent = new Intent(AnnouncementFragment.this.getActivity(), AnnouncementDetailActivity.class);
+                intent.putExtra("item", announcement);
+                startActivity(intent);
+            }
+        });
 
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         msgTxt = (TextView) view.findViewById(R.id.list_msg);
