@@ -31,13 +31,13 @@ import java.util.Map;
  * Created by gordon on 9/28/15.
  */
 public class CourseListRequest extends Request<CourseList> {
-    final static String HOME_URL = "http://lms.nthu.edu.tw/home.php";
+    final static String URL = "http://lms.nthu.edu.tw/home.php";
     final static String LOG_TAG = "CourseListRequest";
 
     private Response.Listener mListener;
 
     public CourseListRequest(Response.Listener<CourseList> listener, Response.ErrorListener errorListener) {
-        super(Request.Method.GET, HOME_URL, errorListener);
+        super(Request.Method.GET, URL, errorListener);
         this.mListener = listener;
     }
 
@@ -72,9 +72,9 @@ public class CourseListRequest extends Request<CourseList> {
                 course.setTitle(element.html());
                 course.setId(Long.parseLong(id));
                 courses.add(course);
-                Log.d(LOG_TAG, course.getChi_title());
-                Log.d(LOG_TAG, course.getEng_title());
-                Log.d(LOG_TAG, String.valueOf(course.getId()));
+                //Log.d(LOG_TAG, course.getChi_title());
+                //Log.d(LOG_TAG, course.getEng_title());
+                //Log.d(LOG_TAG, String.valueOf(course.getId()));
             }
         }
         courseList.setSemester(semester);

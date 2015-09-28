@@ -1,9 +1,11 @@
 package com.example.gordon.ilms.model;
 
+import java.io.Serializable;
+
 /**
  * Created by gordon on 9/27/15.
  */
-public class Course {
+public class Course implements Serializable {
 
     private long id;
     private String chi_title;

@@ -33,8 +33,7 @@ import java.util.List;
  * Created by gordon on 9/26/15.
  */
 public class DrawerActivity extends AppCompatActivity {
-    protected String semester;
-    protected List<Course> courses;
+    protected CourseList courseList;
 
     protected Toolbar toolbar;
     protected AccountHeader accountHeader;
@@ -76,10 +75,6 @@ public class DrawerActivity extends AppCompatActivity {
                     }
                 });
 
-        SectionDrawerItem courseHeader = new SectionDrawerItem()
-                .withDivider(true)
-                .withName("課程");
-
         SectionDrawerItem calendarHeader = new SectionDrawerItem()
                 .withDivider(true)
                 .withName("行事曆");
@@ -100,8 +95,7 @@ public class DrawerActivity extends AppCompatActivity {
                         home,
                         calendarHeader,
                         myCalendar,
-                        schoolCalendar,
-                        courseHeader)
+                        schoolCalendar)
                 .withSelectedItem(-1)
                 .build();
 
@@ -141,11 +135,8 @@ public class DrawerActivity extends AppCompatActivity {
                 new Response.Listener<CourseList>() {
                     @Override
                     public void onResponse(CourseList response) {
-                        for (Course course: response.getCourses()) {
-                            drawer.addItem(new SecondaryDrawerItem()
-                            .withIcon(R.drawable.ic_view_list_black_24dp)
-                            .withName(course.getChi_title()));
-                        }
+                        courseList = response;
+                        updateDrawerAfterLogin();
                     }
                 },
                 new Response.ErrorListener() {
@@ -156,5 +147,27 @@ public class DrawerActivity extends AppCompatActivity {
                 }
         );
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+    }
+
+    private void updateDrawerAfterLogin() {
+        SectionDrawerItem courseHeader = new SectionDrawerItem()
+                .withDivider(true)
+                .withName("課程  " + courseList.getSemester());
+        drawer.addItem(courseHeader);
+
+        for (final Course course: courseList.getCourses()) {
+            drawer.addItem(new SecondaryDrawerItem()
+                    .withIcon(R.drawable.ic_view_list_black_24dp)
+                    .withName(course.getChi_title())
+                    .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                        @Override
+                        public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {
+                            Intent intent = new Intent(DrawerActivity.this, CourseActivity.class);
+                            intent.putExtra("course", course);
+                            startActivity(intent);
+                            return true;
+                        }
+                    }));
+        }
     }
 }

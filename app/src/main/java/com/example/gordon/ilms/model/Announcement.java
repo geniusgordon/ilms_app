@@ -11,6 +11,7 @@ public class Announcement {
     private String title;
     private Date time;
     private String content;
+    private long popularity;
 
     public long getId() {
         return id;
@@ -43,4 +44,14 @@ public class Announcement {
     public void setContent(String content) {
         this.content = content;
     }
+
+
+    public long getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(long popularity) {
+        this.popularity = popularity;
+    }
+
 }

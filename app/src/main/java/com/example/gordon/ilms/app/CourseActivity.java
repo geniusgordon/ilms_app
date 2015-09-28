@@ -3,11 +3,17 @@ package com.example.gordon.ilms.app;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 
 import com.example.gordon.ilms.R;
+import com.example.gordon.ilms.model.Course;
 
 public class CourseActivity extends DrawerActivity {
+    final static String LOG_TAG = "CourseActivity";
+
+
+    private Course course;
 
     private CourseFragmentPagerAdapter pagerAdapter;
     private ViewPager viewPager;
@@ -19,7 +25,12 @@ public class CourseActivity extends DrawerActivity {
         setContentView(R.layout.activity_course);
         initDrawer();
 
-        pagerAdapter = new CourseFragmentPagerAdapter(getSupportFragmentManager());
+        course = (Course) getIntent().getSerializableExtra("course");
+        Log.d(LOG_TAG, course.getChi_title());
+
+        getSupportActionBar().setTitle(course.getChi_title());
+
+        pagerAdapter = new CourseFragmentPagerAdapter(getSupportFragmentManager(), course);
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);

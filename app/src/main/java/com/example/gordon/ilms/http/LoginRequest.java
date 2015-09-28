@@ -21,14 +21,14 @@ import java.util.Map;
  * Created by gordon on 9/28/15.
  */
 public class LoginRequest extends Request<LoginStatus> {
-    final static String LOGIN_URL = "http://lms.nthu.edu.tw/sys/lib/ajax/login_submit.php";
+    final static String URL = "http://lms.nthu.edu.tw/sys/lib/ajax/login_submit.php";
 
     private Response.Listener mListener;
     private String username;
     private String password;
 
     public LoginRequest(String username, String password, Response.Listener listener, Response.ErrorListener errorListener) {
-        super(Method.POST, LOGIN_URL, errorListener);
+        super(Method.POST, URL, errorListener);
         this.username = username;
         this.password = password;
         this.mListener = listener;
