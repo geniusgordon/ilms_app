@@ -30,4 +30,5 @@ dependencies {
     compile('com.mikepenz:materialdrawer:4.3.0@aar') {
         transitive = true
     }
+    compile 'com.github.clans:fab:1.6.1'
 }
