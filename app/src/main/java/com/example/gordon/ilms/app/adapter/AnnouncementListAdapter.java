@@ -1,4 +1,4 @@
-package com.example.gordon.ilms.app;
+package com.example.gordon.ilms.app.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,28 +17,10 @@ import java.util.List;
 /**
  * Created by gordon on 9/28/15.
  */
-public class AnnouncementListAdapter extends BaseAdapter {
-    LayoutInflater mLayoutInflater;
-    List<Announcement> announcements;
+public class AnnouncementListAdapter extends ListAdapter<Announcement> {
 
-    public AnnouncementListAdapter(Context context, List<Announcement> announcements) {
-        mLayoutInflater = LayoutInflater.from(context);
-        this.announcements = announcements;
-    }
-
-    @Override
-    public int getCount() {
-        return announcements.size();
-    }
-
-    @Override
-    public Announcement getItem(int position) {
-        return announcements.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return announcements.indexOf(getItem(position));
+    public AnnouncementListAdapter(Context context, List<Announcement> items) {
+        super(context, items);
     }
 
     @Override
@@ -55,10 +37,5 @@ public class AnnouncementListAdapter extends BaseAdapter {
         ((TextView) view.findViewById(R.id.time)).setText(timeStr);
 
         return view;
-    }
-
-    public void addAnnouncements(List<Announcement> announcements) {
-        this.announcements.addAll(announcements);
-        notifyDataSetChanged();
     }
 }

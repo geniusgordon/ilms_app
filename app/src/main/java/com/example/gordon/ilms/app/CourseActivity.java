@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 
 import com.example.gordon.ilms.R;
+import com.example.gordon.ilms.app.adapter.CourseFragmentPagerAdapter;
 import com.example.gordon.ilms.model.Course;
 
 public class CourseActivity extends DrawerActivity {

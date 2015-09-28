@@ -1,4 +1,4 @@
-package com.example.gordon.ilms.app;
+package com.example.gordon.ilms.app.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.gordon.ilms.R;
+import com.example.gordon.ilms.app.adapter.AnnouncementListAdapter;
 import com.example.gordon.ilms.http.AnnouncementListRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Announcement;
@@ -42,7 +43,7 @@ public class AnnouncementFragment extends Fragment {
                 new Response.Listener<List<Announcement>>() {
                     @Override
                     public void onResponse(List<Announcement> response) {
-                        listAdapter.addAnnouncements(response);
+                        listAdapter.addItems(response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -53,9 +54,9 @@ public class AnnouncementFragment extends Fragment {
                 });
 
         RequestQueueSingleton.getInstance(getContext()).addToRequestQueue(request);
-        View view = inflater.inflate(R.layout.announcement_layout, container, false);
+        View view = inflater.inflate(R.layout.course_fragment, container, false);
         listAdapter = new AnnouncementListAdapter(getContext(), new ArrayList<Announcement>());
-        listView = (ListView) view.findViewById(R.id.announcement_list);
+        listView = (ListView) view.findViewById(R.id.list_view);
         listView.setAdapter(listAdapter);
 
         return view;

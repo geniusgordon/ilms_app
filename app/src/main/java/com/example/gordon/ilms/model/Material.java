@@ -13,6 +13,7 @@ public class Material {
     private Date time;
     private String author;
     private List<Attachment> attachments;
+    private long popularity;
 
     public long getId() {
         return id;
@@ -56,5 +57,13 @@ public class Material {
 
     public void addAttachment(Attachment attachment) {
         this.attachments.add(attachment);
+    }
+
+    public long getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(long popularity) {
+        this.popularity = popularity;
     }
 }
