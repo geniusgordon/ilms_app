@@ -2,6 +2,7 @@ package com.example.gordon.ilms.app;
 
 import android.os.Bundle;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -47,8 +48,8 @@ public class MaterialDetailActivity extends DetailActivity<Material> {
                         StringBuilder stringBuilder = new StringBuilder();
                         stringBuilder.append("<p><strong>附件</strong><br><br>");
                         for (Attachment attach : item.getAttachments()) {
-                            String a = "<a href='%s'>%s</a><br><br>";
-                            stringBuilder.append(String.format(a, attach.getUrl(), attach.getTitle()));
+                            String a = "<a href='%s'>%s</a>&nbsp;%s<br><br>";
+                            stringBuilder.append(String.format(a, attach.getUrl(), attach.getTitle(), attach.getSize()));
                         }
                         stringBuilder.append("</p>");
                         contentTxt.append(Html.fromHtml(stringBuilder.toString()));

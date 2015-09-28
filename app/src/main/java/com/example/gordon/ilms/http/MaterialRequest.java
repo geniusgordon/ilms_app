@@ -39,7 +39,6 @@ public class MaterialRequest extends BaseRequest<Material> {
         material.setContent(document.select(".doc .article").html());
 
         Elements elements = document.select("div.attach div.block");
-        Log.d(LOG_TAG, elements.html());
         for (Element element: elements) {
             Attachment attachment = new Attachment();
 

@@ -5,6 +5,7 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -46,6 +47,8 @@ public class DetailActivity<T> extends AppCompatActivity {
         timeTxt = (TextView) findViewById(R.id.time);
         contentTxt = (TextView) findViewById(R.id.content);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        contentTxt.setMovementMethod(LinkMovementMethod.getInstance());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Log.d(LOG_TAG, "setStatusBarColor");

@@ -1,6 +1,7 @@
 package com.example.gordon.ilms.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,10 @@ public class Homework implements Serializable {
     private Date deadline;
     private String description;
     private List<Attachment> attachments;
+
+    public Homework() {
+        attachments = new ArrayList<Attachment>();
+    }
 
     public long getId() {
         return id;
