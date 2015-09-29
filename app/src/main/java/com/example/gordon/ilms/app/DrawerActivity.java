@@ -134,11 +134,18 @@ public class DrawerActivity extends AppCompatActivity {
     }
 
     private void getCourseList() {
+        courseList = Preferences.getInstance(getApplicationContext()).getCourseList();
+        if (courseList != null) {
+            updateDrawerAfterLogin();
+            return;
+        }
+
         CourseListRequest request = new CourseListRequest(
                 new Response.Listener<CourseList>() {
                     @Override
                     public void onResponse(CourseList response) {
                         courseList = response;
+                        Preferences.getInstance(getApplicationContext()).saveCourseList(courseList);
                         updateDrawerAfterLogin();
                     }
                 },

@@ -1,5 +1,8 @@
 package com.example.gordon.ilms.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -52,5 +55,22 @@ public class Course implements Serializable {
             }
         }
         setTitle(chi_title, eng_title);
+    }
+
+    public String toJsonString() throws JSONException {
+        JSONObject object = new JSONObject();
+        object.put("id", id);
+        object.put("chi_title", chi_title);
+        object.put("eng_title", eng_title);
+        return object.toString();
+    }
+
+    public static Course fromJson(String jsonStr) throws JSONException {
+        Course course = new Course();
+        JSONObject courseJson = new JSONObject(jsonStr);
+        course.id = courseJson.getLong("id");
+        course.chi_title = courseJson.getString("chi_title");
+        course.eng_title = courseJson.getString("eng_title");
+        return course;
     }
 }

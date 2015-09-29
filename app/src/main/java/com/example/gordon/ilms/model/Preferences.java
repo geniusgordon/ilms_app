@@ -7,17 +7,25 @@ import android.util.Log;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+
 /**
  * Created by gordon on 9/28/15.
  */
 public class Preferences {
+    final static String ILMS = "ilms";
+    final static String STUDENT_ID = "student_id";
+    final static String EMAIL = "email";
+    final static String COOKIE = "cookie";
+    final static String COURSE_LIST = "course_list";
+
     private static Preferences mInstance;
     private static Context mContext;
     private SharedPreferences settings;
 
     private Preferences(Context context) {
         mContext = context;
-        settings = context.getSharedPreferences("ilms", 0);
+        settings = context.getSharedPreferences(ILMS, 0);
     }
 
     public static synchronized Preferences getInstance(Context context) {
@@ -33,17 +41,17 @@ public class Preferences {
 
     public void saveAccount(Account account) {
         settings.edit()
-                .putString("studentId", account.getStudentId())
-                .putString("email", account.getEmail())
+                .putString(STUDENT_ID, account.getStudentId())
+                .putString(EMAIL, account.getEmail())
                 .apply();
         Log.d("Preferences", "save account " + account.getStudentId());
     }
 
     public Account getAccount() {
         Account account = new Account();
-        account.setStudentId(settings.getString("studentId", ""));
-        account.setEmail(settings.getString("email", ""));
-        if (account.getStudentId().equals("")) {
+        account.setStudentId(settings.getString(STUDENT_ID, ""));
+        account.setEmail(settings.getString(EMAIL, ""));
+        if (account.getStudentId().equals("") || account.getEmail().equals("")) {
             Log.d("Preferences", "get account null");
             return null;
         }
@@ -55,12 +63,35 @@ public class Preferences {
         if (cookie == null)
             return;
         settings.edit()
-                .putString("cookie", cookie)
+                .putString(COOKIE, cookie)
                 .apply();
     }
 
     public String getCookie() {
-        String cookie = settings.getString("cookie", "");
+        String cookie = settings.getString(COOKIE, "");
         return cookie;
+    }
+
+    public void saveCourseList(CourseList courseList) {
+        try {
+            String courseListStr = courseList.toJsonString();
+            settings.edit()
+                    .putString(COURSE_LIST, courseListStr)
+                    .apply();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public CourseList getCourseList() {
+        String courseListStr = settings.getString(COURSE_LIST, "");
+        if (courseListStr.equals(""))
+            return null;
+        try {
+            return CourseList.fromJson(courseListStr);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
