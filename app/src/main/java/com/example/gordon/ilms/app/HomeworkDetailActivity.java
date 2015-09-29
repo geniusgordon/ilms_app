@@ -1,9 +1,12 @@
 package com.example.gordon.ilms.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -11,6 +14,7 @@ import com.android.volley.NoConnectionError;
 import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.http.HomeworkRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Attachment;
@@ -18,6 +22,7 @@ import com.example.gordon.ilms.model.Homework;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by gordon on 9/28/15.
@@ -68,5 +73,30 @@ public class HomeworkDetailActivity extends DetailActivity<Homework> {
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.homework_detail_menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.event) {
+            Intent intent = new Intent(Intent.ACTION_EDIT);
+            intent.setType("vnd.android.cursor.item/event");
+            intent.putExtra("allDay", true);
+
+            Date date = HomeworkDetailActivity.this.item.getDeadline();
+            if (date != null) {
+                intent.putExtra("beginTime", date.getTime());
+                intent.putExtra("endTime", date.getTime());
+            }
+            intent.putExtra("title", HomeworkDetailActivity.this.item.getTitle());
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
