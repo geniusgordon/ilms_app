@@ -65,6 +65,9 @@ public class ForumActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Post post = (Post) parent.getItemAtPosition(position);
+                Intent intent = new Intent(ForumActivity.this, PostDetailActivity.class);
+                intent.putExtra("post", post);
+                startActivity(intent);
             }
         });
 

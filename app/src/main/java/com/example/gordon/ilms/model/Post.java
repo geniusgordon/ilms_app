@@ -1,12 +1,13 @@
 package com.example.gordon.ilms.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 /**
  * Created by gordon on 9/29/15.
  */
-public class Post {
+public class Post implements Serializable {
     private long id;
     private String title;
     private String lastName;

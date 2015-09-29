@@ -42,12 +42,17 @@ public class PostListRequest extends BaseRequest<List<Post>> {
         Document document = Jsoup.parse(responseHtml);
 
         Elements tr = document.select("tr");
-        for (int i = 1; i < tr.size()-1; i++) {
+        for (int i = 1; i < tr.size(); i++) {
+            if (i%2 == 0)
+                continue;
+
             Elements td = tr.eq(i).select("td");
             if (tr.size() == 2 && td.size() == 1)
                 return Response.success(posts, HttpHeaderParser.parseCacheHeaders(response));
 
             DateFormat df = new SimpleDateFormat("MM-dd hh:mm");
+
+            Log.d(LOG_TAG, td.html());
 
             Post post = new Post();
             post.setId(Long.parseLong(td.eq(0).text()));

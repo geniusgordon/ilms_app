@@ -51,6 +51,10 @@
             <RelativeLayout
                 android:id="@+id/header"
                 android:layout_below="@+id/divider_1"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
                 android:layout_width="fill_parent"
                 android:layout_height="?android:attr/listPreferredItemHeightLarge">
 
@@ -69,6 +73,7 @@
                     <TextView
                         android:id="@+id/author"
                         android:text="QQQQQQQQ"
+                        android:textColor="#000"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
@@ -89,6 +94,7 @@
 
                 <TextView
                     android:id="@+id/content"
+                    android:textColor="#000"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
 

@@ -84,4 +84,8 @@ public class Reply {
     public void setId(long id) {
         this.id = id;
     }
+
+    public void addAttachment(Attachment attachment) {
+        this.attachments.add(attachment);
+    }
 }

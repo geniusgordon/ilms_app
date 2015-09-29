@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:id="@+id/reply_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/divider_1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#ccc"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp" />
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:clickable="true"
+        android:layout_width="fill_parent"
+        android:layout_height="96dp">
+
+        <RelativeLayout
+            android:id="@+id/icon"
+            android:layout_width="72dp"
+            android:layout_height="72dp">
+
+            <ImageButton
+                android:src="@drawable/ic_account_circle_black_48dp"
+                android:background="#00ffffff"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_toRightOf="@+id/icon"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/author"
+                android:text="QQQQQQQQ"
+                android:textColor="#000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+            <TextView
+                android:text="123456789"
+                android:id="@+id/account"
+                android:layout_toRightOf="@+id/author"
+                android:paddingLeft="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="aaaaaaa"
+                android:id="@+id/email"
+                android:layout_below="@id/author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="bbbbbbb"
+                android:id="@+id/time"
+                android:layout_below="@id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/floor"
+                android:text="qqqqqqqq"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:text="AAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAA"
+        android:id="@+id/content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        />
+
+</LinearLayout>

@@ -34,6 +34,18 @@ public class Attachment {
         this.size = size;
     }
 
+    public void setSize(long size) {
+        if (size >= 1000000000) {
+            this.size = String.format("(%s GB)", size/1000000000);
+        } else if (size >= 1000000) {
+            this.size = String.format("(%s MB)", size/1000000);
+        } else if (size >= 1000) {
+            this.size = String.format("(%s KB)", size/1000);
+        } else {
+            this.size = String.format("(%s B)", size);
+        }
+    }
+
     public String getUrl() {
         return String.format(URL, id);
     }
