@@ -30,10 +30,11 @@ public class AnnouncementDetailActivity extends DetailActivity<Announcement> {
         Log.d(LOG_TAG, item.getTitle());
 
         DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+        String timeStr = item.getTime()==null ? "" : df.format(item.getTime());
 
         titleTxt.setText(item.getTitle());
         authorTxt.setText("課程公告");
-        timeTxt.setText(df.format(item.getTime()));
+        timeTxt.setText(timeStr);
 
         AnnouncementRequest request = new AnnouncementRequest(item,
             new Response.Listener<Announcement>() {
@@ -48,7 +49,7 @@ public class AnnouncementDetailActivity extends DetailActivity<Announcement> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                        Toast.makeText(getApplicationContext(), "網路不穩，請稍後再試", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "無法連線，請稍後再試", Toast.LENGTH_SHORT).show();
                     }
                     progressBar.setVisibility(View.INVISIBLE);
                 }

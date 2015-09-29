@@ -27,7 +27,7 @@ public class HomeworkListAdapter extends ListAdapter<Homework> {
         View view = mLayoutInflater.inflate(R.layout.list_item, null);
 
         DateFormat df = new SimpleDateFormat("MM/dd");
-        String timeStr = df.format(homework.getDeadline());
+        String timeStr = homework.getDeadline()==null ? "" : df.format(homework.getDeadline());
 
         ((TextView) view.findViewById(R.id.popularity)).setText("");
         ((TextView) view.findViewById(R.id.title)).setText(homework.getTitle());

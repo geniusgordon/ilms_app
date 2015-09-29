@@ -33,10 +33,11 @@ public class MaterialDetailActivity extends DetailActivity<Material> {
         Log.d(LOG_TAG, item.getTitle());
 
         DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+        String timeStr = item.getTime()==null ? "" : df.format(item.getTime());
 
         titleTxt.setText(item.getTitle());
         authorTxt.setText(item.getAuthor());
-        timeTxt.setText(df.format(item.getTime()));
+        timeTxt.setText(timeStr);
 
         MaterialRequest request = new MaterialRequest(course, item,
             new Response.Listener<Material>() {
@@ -62,7 +63,7 @@ public class MaterialDetailActivity extends DetailActivity<Material> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                        Toast.makeText(getApplicationContext(), "網路不穩，請稍後再試", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "無法連線，請稍後再試", Toast.LENGTH_SHORT).show();
                     }
                     progressBar.setVisibility(View.INVISIBLE);
                 }

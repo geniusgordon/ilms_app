@@ -31,10 +31,11 @@ public class HomeworkDetailActivity extends DetailActivity<Homework> {
         Log.d(LOG_TAG, item.getTitle());
 
         DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+        String timeStr = item.getDeadline()==null ? "" : df.format(item.getDeadline());
 
         titleTxt.setText(item.getTitle());
         authorTxt.setText("作業");
-        timeTxt.setText(df.format(item.getDeadline()));
+        timeTxt.setText(timeStr);
 
         HomeworkRequest request = new HomeworkRequest(course, item,
             new Response.Listener<Homework>() {
@@ -60,7 +61,7 @@ public class HomeworkDetailActivity extends DetailActivity<Homework> {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                        Toast.makeText(getApplicationContext(), "網路不穩，請稍後再試", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "無法連線，請稍後再試", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

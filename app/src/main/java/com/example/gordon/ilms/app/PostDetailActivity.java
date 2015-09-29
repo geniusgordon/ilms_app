@@ -121,7 +121,7 @@ public class PostDetailActivity extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                        Toast.makeText(getApplicationContext(), "網路不穩，請稍後再試", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "無法連線，請稍後再試", Toast.LENGTH_SHORT).show();
                     }
                     progressBar.setVisibility(View.INVISIBLE);                }
             });

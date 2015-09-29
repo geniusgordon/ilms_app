@@ -84,7 +84,7 @@ public class HomeworkFragment extends CoursePageFragment<Homework> {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                            Toast.makeText(getContext(), "網路不穩，請稍後再試", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "無法連線，請稍後再試", Toast.LENGTH_SHORT).show();
                         }
                         progressBar.setVisibility(View.INVISIBLE);
                         swipeRefreshLayout.setRefreshing(false);

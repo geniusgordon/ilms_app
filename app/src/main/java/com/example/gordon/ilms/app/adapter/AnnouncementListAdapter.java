@@ -29,7 +29,7 @@ public class AnnouncementListAdapter extends ListAdapter<Announcement> {
         View view = mLayoutInflater.inflate(R.layout.list_item, null);
 
         DateFormat df = new SimpleDateFormat("MM/dd");
-        String timeStr = df.format(announcement.getTime());
+        String timeStr = announcement.getTime()==null ? "" : df.format(announcement.getTime());
 
         ((TextView) view.findViewById(R.id.popularity)).setText(String.valueOf(announcement.getPopularity()));
         ((TextView) view.findViewById(R.id.title)).setText(announcement.getTitle());
