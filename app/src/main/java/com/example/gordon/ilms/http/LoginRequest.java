@@ -39,6 +39,7 @@ public class LoginRequest extends Request<LoginStatus> {
         Map<String, String> params = new HashMap<String, String>();
         params.put("account", username);
         params.put("password", password);
+        params.put("stay", "1");
         return params;
     }
 

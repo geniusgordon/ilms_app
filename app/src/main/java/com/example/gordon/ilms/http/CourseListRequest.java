@@ -38,12 +38,16 @@ public class CourseListRequest extends BaseRequest<CourseList> {
         super(Request.Method.GET, URL, listener, errorListener);
     }
 
-  @Override
+    @Override
     protected Response<CourseList> parseNetworkResponse(NetworkResponse response) {
         CourseList courseList = new CourseList();
         List<Course> courses = new ArrayList<Course>();
         String responseHtml = new String(response.data);
         Document document = Jsoup.parse(responseHtml);
+
+        if (responseHtml.contains("權限不足"))
+            return Response.error(new VolleyError("login error"));
+
         String semester = document.select("#left > div:nth-child(1) > div.mnuBody > div.hint").html();
         Log.d(LOG_TAG, "semester: " + semester);
         Elements elements = document.select(".mnuItem a");

@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.NoConnectionError;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.http.MaterialRequest;
@@ -59,7 +61,9 @@ public class MaterialDetailActivity extends DetailActivity<Material> {
             new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getApplicationContext(), "連線問題", Toast.LENGTH_SHORT).show();
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        Toast.makeText(getApplicationContext(), "網路不穩，請稍後再試", Toast.LENGTH_SHORT).show();
+                    }
                     progressBar.setVisibility(View.INVISIBLE);
                 }
             });

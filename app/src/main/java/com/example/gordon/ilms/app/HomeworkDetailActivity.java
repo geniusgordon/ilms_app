@@ -5,8 +5,11 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import com.android.volley.NoConnectionError;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.example.gordon.ilms.http.HomeworkRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
@@ -56,7 +59,9 @@ public class HomeworkDetailActivity extends DetailActivity<Homework> {
             new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        Toast.makeText(getApplicationContext(), "網路不穩，請稍後再試", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
