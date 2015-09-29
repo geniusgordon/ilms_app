@@ -87,6 +87,7 @@ public class HomeworkFragment extends CoursePageFragment<Homework> {
                             Toast.makeText(getContext(), "網路不穩，請稍後再試", Toast.LENGTH_SHORT).show();
                         }
                         progressBar.setVisibility(View.INVISIBLE);
+                        swipeRefreshLayout.setRefreshing(false);
                     }
                 });
 

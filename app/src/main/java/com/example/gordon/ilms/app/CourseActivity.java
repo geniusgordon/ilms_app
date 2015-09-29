@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.transition.Explode;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 
@@ -97,5 +98,17 @@ public class CourseActivity extends DrawerActivity {
         toolbar.inflateMenu(R.menu.menu_course);
         return true;
     }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
+        if (id == R.id.forum) {
+            Log.d(LOG_TAG, "forum selected");
+            Intent intent = new Intent(this, ForumActivity.class);
+            intent.putExtra("course", course);
+            startActivity(intent);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

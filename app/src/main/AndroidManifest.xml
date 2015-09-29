@@ -39,6 +39,10 @@
             android:name=".app.HomeworkDetailActivity"
             android:label="@string/title_activity_detail" >
         </activity>
+        <activity
+            android:name=".app.ForumActivity"
+            android:label="@string/title_activity_forum" >
+        </activity>
     </application>
 
 </manifest>
