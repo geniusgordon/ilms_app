@@ -3,6 +3,7 @@ package com.example.gordon.ilms.app.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,7 +54,9 @@ public class MaterialFragment extends CoursePageFragment<Material> {
                 Intent intent = new Intent(MaterialFragment.this.getActivity(), MaterialDetailActivity.class);
                 intent.putExtra("item", material);
                 intent.putExtra("course", course);
-                startActivity(intent);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(getActivity(), view, "open_item");
+                getActivity().startActivity(intent, options.toBundle());
             }
         });
 

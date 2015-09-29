@@ -5,7 +5,9 @@
     android:paddingTop="2dip"
     android:paddingBottom="2dip"
     android:paddingStart="16dp"
-    android:paddingEnd="16dp" >
+    android:paddingEnd="16dp"
+    android:transitionName="open_item"
+    >
 
     <RelativeLayout
         android:id="@+id/list_icon"

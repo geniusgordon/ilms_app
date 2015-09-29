@@ -3,12 +3,15 @@ package com.example.gordon.ilms.app;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.transition.Explode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -34,8 +37,15 @@ public class CourseActivity extends DrawerActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+            getWindow().setEnterTransition(new Explode());
+            getWindow().setExitTransition(new Explode());
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
+
         initDrawer();
 
         course = (Course) getIntent().getSerializableExtra("course");
