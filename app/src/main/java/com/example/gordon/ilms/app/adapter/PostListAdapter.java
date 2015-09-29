@@ -28,7 +28,7 @@ public class PostListAdapter extends ListAdapter<Post> {
         Post post = getItem(position);
         View view = mLayoutInflater.inflate(R.layout.list_item, null);
 
-        DateFormat df = new SimpleDateFormat("MM-dd mm-ss");
+        DateFormat df = new SimpleDateFormat("MM-dd hh:mm");
         String time = post.getLastTime()==null ? "" : df.format(post.getLastTime());
 
         ((TextView) view.findViewById(R.id.popularity)).setText(String.valueOf(post.getCount()));

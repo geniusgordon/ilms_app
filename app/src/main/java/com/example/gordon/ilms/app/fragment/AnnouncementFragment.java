@@ -62,7 +62,7 @@ public class AnnouncementFragment extends CoursePageFragment<Announcement> {
                 intent.putExtra("course", course);
 
                 ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation(getActivity(), view, "title");
+                        makeSceneTransitionAnimation(getActivity(), view, "");
                 getActivity().startActivity(intent, options.toBundle());
             }
         });

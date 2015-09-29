@@ -54,7 +54,7 @@ public class HomeworkFragment extends CoursePageFragment<Homework> {
                 intent.putExtra("item", homework);
                 intent.putExtra("course", course);
                 ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation(getActivity(), view, "open_item");
+                        makeSceneTransitionAnimation(getActivity(), view, "");
                 getActivity().startActivity(intent, options.toBundle());
             }
         });

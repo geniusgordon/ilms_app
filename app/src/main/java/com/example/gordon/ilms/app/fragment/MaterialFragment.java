@@ -55,7 +55,7 @@ public class MaterialFragment extends CoursePageFragment<Material> {
                 intent.putExtra("item", material);
                 intent.putExtra("course", course);
                 ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation(getActivity(), view, "open_item");
+                        makeSceneTransitionAnimation(getActivity(), view, "");
                 getActivity().startActivity(intent, options.toBundle());
             }
         });

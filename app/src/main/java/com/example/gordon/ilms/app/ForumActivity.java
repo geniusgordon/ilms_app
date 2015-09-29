@@ -1,14 +1,20 @@
 package com.example.gordon.ilms.app;
 
 import android.content.Intent;
+import android.os.Build;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.transition.Explode;
+import android.transition.Slide;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -25,6 +31,7 @@ import com.example.gordon.ilms.http.PostListRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.Post;
+import com.github.clans.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +42,7 @@ public class ForumActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView msgTxt;
     private ProgressBar progressBar;
+    private FloatingActionButton btn;
 
     private PostListAdapter listAdapter;
     private ListView listView;
@@ -45,6 +53,12 @@ public class ForumActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+            getWindow().setEnterTransition(new Explode());
+            getWindow().setExitTransition(new Explode());
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum);
 
@@ -57,6 +71,7 @@ public class ForumActivity extends AppCompatActivity {
 
         msgTxt = (TextView) findViewById(R.id.list_msg);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        btn = (FloatingActionButton) findViewById(R.id.edit_btn);
 
         listAdapter = new PostListAdapter(this, new ArrayList<Post>());
         listView = (ListView) findViewById(R.id.list_view);
@@ -67,7 +82,12 @@ public class ForumActivity extends AppCompatActivity {
                 Post post = (Post) parent.getItemAtPosition(position);
                 Intent intent = new Intent(ForumActivity.this, PostDetailActivity.class);
                 intent.putExtra("post", post);
-                startActivity(intent);
+
+                Pair<View, String> p1 = Pair.create((View) listView, "open_item");
+                Pair<View, String> p2 = Pair.create((View) btn, "fab");
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(ForumActivity.this, p1, p2);
+                startActivity(intent, options.toBundle());
             }
         });
 
