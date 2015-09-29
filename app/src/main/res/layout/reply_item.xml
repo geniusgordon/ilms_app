@@ -84,6 +84,7 @@
     <TextView
         android:text="AAAAAAAAAAAAAAAAA\nAAAAAAAAAAAAAAAAA"
         android:id="@+id/content"
+        android:textIsSelectable="true"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
