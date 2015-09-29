@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.gordon.ilms.HtmlFix;
 import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.model.Attachment;
 import com.example.gordon.ilms.model.Reply;
@@ -76,7 +77,7 @@ public class ReplyViewHolder {
 
     private void setupContent() {
         contentTxt.setText("");
-        contentTxt.setText(Html.fromHtml(reply.getContent()));
+        contentTxt.setText(HtmlFix.correctLinkPaths(Html.fromHtml(reply.getContent())));
 
         if (reply.getAttachments().size() > 0) {
             StringBuilder stringBuilder = new StringBuilder();

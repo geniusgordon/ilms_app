@@ -11,6 +11,7 @@ import com.android.volley.NoConnectionError;
 import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.example.gordon.ilms.HtmlFix;
 import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.http.MaterialRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
@@ -44,7 +45,7 @@ public class MaterialDetailActivity extends DetailActivity<Material> {
                 @Override
                 public void onResponse(Material response) {
                     item = response;
-                    contentTxt.setText(Html.fromHtml(response.getContent()));
+                    contentTxt.setText(HtmlFix.correctLinkPaths(Html.fromHtml(response.getContent())));
                     progressBar.setVisibility(View.INVISIBLE);
 
                     if (item.getAttachments().size() > 0) {

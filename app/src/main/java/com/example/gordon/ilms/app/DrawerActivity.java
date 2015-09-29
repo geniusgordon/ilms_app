@@ -167,6 +167,10 @@ public class DrawerActivity extends AppCompatActivity {
                 .withName("課程  " + courseList.getSemester());
         drawer.addItem(courseHeader);
 
+        Course c = new Course();
+        c.setId(20982);
+        c.setChi_title("Archi");
+        courseList.getCourses().add(c);
         for (final Course course: courseList.getCourses()) {
             drawer.addItem(new SecondaryDrawerItem()
                     .withIcon(R.drawable.ic_view_list_black_24dp)

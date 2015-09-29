@@ -25,13 +25,13 @@ import java.util.List;
  */
 public class PostListRequest extends BaseRequest<List<Post>> {
 
-    final static String URL = "http://lms.nthu.edu.tw/course.php?courseID=%s&f=forumlist";
+    final static String URL = "http://lms.nthu.edu.tw/course.php?courseID=%s&f=forumlist&page=%d";
     final static String LOG_TAG = "PostListRequest";
 
     private Course course;
 
-    public PostListRequest(Course course, Response.Listener<List<Post>> listener, Response.ErrorListener errorListener) {
-        super(Method.GET, String.format(URL, course.getId()), listener, errorListener);
+    public PostListRequest(Course course, int page, Response.Listener<List<Post>> listener, Response.ErrorListener errorListener) {
+        super(Method.GET, String.format(URL, course.getId(), page), listener, errorListener);
         this.course = course;
     }
 
@@ -52,8 +52,6 @@ public class PostListRequest extends BaseRequest<List<Post>> {
 
             DateFormat df = new SimpleDateFormat("MM-dd hh:mm");
 
-            Log.d(LOG_TAG, td.html());
-
             Post post = new Post();
             post.setId(Long.parseLong(td.eq(0).text()));
             post.setTitle(td.eq(1).select("a").eq(0).text().trim());
@@ -67,11 +65,11 @@ public class PostListRequest extends BaseRequest<List<Post>> {
             }
             post.setLastName(last.substring(17));
 
-            Log.d(LOG_TAG, String.valueOf(post.getCount()));
-            Log.d(LOG_TAG, post.getTitle());
-            Log.d(LOG_TAG, String.valueOf(post.getId()));
-            Log.d(LOG_TAG, df.format(post.getLastTime()));
-            Log.d(LOG_TAG, post.getLastName());
+//            Log.d(LOG_TAG, String.valueOf(post.getCount()));
+//            Log.d(LOG_TAG, post.getTitle());
+//            Log.d(LOG_TAG, String.valueOf(post.getId()));
+//            Log.d(LOG_TAG, df.format(post.getLastTime()));
+//            Log.d(LOG_TAG, post.getLastName());
 
             posts.add(post);
         }

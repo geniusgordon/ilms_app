@@ -14,6 +14,7 @@ import com.android.volley.NoConnectionError;
 import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.example.gordon.ilms.HtmlFix;
 import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.http.HomeworkRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
@@ -47,7 +48,7 @@ public class HomeworkDetailActivity extends DetailActivity<Homework> {
                 @Override
                 public void onResponse(Homework response) {
                     item = response;
-                    contentTxt.setText(Html.fromHtml(response.getDescription()));
+                    contentTxt.setText(HtmlFix.correctLinkPaths(Html.fromHtml(response.getDescription())));
                     progressBar.setVisibility(View.INVISIBLE);
 
                     if (item.getAttachments().size() > 0) {

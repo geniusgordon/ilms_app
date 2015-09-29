@@ -10,6 +10,7 @@ import com.android.volley.NoConnectionError;
 import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.example.gordon.ilms.HtmlFix;
 import com.example.gordon.ilms.http.AnnouncementRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Announcement;
@@ -41,7 +42,7 @@ public class AnnouncementDetailActivity extends DetailActivity<Announcement> {
                 @Override
                 public void onResponse(Announcement response) {
                     AnnouncementDetailActivity.this.item = response;
-                    contentTxt.setText(Html.fromHtml(response.getContent()));
+                    contentTxt.setText(HtmlFix.correctLinkPaths(Html.fromHtml(response.getContent())));
                     progressBar.setVisibility(View.INVISIBLE);
                 }
             },

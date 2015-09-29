@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -27,6 +28,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.app.adapter.PostListAdapter;
+import com.example.gordon.ilms.http.ForumPageRequest;
 import com.example.gordon.ilms.http.PostListRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Course;
@@ -48,8 +50,11 @@ public class ForumActivity extends AppCompatActivity {
     private ListView listView;
 
     private SwipeRefreshLayout swipeRefreshLayout;
+    private boolean gettingList;
 
     private Course course;
+    private int page;
+    private int totalPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +68,9 @@ public class ForumActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forum);
 
         course = (Course) getIntent().getSerializableExtra("course");
+        page = 1;
+        totalPage = 1;
+        gettingList = false;
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -91,6 +99,18 @@ public class ForumActivity extends AppCompatActivity {
                 startActivity(intent, options.toBundle());
             }
         });
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem == totalItemCount - visibleItemCount - 1)
+                    getList();
+            }
+        });
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setRefreshing(true);
@@ -102,7 +122,9 @@ public class ForumActivity extends AppCompatActivity {
             }
         });
 
+        swipeRefreshLayout.setRefreshing(true);
         refreshList();
+        getPage();
     }
 
     @Override
@@ -131,27 +153,63 @@ public class ForumActivity extends AppCompatActivity {
     public void refreshList() {
         msgTxt.setText("");
         listAdapter.clearItems();
-        PostListRequest request = new PostListRequest(course,
-            new Response.Listener<List<Post>>() {
-                @Override
-                public void onResponse(List<Post> response) {
-                    listAdapter.addItems(response);
-                    progressBar.setVisibility(View.INVISIBLE);
-                    swipeRefreshLayout.setRefreshing(false);
+        page = 1;
+        getList();
+        getPage();
+    }
 
-                    if (listAdapter.getCount() == 0) {
-                        msgTxt.setText("目前尚無討論");
+    public void getList() {
+        if (page > totalPage)
+            return;
+        if (gettingList)
+            return;
+        gettingList = true;
+
+        if (!swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(true);
+        }
+        Log.d(LOG_TAG, String.format("page %d of %d", page, totalPage));
+        PostListRequest request = new PostListRequest(course, page,
+                new Response.Listener<List<Post>>() {
+                    @Override
+                    public void onResponse(List<Post> response) {
+                        listAdapter.addItems(response);
+                        progressBar.setVisibility(View.INVISIBLE);
+                        swipeRefreshLayout.setRefreshing(false);
+                        page++;
+                        gettingList = false;
+
+                        if (listAdapter.getCount() == 0) {
+                            msgTxt.setText("目前尚無討論");
+                        }
                     }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                            Toast.makeText(ForumActivity.this, "網路不穩，請稍後再試", Toast.LENGTH_SHORT).show();
+                        }
+                        progressBar.setVisibility(View.INVISIBLE);
+                        swipeRefreshLayout.setRefreshing(false);
+                        gettingList = false;
+                    }
+                });
+        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+    }
+
+    public void getPage() {
+        ForumPageRequest request = new ForumPageRequest(course,
+            new Response.Listener<Integer>() {
+                @Override
+                public void onResponse(Integer response) {
+                    totalPage = response;
                 }
             },
             new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                        Toast.makeText(ForumActivity.this, "網路不穩，請稍後再試", Toast.LENGTH_SHORT).show();
-                    }
-                    progressBar.setVisibility(View.INVISIBLE);
-                    swipeRefreshLayout.setRefreshing(false);
+                    totalPage = 1;
                 }
             });
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
