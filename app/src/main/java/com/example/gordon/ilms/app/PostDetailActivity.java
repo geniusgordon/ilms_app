@@ -1,6 +1,8 @@
 package com.example.gordon.ilms.app;
 
+import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.http.ReplyListRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
+import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.Post;
 import com.example.gordon.ilms.model.Reply;
 
@@ -38,6 +41,9 @@ public class PostDetailActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ProgressBar progressBar;
     private Post post;
+    private Course course;
+
+    private ReplyListRequest request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,7 @@ public class PostDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_detail);
 
+        course = (Course) getIntent().getSerializableExtra("course");
         post = (Post) getIntent().getSerializableExtra("post");
 
         replyLayout = (LinearLayout) findViewById(R.id.reply_layout);
@@ -93,6 +100,12 @@ public class PostDetailActivity extends AppCompatActivity {
         if (id == android.R.id.home) {
             supportFinishAfterTransition();
             return true;
+        } else if (id == R.id.open) {
+            String url = this.request.getOpenUrl();
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -104,7 +117,7 @@ public class PostDetailActivity extends AppCompatActivity {
     }
 
     private void getReplies() {
-        ReplyListRequest request = new ReplyListRequest(post,
+        request = new ReplyListRequest(course, post,
             new Response.Listener<List<Reply>>() {
                 @Override
                 public void onResponse(List<Reply> response) {

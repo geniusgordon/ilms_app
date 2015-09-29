@@ -9,6 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.example.gordon.ilms.model.Announcement;
+import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.Preferences;
 
 import org.json.JSONException;
@@ -31,13 +32,16 @@ import java.util.Map;
  */
 public class AnnouncementRequest extends BaseRequest<Announcement> {
     final static String URL = "http://lms.nthu.edu.tw/home/http_event_select.php";
+    final static String ANNOUNCE_URL = "http://lms.nthu.edu.tw/course.php?courseID=%s&f=activity";
     final static String LOG_TAG = "AnnouncementRequest";
 
     private Announcement announcement;
+    private Course course;
 
-    public AnnouncementRequest(Announcement announcement, Response.Listener<Announcement> listener, Response.ErrorListener errorListener) {
+    public AnnouncementRequest(Course course, Announcement announcement, Response.Listener<Announcement> listener, Response.ErrorListener errorListener) {
         super(Request.Method.POST, URL, listener, errorListener);
         this.announcement = announcement;
+        this.course = course;
     }
 
     @Override
@@ -61,4 +65,8 @@ public class AnnouncementRequest extends BaseRequest<Announcement> {
         return params;
     }
 
+    @Override
+    public String getOpenUrl() {
+        return String.format(ANNOUNCE_URL, course.getId());
+    }
 }

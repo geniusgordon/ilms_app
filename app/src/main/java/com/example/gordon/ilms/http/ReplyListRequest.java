@@ -6,6 +6,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.example.gordon.ilms.model.Attachment;
+import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.Post;
 import com.example.gordon.ilms.model.Reply;
 
@@ -26,13 +27,16 @@ import java.util.Map;
  */
 public class ReplyListRequest extends BaseRequest<List<Reply>> {
     final static String URL = "http://lms.nthu.edu.tw/sys/lib/ajax/post.php";
+    final static String POST_URL = "http://lms.nthu.edu.tw/course.php?courseID=%s&f=forum&tid=%s";
     final static String LOG_TAG = "ReplyListRequest";
 
     private Post post;
+    private Course course;
 
-    public ReplyListRequest(Post post, Response.Listener<List<Reply>> listener, Response.ErrorListener errorListener) {
+    public ReplyListRequest(Course course, Post post, Response.Listener<List<Reply>> listener, Response.ErrorListener errorListener) {
         super(Method.POST, URL, listener, errorListener);
         this.post = post;
+        this.course = course;
     }
 
     @Override
@@ -85,5 +89,10 @@ public class ReplyListRequest extends BaseRequest<List<Reply>> {
         Map<String, String> params = new HashMap<String, String>();
         params.put("id", String.valueOf(post.getId()));
         return params;
+    }
+
+    @Override
+    public String getOpenUrl() {
+        return String.format(POST_URL, course.getId(), post.getId());
     }
 }

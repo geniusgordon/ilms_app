@@ -82,6 +82,7 @@ public class ForumActivity extends AppCompatActivity {
                 Post post = (Post) parent.getItemAtPosition(position);
                 Intent intent = new Intent(ForumActivity.this, PostDetailActivity.class);
                 intent.putExtra("post", post);
+                intent.putExtra("course", course);
 
                 Pair<View, String> p1 = Pair.create((View) listView, "open_item");
                 Pair<View, String> p2 = Pair.create((View) btn, "fab");

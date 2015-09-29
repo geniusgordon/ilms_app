@@ -36,7 +36,7 @@ public class AnnouncementDetailActivity extends DetailActivity<Announcement> {
         authorTxt.setText("課程公告");
         timeTxt.setText(timeStr);
 
-        AnnouncementRequest request = new AnnouncementRequest(item,
+        request = new AnnouncementRequest(course, item,
             new Response.Listener<Announcement>() {
                 @Override
                 public void onResponse(Announcement response) {

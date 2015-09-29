@@ -37,7 +37,7 @@ public class HomeworkDetailActivity extends DetailActivity<Homework> {
         authorTxt.setText("作業");
         timeTxt.setText(timeStr);
 
-        HomeworkRequest request = new HomeworkRequest(course, item,
+        request = new HomeworkRequest(course, item,
             new Response.Listener<Homework>() {
                 @Override
                 public void onResponse(Homework response) {

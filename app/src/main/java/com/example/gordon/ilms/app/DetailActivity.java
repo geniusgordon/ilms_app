@@ -1,6 +1,8 @@
 package com.example.gordon.ilms.app;
 
+import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.gordon.ilms.R;
+import com.example.gordon.ilms.http.BaseRequest;
 import com.example.gordon.ilms.model.Course;
 
 public class DetailActivity<T> extends AppCompatActivity {
@@ -31,6 +34,8 @@ public class DetailActivity<T> extends AppCompatActivity {
     protected TextView timeTxt;
     protected TextView contentTxt;
     protected ProgressBar progressBar;
+
+    protected BaseRequest<T> request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +91,12 @@ public class DetailActivity<T> extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == android.R.id.home) {
             supportFinishAfterTransition();
+            return true;
+        } else if (id == R.id.open) {
+            String url = this.request.getOpenUrl();
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
             return true;
         }
 

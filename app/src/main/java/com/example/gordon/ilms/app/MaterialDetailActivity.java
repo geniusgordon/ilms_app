@@ -39,7 +39,7 @@ public class MaterialDetailActivity extends DetailActivity<Material> {
         authorTxt.setText(item.getAuthor());
         timeTxt.setText(timeStr);
 
-        MaterialRequest request = new MaterialRequest(course, item,
+        request = new MaterialRequest(course, item,
             new Response.Listener<Material>() {
                 @Override
                 public void onResponse(Material response) {

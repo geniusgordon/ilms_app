@@ -18,10 +18,12 @@ import java.util.Map;
 public abstract class BaseRequest<T> extends Request<T> {
 
     protected Response.Listener<T> mListener;
+    protected String url;
 
     public BaseRequest(int method, String url, Response.Listener<T> listener, Response.ErrorListener errorListener) {
         super(method, url, errorListener);
         this.mListener = listener;
+        this.url = url;
     }
 
     @Override
@@ -41,5 +43,9 @@ public abstract class BaseRequest<T> extends Request<T> {
                 headers.put("cookie", cookie);
         }
         return headers;
+    }
+
+    public String getOpenUrl() {
+        return this.url;
     }
 }
