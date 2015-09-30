@@ -30,6 +30,12 @@ public class HomeItemListRequest extends BaseRequest<List<HomeItem>> {
     final static String BASE_URL = "http://lms.nthu.edu.tw";
     final static String LOG_TAG = "HomeItemRequest";
 
+    final static int[] types = {
+        HomeItem.ANNOUNCE,
+        HomeItem.FORUM,
+        HomeItem.MATERIAL
+    };
+
     final static String[] cssSelect = {
         "#right > div:nth-child(4) > div:nth-child(2) > div.BlockR",
         "#right > div:nth-child(4) > div:nth-child(1) > div.BlockL",
@@ -48,7 +54,8 @@ public class HomeItemListRequest extends BaseRequest<List<HomeItem>> {
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-        for (String select: cssSelect) {
+        for (int i = 0; i < cssSelect.length; i++) {
+            String select = cssSelect[i];
             Elements block = document.select(select);
             String title = block.select("div.em.itemRect").text();
             String more = block.select("div.em.itemRect span").text();
@@ -74,10 +81,10 @@ public class HomeItemListRequest extends BaseRequest<List<HomeItem>> {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                //Log.d(LOG_TAG, title);
-                //Log.d(LOG_TAG, url);
+                Log.d(LOG_TAG, title);
+                Log.d(LOG_TAG, url);
 
-                homeItems.add(new HomeItem(title, course, url, date));
+                homeItems.add(new HomeItem(types[i], title, course, url, date));
             }
         }
 

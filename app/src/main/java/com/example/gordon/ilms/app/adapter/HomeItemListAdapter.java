@@ -3,6 +3,7 @@ package com.example.gordon.ilms.app.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.gordon.ilms.R;
@@ -36,6 +37,19 @@ public class HomeItemListAdapter extends ListAdapter<HomeItem> {
             DateFormat df = new SimpleDateFormat("MM/dd");
             String timeStr = item.getDate()==null ? "" :df.format(item.getDate());
             ((TextView) view.findViewById(R.id.time)).setText(timeStr);
+
+            ImageView img = (ImageView) view.findViewById(R.id.icon);
+            switch (item.getType()) {
+                case HomeItem.FORUM:
+                    img.setImageResource(R.drawable.ic_group_black_36dp);
+                    break;
+                case HomeItem.MATERIAL:
+                    img.setImageResource(R.drawable.ic_description_black_36dp);
+                    break;
+                case HomeItem.ANNOUNCE:
+                    img.setImageResource(R.drawable.ic_new_releases_black_36dp);
+                    break;
+            }
         }
         ((TextView) view.findViewById(R.id.title)).setText(item.getTitle());
         return view;
