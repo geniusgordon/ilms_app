@@ -20,7 +20,9 @@ public class ActivityDispatcher extends Activity {
     private static Class[] activitiesToOpen = {
             MainActivity.class,
             CourseActivity.class,
-            DetailActivity.class,
+            AnnouncementDetailActivity.class,
+            HomeworkDetailActivity.class,
+            MaterialDetailActivity.class,
             ForumActivity.class,
             PostDetailActivity.class
     };

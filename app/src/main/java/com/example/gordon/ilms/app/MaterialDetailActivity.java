@@ -1,5 +1,7 @@
 package com.example.gordon.ilms.app;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -16,6 +18,8 @@ import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.http.MaterialRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Attachment;
+import com.example.gordon.ilms.model.Course;
+import com.example.gordon.ilms.model.Homework;
 import com.example.gordon.ilms.model.Material;
 
 import java.text.DateFormat;
@@ -71,4 +75,38 @@ public class MaterialDetailActivity extends DetailActivity<Material> {
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 
+
+    @Override
+    public Intent isIntentUri(Uri uri, ActivityDispatcher activity) {
+        Log.d(LOG_TAG, "isIntentUri");
+        Log.d(LOG_TAG, uri.toString());
+
+        Intent intent = new Intent(activity, MaterialDetailActivity.class);
+        Course course = new Course();
+        course.setTitle("", "");
+
+        String[] paths = uri.getEncodedPath()==null ? null : uri.getEncodedPath().split("/");
+        if (paths == null)
+            return null;
+
+        try {
+            if (paths[1].startsWith("course.php")) {
+                String f = uri.getQueryParameter("f");
+                if (f.equals("doc")) {
+                    course.setId(Long.parseLong(uri.getQueryParameter("courseID")));
+                    item = new Material();
+                    item.setId(Long.parseLong(uri.getQueryParameter("cid")));
+                    intent.putExtra("course", course);
+                    intent.putExtra("item", item);
+                    return intent;
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        } catch (NumberFormatException e) {
+            return null;
+        }
+
+        return null;
+    }
 }
