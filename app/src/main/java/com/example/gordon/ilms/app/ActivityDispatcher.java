@@ -8,11 +8,24 @@ import android.util.Log;
 
 import com.example.gordon.ilms.model.Course;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.Objects;
+
 /**
  * Created by gordon on 9/30/15.
  */
 public class ActivityDispatcher extends Activity {
     final static String LOG_TAG = "ActivityDispatcher";
+
+    private static Class[] activitiesToOpen = {
+            MainActivity.class,
+            CourseActivity.class,
+            AnnouncementDetailActivity.class,
+            HomeworkDetailActivity.class,
+            MaterialDetailActivity.class,
+            ForumActivity.class,
+            PostDetailActivity.class
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,14 +33,27 @@ public class ActivityDispatcher extends Activity {
 
         Uri uri = getIntent().getData();
         Log.d(LOG_TAG, uri.toString());
-        long courseId = Long.parseLong(uri.getQueryParameter("courseID"));
-        Course course = new Course();
-        course.setId(courseId);
-        course.setChi_title("");
-        course.setEng_title("");
-        Intent intent = new Intent(this, CourseActivity.class);
-        intent.putExtra("course", course);
-        finish();
-        startActivity(intent);
+
+        for (Class activityClass: activitiesToOpen) {
+            try {
+                Object obj = activityClass.newInstance();
+                Intent intent = (Intent) activityClass.getMethod("isIntentUri",
+                        Uri.class, ActivityDispatcher.this.getClass())
+                        .invoke(obj, uri, ActivityDispatcher.this);
+                if (intent != null) {
+                    finish();
+                    startActivity(intent);
+                    break;
+                }
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

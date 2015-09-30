@@ -1,5 +1,6 @@
 package com.example.gordon.ilms.app;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -24,6 +25,8 @@ import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.CourseEmail;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+
+import java.text.ParseException;
 
 public class CourseActivity extends DrawerActivity {
     final static String LOG_TAG = "CourseActivity";
@@ -112,5 +115,40 @@ public class CourseActivity extends DrawerActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public Intent isIntentUri(Uri uri, ActivityDispatcher activity) {
+        Log.d(LOG_TAG, "isIntentUri");
+        Log.d(LOG_TAG, uri.toString());
+
+        Intent intent = new Intent(activity, CourseActivity.class);
+        Course course = new Course();
+        course.setTitle("", "");
+
+        String[] paths = uri.getEncodedPath()==null ? null : uri.getEncodedPath().split("/");
+        if (paths == null)
+            return null;
+
+        try {
+            if (paths[1].equals("course")) {
+                course.setId(Long.parseLong(paths[2]));
+                intent.putExtra("course", course);
+                return intent;
+            } else if (paths[1].startsWith("course.php")) {
+                String f = uri.getQueryParameter("f");
+                if (f.equals("activity") || f.equals("doclist") || f.equals("hwlist")) {
+                    course.setId(Long.parseLong(uri.getQueryParameter("courseID")));
+                    intent.putExtra("course", course);
+                    return intent;
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        } catch (NumberFormatException e) {
+            return null;
+        }
+
+        return null;
     }
 }

@@ -22,7 +22,7 @@ import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.http.BaseRequest;
 import com.example.gordon.ilms.model.Course;
 
-public class DetailActivity<T> extends AppCompatActivity {
+public class DetailActivity<T> extends BaseActivity {
     final static String LOG_TAG = "DetailActivity";
 
     protected Toolbar toolbar;
@@ -107,4 +107,5 @@ public class DetailActivity<T> extends AppCompatActivity {
     public void onBackPressed() {
         supportFinishAfterTransition();
     }
+    
 }

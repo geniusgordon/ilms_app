@@ -35,7 +35,7 @@ import java.util.List;
 /**
  * Created by gordon on 9/26/15.
  */
-public class DrawerActivity extends AppCompatActivity {
+public class DrawerActivity extends BaseActivity {
     protected CourseList courseList;
 
     protected Toolbar toolbar;

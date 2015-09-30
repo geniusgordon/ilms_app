@@ -57,6 +57,8 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="http" />
                 <data android:host="lms.nthu.edu.tw" />
+                <data android:pathPrefix="/course" />
+                <data android:pathPrefix="/home" />
             </intent-filter>
         </activity>
     </application>

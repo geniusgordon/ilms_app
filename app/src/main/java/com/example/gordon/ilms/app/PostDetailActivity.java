@@ -34,7 +34,7 @@ import com.example.gordon.ilms.model.Reply;
 
 import java.util.List;
 
-public class PostDetailActivity extends AppCompatActivity {
+public class PostDetailActivity extends BaseActivity {
     final static String LOG_TAG = "PostDetailActivity";
 
     private LinearLayout replyLayout;

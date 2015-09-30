@@ -38,7 +38,7 @@ import com.github.clans.fab.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ForumActivity extends AppCompatActivity {
+public class ForumActivity extends BaseActivity {
     final static String LOG_TAG = "ForumActivity";
 
     private Toolbar toolbar;
