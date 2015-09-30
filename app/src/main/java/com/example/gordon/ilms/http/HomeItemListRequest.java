@@ -5,7 +5,9 @@ import android.util.Log;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.HomeItem;
+import com.example.gordon.ilms.model.Preferences;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -55,8 +57,16 @@ public class HomeItemListRequest extends BaseRequest<List<HomeItem>> {
 
             for (Element element: block.select("div.BlockItem")) {
                 title = element.select("a").eq(0).text().trim();
-                String url = BASE_URL + element.select("a").eq(0).attr("href");
                 String course = element.select("a").eq(1).text().trim();
+                String path = element.select("a").eq(0).attr("href");
+                String url;
+                if (path.startsWith("javascript")) {
+                    long courseId = Preferences.getInstance().getCourseIdByName(Course.splitTitle(course)[0]);
+                    String announcementId = path.split("\\(")[1].split("\\)")[0];
+                    url = String.format("ilms://announcement/%s/%s?title=%s", courseId, announcementId, title);
+                } else {
+                    url = BASE_URL + path;
+                }
                 String dateStr = element.select(".hint").attr("title");
                 Date date = null;
                 try {
@@ -64,12 +74,11 @@ public class HomeItemListRequest extends BaseRequest<List<HomeItem>> {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+                Log.d(LOG_TAG, title);
+                Log.d(LOG_TAG, url);
+
                 homeItems.add(new HomeItem(title, course, url, date));
             }
-        }
-
-        for (HomeItem item: homeItems) {
-            Log.d(LOG_TAG, item.getTitle());
         }
 
         return Response.success(homeItems, HttpHeaderParser.parseCacheHeaders(response));

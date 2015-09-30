@@ -48,9 +48,16 @@ public class AnnouncementRequest extends BaseRequest<Announcement> {
     protected Response<Announcement> parseNetworkResponse(NetworkResponse response) {
         String responseStr = new String(response.data);
 
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
         try {
             JSONObject news = new JSONObject(responseStr).getJSONObject("news");
             announcement.setContent(news.getString("note"));
+            try {
+                announcement.setTime(df.parse(news.getString("createTime")));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         } catch (JSONException e) {
             return Response.error(new VolleyError("Json parse error"));
         }

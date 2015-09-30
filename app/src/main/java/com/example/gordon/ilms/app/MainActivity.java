@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -18,7 +19,9 @@ import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.app.adapter.HomeItemListAdapter;
 import com.example.gordon.ilms.http.HomeItemListRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
+import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.HomeItem;
+import com.example.gordon.ilms.model.Material;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,10 +66,6 @@ public class MainActivity extends DrawerActivity {
             }
         });
 
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("http://lms.nthu.edu.tw/course.php?courseID=23395&f=forum&tid=108042"));
-        startActivity(intent);
-
         getHomeItem();
     }
 
@@ -92,5 +91,19 @@ public class MainActivity extends DrawerActivity {
             }
         );
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+    }
+
+    @Override
+    public Intent isIntentUri(Uri uri, ActivityDispatcher activity) {
+        Log.d(LOG_TAG, "isIntentUri");
+        Log.d(LOG_TAG, uri.toString());
+
+        String path = uri.getEncodedPath()==null ? "" : uri.getEncodedPath();
+        if (path.startsWith("/home.php")) {
+            Intent intent = new Intent(activity, MainActivity.class);
+            return intent;
+        }
+
+        return null;
     }
 }

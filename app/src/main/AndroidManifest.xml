@@ -60,6 +60,12 @@
                 <data android:pathPrefix="/course" />
                 <data android:pathPrefix="/home" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="ilms" />
+            </intent-filter>
         </activity>
     </application>
 

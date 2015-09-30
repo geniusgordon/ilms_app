@@ -94,4 +94,15 @@ public class Preferences {
             return null;
         }
     }
+
+    public long getCourseIdByName(String courseName) {
+        CourseList courseList = getCourseList();
+        for (Course course: courseList.getCourses()) {
+            if (course.getChi_title().equals(courseName))
+                return course.getId();
+            if (course.getEng_title().equals(courseName))
+                return course.getId();
+        }
+        return 0;
+    }
 }
