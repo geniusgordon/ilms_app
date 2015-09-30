@@ -53,16 +53,16 @@ public class DrawerActivity extends BaseActivity {
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.bg_account)
                 .addProfiles(
-                        new ProfileSettingDrawerItem()
-                        .withName("Log In")
-                        .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                            @Override
-                            public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {
-                                Intent intent = new Intent(DrawerActivity.this, LoginActivity.class);
-                                startActivityForResult(intent, LOGIN);
-                                return true;
-                            }
-                        })
+                        new ProfileDrawerItem()
+                                .withName("登入")
+                                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                                    @Override
+                                    public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {
+                                        Intent intent = new Intent(DrawerActivity.this, LoginActivity.class);
+                                        startActivityForResult(intent, LOGIN);
+                                        return true;
+                                    }
+                                })
                 )
                 .build();
 
@@ -129,7 +129,19 @@ public class DrawerActivity extends BaseActivity {
         accountHeader.addProfiles(
                 new ProfileDrawerItem()
                         .withName(account.getStudentId())
-                        .withEmail(account.getEmail())
+                        .withEmail(account.getEmail()),
+                new ProfileSettingDrawerItem()
+                        .withName("登出")
+                        .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                            @Override
+                            public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {
+                                Preferences.getInstance(getApplicationContext()).logout();
+                                finish();
+                                Intent intent = new Intent(DrawerActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                return true;
+                            }
+                        })
         );
         getCourseList();
     }

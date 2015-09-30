@@ -88,6 +88,9 @@ public class HomeItemListRequest extends BaseRequest<List<HomeItem>> {
             }
         }
 
+        if (homeItems.size() == cssSelect.length)
+            homeItems.clear();
+
         return Response.success(homeItems, HttpHeaderParser.parseCacheHeaders(response));
     }
 }

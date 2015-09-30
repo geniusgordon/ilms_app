@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Log In");
+        getSupportActionBar().setTitle("登入");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         usernameTxt = (EditText) findViewById(R.id.username);

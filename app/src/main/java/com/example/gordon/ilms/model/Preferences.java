@@ -72,6 +72,15 @@ public class Preferences {
         return cookie;
     }
 
+    public void logout() {
+        settings.edit()
+                .remove(STUDENT_ID)
+                .remove(EMAIL)
+                .remove(COOKIE)
+                .remove(COURSE_LIST)
+                .apply();
+    }
+
     public void saveCourseList(CourseList courseList) {
         try {
             String courseListStr = courseList.toJsonString();
