@@ -94,6 +94,16 @@ public class MainActivity extends DrawerActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == LOGIN && resultCode == RESULT_OK) {
+            listAdapter.clearItems();
+            progressBar.setVisibility(View.VISIBLE);
+            getHomeItem();
+        }
+    }
+
+    @Override
     public Intent isIntentUri(Uri uri, ActivityDispatcher activity) {
         Log.d(LOG_TAG, "isIntentUri");
         Log.d(LOG_TAG, uri.toString());

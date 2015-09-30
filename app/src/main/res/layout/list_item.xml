@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeightLarge"
     android:padding="16dp"
-    android:transitionName="open_item"
-    >
+    android:transitionName="open_item">
 
     <RelativeLayout
         android:id="@+id/list_icon"
