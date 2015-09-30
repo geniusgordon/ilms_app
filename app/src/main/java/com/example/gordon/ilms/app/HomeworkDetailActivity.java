@@ -3,7 +3,6 @@ package com.example.gordon.ilms.app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,8 +35,7 @@ public class HomeworkDetailActivity extends DetailActivity<Homework> {
 
         Log.d(LOG_TAG, item.getTitle());
 
-        DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
-        String timeStr = item.getDeadline()==null ? "" : df.format(item.getDeadline());
+        String timeStr = item.getTimeStr(new SimpleDateFormat("yyyy/MM/dd"));
 
         titleTxt.setText(item.getTitle());
         authorTxt.setText("作業");
@@ -89,7 +87,7 @@ public class HomeworkDetailActivity extends DetailActivity<Homework> {
             intent.setType("vnd.android.cursor.item/event");
             intent.putExtra("allDay", true);
 
-            Date date = HomeworkDetailActivity.this.item.getDeadline();
+            Date date = HomeworkDetailActivity.this.item.getTime();
             if (date != null) {
                 intent.putExtra("beginTime", date.getTime());
                 intent.putExtra("endTime", date.getTime());

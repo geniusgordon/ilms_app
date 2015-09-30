@@ -2,14 +2,11 @@ package com.example.gordon.ilms.http;
 
 import android.util.Log;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.example.gordon.ilms.model.Homework;
-import com.example.gordon.ilms.model.Material;
-import com.example.gordon.ilms.model.Preferences;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,9 +16,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by gordon on 9/28/15.
@@ -56,7 +51,7 @@ public class HomeworkListRequest extends BaseRequest<List<Homework>> {
             homework.setTitle(td.eq(1).select("a").eq(0).html());
             homework.setId(Long.parseLong(tmp[tmp.length-1]));
             try {
-                homework.setDeadline(df.parse(td.eq(4).select("span").attr("title")));
+                homework.setTime(df.parse(td.eq(4).select("span").attr("title")));
             } catch (ParseException e) {
                 e.printStackTrace();
             }

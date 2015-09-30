@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.model.Homework;
-import com.example.gordon.ilms.model.Material;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -26,8 +25,7 @@ public class HomeworkListAdapter extends ListAdapter<Homework> {
         Homework homework = getItem(position);
         View view = mLayoutInflater.inflate(R.layout.list_item, null);
 
-        DateFormat df = new SimpleDateFormat("MM/dd");
-        String timeStr = homework.getDeadline()==null ? "" : df.format(homework.getDeadline());
+        String timeStr = homework.getTimeStr(new SimpleDateFormat("MM/dd"));
 
         ((TextView) view.findViewById(R.id.popularity)).setText("");
         ((TextView) view.findViewById(R.id.title)).setText(homework.getTitle());

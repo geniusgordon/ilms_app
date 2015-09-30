@@ -33,8 +33,7 @@ public class MaterialDetailActivity extends DetailActivity<Material> {
 
         Log.d(LOG_TAG, item.getTitle());
 
-        DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
-        String timeStr = item.getTime()==null ? "" : df.format(item.getTime());
+        String timeStr = item.getTimeStr(new SimpleDateFormat("yyyy/MM/dd"));
 
         titleTxt.setText(item.getTitle());
         authorTxt.setText(item.getAuthor());

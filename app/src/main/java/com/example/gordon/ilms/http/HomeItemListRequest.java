@@ -29,10 +29,9 @@ public class HomeItemListRequest extends BaseRequest<List<HomeItem>> {
     final static String LOG_TAG = "HomeItemRequest";
 
     final static String[] cssSelect = {
+        "#right > div:nth-child(4) > div:nth-child(2) > div.BlockR",
         "#right > div:nth-child(4) > div:nth-child(1) > div.BlockL",
-        "#right > div:nth-child(4) > div:nth-child(1) > div.BlockR",
         "#right > div:nth-child(4) > div:nth-child(2) > div.BlockL",
-        "#right > div:nth-child(4) > div:nth-child(2) > div.BlockR"
     };
 
     public HomeItemListRequest(Response.Listener<List<HomeItem>> listener, Response.ErrorListener errorListener) {

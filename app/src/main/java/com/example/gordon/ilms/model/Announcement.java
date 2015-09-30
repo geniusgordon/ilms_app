@@ -6,37 +6,10 @@ import java.util.Date;
 /**
  * Created by gordon on 9/27/15.
  */
-public class Announcement implements Serializable {
+public class Announcement extends CourseItem implements Serializable {
 
-    private long id;
-    private String title;
-    private Date time;
     private String content;
     private long popularity;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
 
     public String getContent() {
         return content;

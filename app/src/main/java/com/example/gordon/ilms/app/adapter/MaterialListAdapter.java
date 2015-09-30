@@ -26,8 +26,7 @@ public class MaterialListAdapter extends ListAdapter<Material> {
         Material material = getItem(position);
         View view = mLayoutInflater.inflate(R.layout.list_item, null);
 
-        DateFormat df = new SimpleDateFormat("MM/dd");
-        String timeStr = material.getTime() == null ? "" : df.format(material.getTime());
+        String timeStr = material.getTimeStr(new SimpleDateFormat("MM/dd"));
 
         ((TextView) view.findViewById(R.id.popularity)).setText(String.valueOf(material.getPopularity()));
         ((TextView) view.findViewById(R.id.title)).setText(material.getTitle());

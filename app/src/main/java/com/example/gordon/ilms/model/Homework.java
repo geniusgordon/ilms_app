@@ -8,40 +8,14 @@ import java.util.List;
 /**
  * Created by gordon on 9/27/15.
  */
-public class Homework implements Serializable {
+public class Homework extends CourseItem implements Serializable {
 
-    private long id;
-    private String title;
-    private Date deadline;
     private String description;
     private List<Attachment> attachments;
 
     public Homework() {
+        super();
         attachments = new ArrayList<Attachment>();
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Date getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(Date deadline) {
-        this.deadline = deadline;
     }
 
     public String getDescription() {

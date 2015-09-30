@@ -30,8 +30,7 @@ public class AnnouncementDetailActivity extends DetailActivity<Announcement> {
 
         Log.d(LOG_TAG, item.getTitle());
 
-        DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
-        String timeStr = item.getTime()==null ? "" : df.format(item.getTime());
+        String timeStr = item.getTimeStr(new SimpleDateFormat("yyyy/MM/dd"));
 
         titleTxt.setText(item.getTitle());
         authorTxt.setText("課程公告");

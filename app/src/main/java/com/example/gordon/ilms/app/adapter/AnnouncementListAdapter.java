@@ -28,8 +28,7 @@ public class AnnouncementListAdapter extends ListAdapter<Announcement> {
         Announcement announcement = getItem(position);
         View view = mLayoutInflater.inflate(R.layout.list_item, null);
 
-        DateFormat df = new SimpleDateFormat("MM/dd");
-        String timeStr = announcement.getTime()==null ? "" : df.format(announcement.getTime());
+        String timeStr = announcement.getTimeStr(new SimpleDateFormat("MM/dd"));
 
         ((TextView) view.findViewById(R.id.popularity)).setText(String.valueOf(announcement.getPopularity()));
         ((TextView) view.findViewById(R.id.title)).setText(announcement.getTitle());

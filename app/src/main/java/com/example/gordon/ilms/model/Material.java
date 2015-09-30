@@ -8,42 +8,16 @@ import java.util.List;
 /**
  * Created by gordon on 9/27/15.
  */
-public class Material implements Serializable {
+public class Material extends CourseItem implements Serializable {
 
-    private long id;
-    private String title;
-    private Date time;
     private String author;
     private String content;
     private List<Attachment> attachments;
     private long popularity;
 
     public Material() {
+        super();
         attachments = new ArrayList<Attachment>();
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
     }
 
     public String getAuthor() {
