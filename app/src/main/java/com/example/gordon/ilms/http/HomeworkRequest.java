@@ -14,6 +14,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 /**
  * Created by gordon on 9/29/15.
  */
@@ -36,9 +40,16 @@ public class HomeworkRequest extends BaseRequest<Homework> {
         String responseHtml = new String(response.data);
         Document document = Jsoup.parse(responseHtml);
 
+        homework.setTitle(document.select("#main > div.infoPath > span.curr").text());
+
         Elements tr = document.select("tr");
-        Log.d(LOG_TAG, tr.eq(6).select("td").eq(1).html());
-        Log.d(LOG_TAG, tr.eq(7).select("td").eq(1).html());
+        String timeStr = tr.eq(5).select("td").eq(1).text();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        try {
+            homework.setTime(df.parse(timeStr));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         homework.setDescription(tr.eq(6).select("td").eq(1).html());
         Elements links = tr.eq(7).select("td").eq(1).select("a");

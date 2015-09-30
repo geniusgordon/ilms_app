@@ -37,7 +37,7 @@ public class MaterialDetailActivity extends DetailActivity<Material> {
 
         Log.d(LOG_TAG, item.getTitle());
 
-        String timeStr = item.getTimeStr(new SimpleDateFormat("yyyy/MM/dd"));
+        final String timeStr = item.getTimeStr(new SimpleDateFormat("yyyy/MM/dd"));
 
         titleTxt.setText(item.getTitle());
         authorTxt.setText(item.getAuthor());
@@ -48,6 +48,9 @@ public class MaterialDetailActivity extends DetailActivity<Material> {
                 @Override
                 public void onResponse(Material response) {
                     item = response;
+                    titleTxt.setText(item.getTitle());
+                    authorTxt.setText(item.getAuthor());
+                    timeTxt.setText(item.getTimeStr(new SimpleDateFormat("yyyy/MM/dd")));
                     contentTxt.setText(HtmlFix.correctLinkPaths(Html.fromHtml(response.getContent())));
                     progressBar.setVisibility(View.INVISIBLE);
 

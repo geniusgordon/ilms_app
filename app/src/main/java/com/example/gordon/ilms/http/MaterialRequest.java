@@ -14,6 +14,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 /**
  * Created by gordon on 9/29/15.
  */
@@ -35,6 +39,25 @@ public class MaterialRequest extends BaseRequest<Material> {
     protected Response<Material> parseNetworkResponse(NetworkResponse response) {
         String responseHtml = new String(response.data);
         Document document = Jsoup.parse(responseHtml);
+
+        material.setTitle(document.select("#doc > div.title").text().trim());
+        String[] info = document.select("#doc > div.toolarea > div.poster").html().split(",");
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        try {
+            material.setAuthor(info[0].replace("by ", "").trim());
+
+            try {
+                material.setTime(df.parse(info[1].trim()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+
+        Log.d(LOG_TAG, material.getTitle());
+        Log.d(LOG_TAG, material.getTimeStr(df));
 
         material.setContent(document.select(".doc .article").html());
 

@@ -51,6 +51,9 @@ public class HomeworkDetailActivity extends DetailActivity<Homework> {
                     contentTxt.setText(HtmlFix.correctLinkPaths(Html.fromHtml(response.getDescription())));
                     progressBar.setVisibility(View.INVISIBLE);
 
+                    titleTxt.setText(item.getTitle());
+                    timeTxt.setText(item.getTimeStr(new SimpleDateFormat("yyyy/MM/dd")));
+
                     if (item.getAttachments().size() > 0) {
                         StringBuilder stringBuilder = new StringBuilder();
                         stringBuilder.append("<p><strong>附件</strong><br><br>");
