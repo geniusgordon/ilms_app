@@ -15,6 +15,7 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -44,7 +45,9 @@ public class DetailActivity<T extends CourseItem> extends BaseActivity {
             getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
             getWindow().setEnterTransition(new Fade());
             getWindow().setExitTransition(new Fade());
+
         }
+        setTheme(R.style.AppTheme_White);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
@@ -65,14 +68,6 @@ public class DetailActivity<T extends CourseItem> extends BaseActivity {
 
         contentTxt.setMovementMethod(LinkMovementMethod.getInstance());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Log.d(LOG_TAG, "setStatusBarColor");
-            TypedValue typedValue = new TypedValue();
-            Resources.Theme theme = getTheme();
-            theme.resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
-            int color = typedValue.data;
-            getWindow().setStatusBarColor(color);
-        }
     }
 
     @Override
@@ -97,7 +92,7 @@ public class DetailActivity<T extends CourseItem> extends BaseActivity {
             String url = this.request.getOpenUrl();
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(url));
-            startActivity(intent);
+            startActivity(Intent.createChooser(intent, "開啟iLms網頁版"));
             return true;
         }
 

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.gordon.ilms.app.DetailActivity"
-    app:theme="@style/AppThemeWhite"
+    app:theme="@style/AppTheme.White"
     >
 
     <android.support.design.widget.AppBarLayout

@@ -7,16 +7,28 @@
         <item name="windowActionBarOverlay">true</item>
     </style>
 
-    <style name="AppThemeGrey" parent="AppTheme">
+    <style name="AppTheme.Grey" parent="AppTheme">
         <item name="colorPrimary">#607D8B</item>
         <item name="colorPrimaryDark">#455A64</item>
         <item name="colorAccent">#9E9E9E</item>
     </style>
 
-    <style name="AppThemeWhite" parent="AppTheme">
+    <style name="AppTheme.White" parent="AppTheme">
         <item name="colorPrimary">#fff</item>
         <item name="colorPrimaryDark">#9E9E9E</item>
         <item name="colorAccent">#eee</item>
+    </style>
+
+    <style name="AppTheme.Blue" parent="AppTheme">
+        <item name="colorPrimary">#2196F3</item>
+        <item name="colorPrimaryDark">#1976D2</item>
+        <item name="colorAccent">#FF5252</item>
+    </style>
+
+    <style name="AppTheme.Green" parent="AppTheme">
+        <item name="colorPrimary">#4CAF50</item>
+        <item name="colorPrimaryDark">#388E3C</item>
+        <item name="colorAccent">#FF5252</item>
     </style>
 
 </resources>

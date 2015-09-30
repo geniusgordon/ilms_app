@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -53,6 +54,7 @@ public class PostDetailActivity extends BaseActivity {
             getWindow().setEnterTransition(new Fade());
             getWindow().setExitTransition(new Fade());
         }
+        setTheme(R.style.AppTheme_White);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_detail);
@@ -70,15 +72,6 @@ public class PostDetailActivity extends BaseActivity {
         getSupportActionBar().setTitle("");
 
         ((TextView) findViewById(R.id.title)).setText(post.getTitle());
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Log.d(LOG_TAG, "setStatusBarColor");
-            TypedValue typedValue = new TypedValue();
-            Resources.Theme theme = getTheme();
-            theme.resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
-            int color = typedValue.data;
-            getWindow().setStatusBarColor(color);
-        }
 
         getReplies();
     }

@@ -81,7 +81,7 @@ public class ReplyViewHolder {
 
         if (reply.getAttachments().size() > 0) {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("<p><strong>附件</strong><br><br>");
+            stringBuilder.append("<br><br><p><strong>附件</strong><br><br>");
             for (Attachment attach : reply.getAttachments()) {
                 String a = "<a href='%s'>%s</a>&nbsp;%s<br><br>";
                 stringBuilder.append(String.format(a, attach.getUrl(), attach.getTitle(), attach.getSize()));

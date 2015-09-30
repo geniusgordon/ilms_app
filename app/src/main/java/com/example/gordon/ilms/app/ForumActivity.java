@@ -65,6 +65,7 @@ public class ForumActivity extends BaseActivity {
             getWindow().setEnterTransition(new Explode());
             getWindow().setExitTransition(new Explode());
         }
+        setTheme(R.style.AppTheme_Green);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum);
@@ -82,6 +83,14 @@ public class ForumActivity extends BaseActivity {
         msgTxt = (TextView) findViewById(R.id.list_msg);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         btn = (FloatingActionButton) findViewById(R.id.edit_btn);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ForumActivity.this, ComposeActivity.class);
+                startActivity(intent);
+            }
+        });
 
         listAdapter = new PostListAdapter(this, new ArrayList<Post>());
         listView = (ListView) findViewById(R.id.list_view);
