@@ -9,6 +9,7 @@ import com.example.gordon.ilms.model.Attachment;
 import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.Post;
 import com.example.gordon.ilms.model.Reply;
+import com.example.gordon.ilms.model.ReplyList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,7 +26,7 @@ import java.util.Map;
 /**
  * Created by gordon on 9/29/15.
  */
-public class ReplyListRequest extends BaseRequest<List<Reply>> {
+public class ReplyListRequest extends BaseRequest<ReplyList> {
     final static String URL = "http://lms.nthu.edu.tw/sys/lib/ajax/post.php";
     final static String POST_URL = "http://lms.nthu.edu.tw/course.php?courseID=%s&f=forum&tid=%s";
     final static String LOG_TAG = "ReplyListRequest";
@@ -33,19 +34,23 @@ public class ReplyListRequest extends BaseRequest<List<Reply>> {
     private Post post;
     private Course course;
 
-    public ReplyListRequest(Course course, Post post, Response.Listener<List<Reply>> listener, Response.ErrorListener errorListener) {
+    public ReplyListRequest(Course course, Post post, Response.Listener<ReplyList> listener, Response.ErrorListener errorListener) {
         super(Method.POST, URL, listener, errorListener);
         this.post = post;
         this.course = course;
     }
 
     @Override
-    protected Response<List<Reply>> parseNetworkResponse(NetworkResponse response) {
+    protected Response<ReplyList> parseNetworkResponse(NetworkResponse response) {
+        ReplyList replyList = new ReplyList();
         List<Reply> replies = new ArrayList<Reply>();
         String responseHtml = new String(response.data);
 
         try {
-            JSONArray itemsJson = new JSONObject(responseHtml).getJSONObject("posts").getJSONArray("items");
+            JSONObject postJson = new JSONObject(responseHtml).getJSONObject("posts");
+            replyList.setTitle(postJson.getString("title"));
+
+            JSONArray itemsJson = postJson.getJSONArray("items");
             for (int i = 0; i < itemsJson.length(); i++) {
                 JSONObject replyJson = itemsJson.getJSONObject(i);
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -81,7 +86,9 @@ public class ReplyListRequest extends BaseRequest<List<Reply>> {
             return Response.error(new VolleyError("Json error"));
         }
 
-        return Response.success(replies, HttpHeaderParser.parseCacheHeaders(response));
+        replyList.setReplies(replies);
+
+        return Response.success(replyList, HttpHeaderParser.parseCacheHeaders(response));
     }
 
     @Override

@@ -64,7 +64,7 @@ public class MainActivity extends DrawerActivity {
         });
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("http://lms.nthu.edu.tw/course.php?courseID=22910&f=doc&cid=774612"));
+        intent.setData(Uri.parse("http://lms.nthu.edu.tw/course.php?courseID=23395&f=forum&tid=108042"));
         startActivity(intent);
 
         getHomeItem();

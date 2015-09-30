@@ -31,6 +31,7 @@ import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.Post;
 import com.example.gordon.ilms.model.Reply;
+import com.example.gordon.ilms.model.ReplyList;
 
 import java.util.List;
 
@@ -118,11 +119,13 @@ public class PostDetailActivity extends BaseActivity {
 
     private void getReplies() {
         request = new ReplyListRequest(course, post,
-            new Response.Listener<List<Reply>>() {
+            new Response.Listener<ReplyList>() {
                 @Override
-                public void onResponse(List<Reply> response) {
+                public void onResponse(ReplyList response) {
+                    ((TextView) findViewById(R.id.title)).setText(response.getTitle());
+
                     LayoutInflater layoutInflater = LayoutInflater.from(PostDetailActivity.this);
-                    for (Reply reply: response) {
+                    for (Reply reply: response.getReplies()) {
                         ViewGroup view = (ViewGroup) layoutInflater.inflate(R.layout.reply_item, null);
                         ReplyViewHolder viewHolder = new ReplyViewHolder(view, reply);
                         replyLayout.addView(viewHolder.getView());
@@ -140,4 +143,40 @@ public class PostDetailActivity extends BaseActivity {
             });
         RequestQueueSingleton.getInstance(this).addToRequestQueue(request);
     }
+
+
+    @Override
+    public Intent isIntentUri(Uri uri, ActivityDispatcher activity) {
+        Log.d(LOG_TAG, "isIntentUri");
+        Log.d(LOG_TAG, uri.toString());
+
+        Intent intent = new Intent(activity,PostDetailActivity.class);
+        Course course = new Course();
+        course.setTitle("", "");
+
+        String[] paths = uri.getEncodedPath()==null ? null : uri.getEncodedPath().split("/");
+        if (paths == null)
+            return null;
+
+        try {
+            if (paths[1].startsWith("course.php")) {
+                String f = uri.getQueryParameter("f");
+                if (f.equals("forum")) {
+                    course.setId(Long.parseLong(uri.getQueryParameter("courseID")));
+                    Post post = new Post();
+                    post.setId(Long.parseLong(uri.getQueryParameter("tid")));
+                    intent.putExtra("course", course);
+                    intent.putExtra("post", post);
+                    return intent;
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        } catch (NumberFormatException e) {
+            return null;
+        }
+
+        return null;
+    }
+
 }

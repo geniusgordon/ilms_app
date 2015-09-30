@@ -1,6 +1,7 @@
 package com.example.gordon.ilms.app;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
@@ -32,6 +33,7 @@ import com.example.gordon.ilms.http.ForumPageRequest;
 import com.example.gordon.ilms.http.PostListRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Course;
+import com.example.gordon.ilms.model.Material;
 import com.example.gordon.ilms.model.Post;
 import com.github.clans.fab.FloatingActionButton;
 
@@ -210,6 +212,38 @@ public class ForumActivity extends BaseActivity {
                 }
             });
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+    }
+
+
+    @Override
+    public Intent isIntentUri(Uri uri, ActivityDispatcher activity) {
+        Log.d(LOG_TAG, "isIntentUri");
+        Log.d(LOG_TAG, uri.toString());
+
+        Intent intent = new Intent(activity, ForumActivity.class);
+        Course course = new Course();
+        course.setTitle("", "");
+
+        String[] paths = uri.getEncodedPath()==null ? null : uri.getEncodedPath().split("/");
+        if (paths == null)
+            return null;
+
+        try {
+            if (paths[1].startsWith("course.php")) {
+                String f = uri.getQueryParameter("f");
+                if (f.equals("forumlist")) {
+                    course.setId(Long.parseLong(uri.getQueryParameter("courseID")));
+                    intent.putExtra("course", course);
+                    return intent;
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        } catch (NumberFormatException e) {
+            return null;
+        }
+
+        return null;
     }
 
 }
