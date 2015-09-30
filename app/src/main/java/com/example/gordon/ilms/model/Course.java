@@ -44,6 +44,11 @@ public class Course implements Serializable {
     }
 
     public void setTitle(String title) {
+        String[] titles = splitTitle(title);
+        setTitle(titles[0], titles[1]);
+    }
+
+    public static String[] splitTitle(String title) {
         String chi_title = title;
         String eng_title = "";
         for (int i = 0; i < title.length(); i++) {
@@ -54,7 +59,7 @@ public class Course implements Serializable {
                 break;
             }
         }
-        setTitle(chi_title, eng_title);
+        return new String[]{chi_title, eng_title};
     }
 
     public String toJsonString() throws JSONException {

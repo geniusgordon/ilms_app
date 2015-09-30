@@ -151,6 +151,9 @@ public class ForumActivity extends AppCompatActivity {
     }
 
     public void refreshList() {
+        if (swipeRefreshLayout.isRefreshing())
+            return;
+
         msgTxt.setText("");
         listAdapter.clearItems();
         page = 1;
@@ -166,7 +169,7 @@ public class ForumActivity extends AppCompatActivity {
         gettingList = true;
 
         if (!swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(true);
+            progressBar.setVisibility(View.VISIBLE);
         }
         Log.d(LOG_TAG, String.format("page %d of %d", page, totalPage));
         PostListRequest request = new PostListRequest(course, page,

@@ -48,6 +48,16 @@
             android:name=".app.PostDetailActivity"
             android:label="@string/title_activity_post_detail" >
         </activity>
+        <activity
+            android:name=".app.ActivityDispatcher">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:host="lms.nthu.edu.tw" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
