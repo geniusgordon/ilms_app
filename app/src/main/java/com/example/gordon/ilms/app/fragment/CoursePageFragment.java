@@ -30,6 +30,7 @@ public abstract class CoursePageFragment<T> extends Fragment {
 
     protected ListView listView;
     protected ListAdapter<T> listAdapter;
+    protected View viewHolder;
 
     protected ProgressBar progressBar;
     protected TextView msgTxt;
@@ -38,11 +39,15 @@ public abstract class CoursePageFragment<T> extends Fragment {
 
     public CoursePageFragment() {
         super();
+        viewHolder = null;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (viewHolder != null)
+            return viewHolder;
+
         View view = inflater.inflate(R.layout.course_fragment, container, false);
         this.course = (Course) getArguments().getSerializable("course");
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
@@ -57,6 +62,8 @@ public abstract class CoursePageFragment<T> extends Fragment {
                 refreshList();
             }
         });
+
+        viewHolder = view;
 
         return view;
     }

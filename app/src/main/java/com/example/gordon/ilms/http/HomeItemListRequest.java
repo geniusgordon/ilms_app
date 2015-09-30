@@ -25,6 +25,7 @@ import java.util.List;
 public class HomeItemListRequest extends BaseRequest<List<HomeItem>> {
 
     final static String URL = "http://lms.nthu.edu.tw/home.php";
+    final static String BASE_URL = "http://lms.nthu.edu.tw";
     final static String LOG_TAG = "HomeItemRequest";
 
     final static String[] cssSelect = {
@@ -55,7 +56,7 @@ public class HomeItemListRequest extends BaseRequest<List<HomeItem>> {
 
             for (Element element: block.select("div.BlockItem")) {
                 title = element.select("a").eq(0).text().trim();
-                String url = URL + element.select("a").eq(0).attr("href");
+                String url = BASE_URL + element.select("a").eq(0).attr("href");
                 String course = element.select("a").eq(1).text().trim();
                 String dateStr = element.select(".hint").attr("title");
                 Date date = null;

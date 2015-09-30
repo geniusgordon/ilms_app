@@ -8,10 +8,19 @@ import java.util.List;
  */
 public class CourseEmail {
 
+    private String courseName;
     private List<Email> emails;
 
     public CourseEmail() {
         emails = new ArrayList<Email>();
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
     public void addEmail(Email email) {

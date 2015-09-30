@@ -66,6 +66,8 @@ public class CourseActivity extends DrawerActivity {
             new Response.Listener<CourseEmail>() {
                 @Override
                 public void onResponse(CourseEmail response) {
+                    getSupportActionBar().setTitle(Course.splitTitle(response.getCourseName())[0]);
+
                     for (final CourseEmail.Email email: response.getEmails()) {
                         FloatingActionButton btn = new FloatingActionButton(getApplicationContext());
                         btn.setImageResource(R.drawable.ic_edit_white_24dp);

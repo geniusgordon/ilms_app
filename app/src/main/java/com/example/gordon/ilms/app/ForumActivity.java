@@ -113,7 +113,6 @@ public class ForumActivity extends AppCompatActivity {
         });
 
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setRefreshing(true);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -122,9 +121,7 @@ public class ForumActivity extends AppCompatActivity {
             }
         });
 
-        swipeRefreshLayout.setRefreshing(true);
         refreshList();
-        getPage();
     }
 
     @Override
@@ -151,9 +148,6 @@ public class ForumActivity extends AppCompatActivity {
     }
 
     public void refreshList() {
-        if (swipeRefreshLayout.isRefreshing())
-            return;
-
         msgTxt.setText("");
         listAdapter.clearItems();
         page = 1;

@@ -29,6 +29,12 @@ public class CourseEmailRequest extends BaseRequest<CourseEmail> {
         CourseEmail courseEmail = new CourseEmail();
         String responseHtml = new String(response.data);
         Document document = Jsoup.parse(responseHtml);
+
+        String courseName = document.select("#main div.infoPath a:first-child").text();
+        courseEmail.setCourseName(courseName);
+
+        Log.d(LOG_TAG, courseName);
+
         Element e1 = document.select("#menu > div.box").last().select("div.boxBody > div:nth-child(5)").first();
         Element e2 = document.select("#menu > div.box").last().select("div.boxBody > div:nth-child(6)").first();
 
