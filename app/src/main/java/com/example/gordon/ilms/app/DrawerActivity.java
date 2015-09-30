@@ -95,10 +95,11 @@ public class DrawerActivity extends BaseActivity {
                 .withToolbar(toolbar)
                 .withAccountHeader(accountHeader)
                 .addDrawerItems(
-                        home,
-                        calendarHeader,
-                        myCalendar,
-                        schoolCalendar)
+                        home
+                        //calendarHeader,
+                        //myCalendar,
+                        //schoolCalendar
+                )
                 .withSelectedItem(-1)
                 .build();
 
@@ -169,7 +170,7 @@ public class DrawerActivity extends BaseActivity {
 
         Course c = new Course();
         c.setId(19025);
-        c.setChi_title("CPE");
+        c.setChi_title("CPE for testing");
         courseList.getCourses().add(c);
         for (final Course course: courseList.getCourses()) {
             drawer.addItem(new SecondaryDrawerItem()

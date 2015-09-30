@@ -63,8 +63,12 @@ public class PostListRequest extends BaseRequest<List<Post>> {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            post.setLastName(last.substring(17));
-
+            try {
+                post.setLastName(last.substring(17));
+            } catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+                post.setLastName("");
+            }
 //            Log.d(LOG_TAG, String.valueOf(post.getCount()));
 //            Log.d(LOG_TAG, post.getTitle());
 //            Log.d(LOG_TAG, String.valueOf(post.getId()));

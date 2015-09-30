@@ -6,25 +6,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.gordon.ilms.R;
-import com.example.gordon.ilms.http.MultipartRequest;
-import com.example.gordon.ilms.http.NewPostRequest;
+import com.example.gordon.ilms.http.ForumPostRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.Preferences;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,6 +34,9 @@ public class ComposeActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private Course course;
+    private String action;
+    private String title;
+    private String id;
     private boolean sending;
 
     @Override
@@ -51,14 +50,24 @@ public class ComposeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_black_24dp);
-        getSupportActionBar().setTitle("發表討論");
 
         course = (Course) getIntent().getSerializableExtra("course");
+        action = getIntent().getStringExtra("action");
+        title = getIntent().getStringExtra("title");
+        id = getIntent().getStringExtra("id");
 
         titleEdit = (EditText) findViewById(R.id.title);
         nameEdit = (EditText) findViewById(R.id.name);
         contentEdit = (EditText) findViewById(R.id.content);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        if (action.equals("post"))
+            getSupportActionBar().setTitle("發表討論");
+        else {
+            getSupportActionBar().setTitle("回應");
+            titleEdit.setKeyListener(null);
+            titleEdit.setText(title);
+        }
 
         progressBar.setVisibility(View.INVISIBLE);
         sending = false;
@@ -124,7 +133,7 @@ public class ComposeActivity extends AppCompatActivity {
         params.put("fmEmail", Preferences.getInstance().getAccount().getEmail());
         params.put("fmNote", Html.toHtml(contentEdit.getText()));
 
-        NewPostRequest request = new NewPostRequest(params, null,
+        ForumPostRequest request = new ForumPostRequest(action, id, params, null,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

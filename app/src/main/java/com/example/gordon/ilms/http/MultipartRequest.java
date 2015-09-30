@@ -136,6 +136,7 @@ public class MultipartRequest extends BaseRequest<String> {
     }
 
     private void writeData(DataOutputStream os, String field, String value) throws IOException {
+        value = value==null ? "" : value;
         os.writeBytes(TWO_HYPHENS + boundary + CRLF);
         os.writeBytes("Content-Disposition: form-data; name=\"" + field + "\"" + CRLF);
         os.writeBytes(CRLF);

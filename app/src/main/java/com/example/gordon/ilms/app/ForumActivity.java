@@ -90,6 +90,7 @@ public class ForumActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ForumActivity.this, ComposeActivity.class);
                 intent.putExtra("course", course);
+                intent.putExtra("action", "post");
                 startActivityForResult(intent, COMPOSE);
             }
         });

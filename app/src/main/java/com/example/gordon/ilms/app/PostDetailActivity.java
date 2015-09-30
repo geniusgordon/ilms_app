@@ -33,17 +33,22 @@ import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.Post;
 import com.example.gordon.ilms.model.Reply;
 import com.example.gordon.ilms.model.ReplyList;
+import com.github.clans.fab.FloatingActionButton;
 
 import java.util.List;
 
 public class PostDetailActivity extends BaseActivity {
     final static String LOG_TAG = "PostDetailActivity";
+    final static int REPLY = 2;
 
     private LinearLayout replyLayout;
     private Toolbar toolbar;
     private ProgressBar progressBar;
+    private FloatingActionButton btn;
+
     private Post post;
     private Course course;
+    private String title;
 
     private ReplyListRequest request;
 
@@ -61,9 +66,23 @@ public class PostDetailActivity extends BaseActivity {
 
         course = (Course) getIntent().getSerializableExtra("course");
         post = (Post) getIntent().getSerializableExtra("post");
+        title = post.getTitle();
 
         replyLayout = (LinearLayout) findViewById(R.id.reply_layout);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        btn = (FloatingActionButton) findViewById(R.id.reply_btn);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PostDetailActivity.this, ComposeActivity.class);
+                intent.putExtra("course", course);
+                intent.putExtra("action", "reply");
+                intent.putExtra("title", title);
+                intent.putExtra("id", String .valueOf(post.getId()));
+                startActivityForResult(intent, REPLY);
+            }
+        });
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -71,7 +90,7 @@ public class PostDetailActivity extends BaseActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_black_24dp);
         getSupportActionBar().setTitle("");
 
-        ((TextView) findViewById(R.id.title)).setText(post.getTitle());
+        ((TextView) findViewById(R.id.title)).setText(title);
 
         getReplies();
     }
@@ -110,12 +129,29 @@ public class PostDetailActivity extends BaseActivity {
         supportFinishAfterTransition();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REPLY) {
+            if (resultCode == RESULT_OK) {
+                refresh();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void refresh() {
+        replyLayout.removeAllViews();
+        progressBar.setVisibility(View.VISIBLE);
+        getReplies();
+    }
+
     private void getReplies() {
         request = new ReplyListRequest(course, post,
             new Response.Listener<ReplyList>() {
                 @Override
                 public void onResponse(ReplyList response) {
-                    ((TextView) findViewById(R.id.title)).setText(response.getTitle());
+                    title = response.getTitle();
+                    ((TextView) findViewById(R.id.title)).setText(title);
 
                     LayoutInflater layoutInflater = LayoutInflater.from(PostDetailActivity.this);
                     for (Reply reply: response.getReplies()) {
