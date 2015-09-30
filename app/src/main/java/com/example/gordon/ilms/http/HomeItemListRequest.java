@@ -74,8 +74,8 @@ public class HomeItemListRequest extends BaseRequest<List<HomeItem>> {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                Log.d(LOG_TAG, title);
-                Log.d(LOG_TAG, url);
+                //Log.d(LOG_TAG, title);
+                //Log.d(LOG_TAG, url);
 
                 homeItems.add(new HomeItem(title, course, url, date));
             }

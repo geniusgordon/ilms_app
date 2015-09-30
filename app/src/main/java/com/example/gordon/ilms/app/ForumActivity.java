@@ -42,6 +42,7 @@ import java.util.List;
 
 public class ForumActivity extends BaseActivity {
     final static String LOG_TAG = "ForumActivity";
+    final static int COMPOSE = 1;
 
     private Toolbar toolbar;
     private TextView msgTxt;
@@ -88,7 +89,8 @@ public class ForumActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ForumActivity.this, ComposeActivity.class);
-                startActivity(intent);
+                intent.putExtra("course", course);
+                startActivityForResult(intent, COMPOSE);
             }
         });
 
@@ -133,6 +135,16 @@ public class ForumActivity extends BaseActivity {
         });
 
         refreshList();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == COMPOSE) {
+            if (resultCode == RESULT_OK) {
+                refreshList();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

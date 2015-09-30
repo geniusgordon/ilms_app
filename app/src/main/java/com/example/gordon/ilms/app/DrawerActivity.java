@@ -168,8 +168,8 @@ public class DrawerActivity extends BaseActivity {
         drawer.addItem(courseHeader);
 
         Course c = new Course();
-        c.setId(20982);
-        c.setChi_title("Archi");
+        c.setId(19025);
+        c.setChi_title("CPE");
         courseList.getCourses().add(c);
         for (final Course course: courseList.getCourses()) {
             drawer.addItem(new SecondaryDrawerItem()
