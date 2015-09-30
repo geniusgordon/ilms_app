@@ -23,7 +23,7 @@ public class HomeworkListAdapter extends ListAdapter<Homework> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Homework homework = getItem(position);
-        View view = mLayoutInflater.inflate(R.layout.list_item, null);
+        View view = mLayoutInflater.inflate(R.layout.list_item, parent, false);
 
         String timeStr = homework.getTimeStr(new SimpleDateFormat("MM/dd"));
 

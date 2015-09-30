@@ -26,7 +26,7 @@ public class PostListAdapter extends ListAdapter<Post> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Post post = getItem(position);
-        View view = mLayoutInflater.inflate(R.layout.list_item, null);
+        View view = mLayoutInflater.inflate(R.layout.list_item, parent, false);
 
         DateFormat df = new SimpleDateFormat("MM-dd hh:mm");
         String time = post.getLastTime()==null ? "" : df.format(post.getLastTime());

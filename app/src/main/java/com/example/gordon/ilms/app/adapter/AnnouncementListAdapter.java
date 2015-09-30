@@ -26,7 +26,7 @@ public class AnnouncementListAdapter extends ListAdapter<Announcement> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Announcement announcement = getItem(position);
-        View view = mLayoutInflater.inflate(R.layout.list_item, null);
+        View view = mLayoutInflater.inflate(R.layout.list_item, parent, false);
 
         String timeStr = announcement.getTimeStr(new SimpleDateFormat("MM/dd"));
 

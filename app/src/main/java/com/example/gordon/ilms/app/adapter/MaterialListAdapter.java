@@ -24,7 +24,7 @@ public class MaterialListAdapter extends ListAdapter<Material> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Material material = getItem(position);
-        View view = mLayoutInflater.inflate(R.layout.list_item, null);
+        View view = mLayoutInflater.inflate(R.layout.list_item, parent, false);
 
         String timeStr = material.getTimeStr(new SimpleDateFormat("MM/dd"));
 

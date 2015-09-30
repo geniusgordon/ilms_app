@@ -27,10 +27,10 @@ public class HomeItemListAdapter extends ListAdapter<HomeItem> {
         HomeItem item = getItem(position);
         View view = null;
         if (item.isHeader()) {
-            view = mLayoutInflater.inflate(R.layout.list_header_item, null);
+            view = mLayoutInflater.inflate(R.layout.list_header_item, parent, false);
             view.setClickable(false);
         } else {
-            view = mLayoutInflater.inflate(R.layout.list_item, null);
+            view = mLayoutInflater.inflate(R.layout.list_item, parent, false);
             ((TextView) view.findViewById(R.id.author)).setText(Course.splitTitle(item.getCourseName())[0]);
 
             DateFormat df = new SimpleDateFormat("MM/dd");
