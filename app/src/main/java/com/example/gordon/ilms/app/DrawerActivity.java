@@ -42,6 +42,9 @@ public class DrawerActivity extends BaseActivity {
     protected AccountHeader accountHeader;
     protected Drawer drawer;
     protected Account account;
+    protected PrimaryDrawerItem newestAnnouncement;
+    protected PrimaryDrawerItem newestForum;
+    protected PrimaryDrawerItem newestMaterial;
 
     final static int LOGIN = 1;
 
@@ -66,9 +69,11 @@ public class DrawerActivity extends BaseActivity {
                 )
                 .build();
 
-        PrimaryDrawerItem home = new PrimaryDrawerItem()
-                .withName("首頁")
-                .withIcon(R.drawable.ic_home_black_24dp)
+        newestAnnouncement = new PrimaryDrawerItem()
+                .withName("最新公告")
+                .withIcon(R.drawable.ic_new_releases_yellow_36dp)
+                .withIconColor(getResources().getColor(R.color.yellow_primary))
+                .withSelectedTextColor(getResources().getColor(R.color.yellow_primary))
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {
@@ -77,6 +82,35 @@ public class DrawerActivity extends BaseActivity {
                         return true;
                     }
                 });
+
+        newestForum = new PrimaryDrawerItem()
+                .withName("最新討論")
+                .withIcon(R.drawable.ic_group_green_36dp)
+                .withIconColor(getResources().getColor(R.color.green_primary))
+                .withSelectedTextColor(getResources().getColor(R.color.green_primary))
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {
+                        Intent intent = new Intent(DrawerActivity.this, NewestForumActivity.class);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
+
+        newestMaterial = new PrimaryDrawerItem()
+                .withName("最新文件")
+                .withIcon(R.drawable.ic_description_blue_36dp)
+                .withIconColor(getResources().getColor(R.color.blue_primary))
+                .withSelectedTextColor(getResources().getColor(R.color.blue_primary))
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {
+                        Intent intent = new Intent(DrawerActivity.this, NewestMaterialActivity.class);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
+
 
         SectionDrawerItem calendarHeader = new SectionDrawerItem()
                 .withDivider(true)
@@ -95,7 +129,9 @@ public class DrawerActivity extends BaseActivity {
                 .withToolbar(toolbar)
                 .withAccountHeader(accountHeader)
                 .addDrawerItems(
-                        home
+                        newestAnnouncement,
+                        newestForum,
+                        newestMaterial
                         //calendarHeader,
                         //myCalendar,
                         //schoolCalendar

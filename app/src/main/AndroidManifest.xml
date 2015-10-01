@@ -22,6 +22,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".app.NewestForumActivity"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name=".app.NewestMaterialActivity"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
             android:name=".app.CourseActivity"
             android:label="@string/title_activity_course" >
         </activity>

@@ -19,8 +19,15 @@ import java.util.List;
  */
 public class HomeItemListAdapter extends ListAdapter<HomeItem> {
 
+    private boolean showHeader;
+
     public HomeItemListAdapter(Context context, List<HomeItem> items) {
         super(context, items);
+        showHeader = true;
+    }
+
+    public void setShowHeader(boolean showHeader) {
+        this.showHeader = showHeader;
     }
 
     @Override
@@ -51,7 +58,10 @@ public class HomeItemListAdapter extends ListAdapter<HomeItem> {
                     break;
             }
         }
-        ((TextView) view.findViewById(R.id.title)).setText(item.getTitle());
+        if (item.isHeader() && !showHeader)
+            ((TextView) view.findViewById(R.id.title)).setText("");
+        else
+            ((TextView) view.findViewById(R.id.title)).setText(item.getTitle());
         return view;
     }
 }
