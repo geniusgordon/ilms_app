@@ -6,9 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.Preferences;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ComposeActivity extends AppCompatActivity {
@@ -32,6 +35,7 @@ public class ComposeActivity extends AppCompatActivity {
     private EditText nameEdit;
     private EditText contentEdit;
     private ProgressBar progressBar;
+    private CheckBox checkBox;
 
     private Course course;
     private String action;
@@ -60,6 +64,7 @@ public class ComposeActivity extends AppCompatActivity {
         nameEdit = (EditText) findViewById(R.id.name);
         contentEdit = (EditText) findViewById(R.id.content);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        checkBox = (CheckBox) findViewById(R.id.checkBox);
 
         if (action.equals("post"))
             getSupportActionBar().setTitle("發表討論");
@@ -126,12 +131,19 @@ public class ComposeActivity extends AppCompatActivity {
         sending = true;
         progressBar.setVisibility(View.VISIBLE);
 
+        String content = Html.toHtml(contentEdit.getText());
+        if (checkBox.isChecked())
+            content = content + "<br>--<br><br>Sent from my Android<br><br>";
+
+        Log.d(LOG_TAG, titleEdit.getText().toString());
+        Log.d(LOG_TAG, nameEdit.getText().toString());
+
         Map<String, String> params = new HashMap<String, String>();
         params.put("courseID", String.valueOf(course.getId()));
         params.put("fmTitle", titleEdit.getText().toString());
         params.put("fmNickname", nameEdit.getText().toString());
         params.put("fmEmail", Preferences.getInstance().getAccount().getEmail());
-        params.put("fmNote", Html.toHtml(contentEdit.getText()));
+        params.put("fmNote", content);
 
         ForumPostRequest request = new ForumPostRequest(action, id, params, null,
                 new Response.Listener<String>() {

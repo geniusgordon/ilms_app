@@ -15,6 +15,7 @@ import java.util.Map;
 public class ForumPostRequest extends MultipartRequest {
 
     final static String URL = "http://lms.nthu.edu.tw/post_insert.php";
+//    final static String URL = "http://httpbin.org/post";
 
     public ForumPostRequest(String action, String id, Map<String, String> params, Map<String, File> files, Response.Listener listener, Response.ErrorListener errorListener) {
         super(URL, params, files, listener, errorListener);
@@ -27,7 +28,7 @@ public class ForumPostRequest extends MultipartRequest {
 
     @Override
     protected Response<String> parseNetworkResponse(NetworkResponse response) {
-        //Log.d(LOG_TAG, new String(response.data));
+        Log.d(LOG_TAG, new String(response.data));
         return super.parseNetworkResponse(response);
     }
 }

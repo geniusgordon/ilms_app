@@ -75,13 +75,36 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:hint="內容"
-                android:background="@android:color/transparent"
-                android:id="@+id/content"  />
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:hint="內容"
+                    android:background="@android:color/transparent"
+                    android:id="@+id/content"  />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_alignParentBottom="true"
+                android:paddingLeft="16dp"
+                android:layout_width="fill_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                style="@style/Widget.AppCompat.CompoundButton.CheckBox">
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:checked="true"
+                    android:buttonTint="#607D8B"
+                    android:text="Add &quot;Sent from my Android&quot; at the end"
+                    android:id="@+id/checkBox" />
+            </RelativeLayout>
+
         </LinearLayout>
 
         <ProgressBar

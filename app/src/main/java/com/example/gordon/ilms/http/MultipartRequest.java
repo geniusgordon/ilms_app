@@ -126,6 +126,7 @@ public class MultipartRequest extends BaseRequest<String> {
             e.printStackTrace();
         }
 
+        Log.d(LOG_TAG, new String(body));
         return (body.length == 0) ? null : body;
     }
 
@@ -139,8 +140,10 @@ public class MultipartRequest extends BaseRequest<String> {
         value = value==null ? "" : value;
         os.writeBytes(TWO_HYPHENS + boundary + CRLF);
         os.writeBytes("Content-Disposition: form-data; name=\"" + field + "\"" + CRLF);
+        //os.writeBytes("content-type: text/plain; charset=utf-8" + CRLF);
         os.writeBytes(CRLF);
-        os.writeBytes(value + CRLF);
+        os.write(value.getBytes());
+        os.writeBytes(CRLF);
     }
 
     private void writeFile(DataOutputStream os, String field, File file) throws IOException {
