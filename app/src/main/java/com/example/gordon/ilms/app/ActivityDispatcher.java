@@ -1,11 +1,14 @@
 package com.example.gordon.ilms.app;
 
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 
+import com.example.gordon.ilms.http.DownloadTask;
 import com.example.gordon.ilms.model.Course;
 
 import java.lang.reflect.InvocationTargetException;
@@ -33,6 +36,12 @@ public class ActivityDispatcher extends Activity {
 
         Uri uri = getIntent().getData();
         Log.d(LOG_TAG, uri.toString());
+
+        if (uri.getEncodedPath().startsWith("/sys/read_attach")) {
+            new DownloadTask().execute(uri.toString(),
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
+            return;
+        }
 
         for (Class activityClass: activitiesToOpen) {
             try {

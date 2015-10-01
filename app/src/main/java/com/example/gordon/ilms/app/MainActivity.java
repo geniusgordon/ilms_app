@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.NoConnectionError;
@@ -22,6 +23,7 @@ import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.HomeItem;
 import com.example.gordon.ilms.model.Material;
+import com.example.gordon.ilms.model.Preferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,7 @@ public class MainActivity extends DrawerActivity {
     private HomeItemListAdapter listAdapter;
     private ProgressBar progressBar;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView msgTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class MainActivity extends DrawerActivity {
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        msgTxt = (TextView) findViewById(R.id.msg);
 
         listAdapter = new HomeItemListAdapter(this, new ArrayList<HomeItem>());
         listView = (ListView) findViewById(R.id.list_view);
@@ -77,12 +81,18 @@ public class MainActivity extends DrawerActivity {
                     listAdapter.addItems(response);
                     progressBar.setVisibility(View.INVISIBLE);
                     swipeRefreshLayout.setRefreshing(false);
+
+                    if (Preferences.getInstance(getApplicationContext()).getAccount() == null)
+                        msgTxt.setText("尚未登入");
+                    else
+                        msgTxt.setText("");
                 }
             },
             new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        msgTxt.setText("無法連線，請稍後再試");
                         Toast.makeText(getApplicationContext(), "無法連線，請稍後再試", Toast.LENGTH_SHORT).show();
                     }
                     progressBar.setVisibility(View.INVISIBLE);
