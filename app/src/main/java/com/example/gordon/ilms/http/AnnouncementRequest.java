@@ -54,6 +54,14 @@ public class AnnouncementRequest extends BaseRequest<Announcement> {
             JSONObject news = new JSONObject(responseStr).getJSONObject("news");
             announcement.setContent(news.getString("note"));
             try {
+                String attach = news.getString("attach");
+                attach = attach.equals("null") ? "" : attach;
+                announcement.setAttachment(attach);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                announcement.setAttachment("");
+            }
+            try {
                 announcement.setTime(df.parse(news.getString("createTime")));
             } catch (ParseException e) {
                 e.printStackTrace();

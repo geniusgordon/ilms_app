@@ -2,6 +2,7 @@ package com.example.gordon.ilms.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by gordon on 9/27/15.
@@ -10,6 +11,7 @@ public class Announcement extends CourseItem implements Serializable {
 
     private String content;
     private long popularity;
+    private String attachment;
 
     public String getContent() {
         return content;
@@ -19,7 +21,6 @@ public class Announcement extends CourseItem implements Serializable {
         this.content = content;
     }
 
-
     public long getPopularity() {
         return popularity;
     }
@@ -28,4 +29,11 @@ public class Announcement extends CourseItem implements Serializable {
         this.popularity = popularity;
     }
 
+    public String getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(String attachment) {
+        this.attachment = attachment;
+    }
 }

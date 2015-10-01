@@ -51,6 +51,8 @@ public class AnnouncementDetailActivity extends DetailActivity<Announcement> {
                 public void onResponse(Announcement response) {
                     AnnouncementDetailActivity.this.item = response;
                     contentTxt.setText(HtmlFix.correctLinkPaths(Html.fromHtml(response.getContent())));
+                    contentTxt.append("\n\n");
+                    contentTxt.append(HtmlFix.correctLinkPaths(Html.fromHtml(response.getAttachment())));
                     progressBar.setVisibility(View.INVISIBLE);
                 }
             },

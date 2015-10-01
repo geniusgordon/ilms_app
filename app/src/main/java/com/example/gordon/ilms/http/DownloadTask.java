@@ -7,6 +7,7 @@ import android.util.Log;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -36,13 +37,20 @@ public class DownloadTask extends AsyncTask<String, Integer, String> {
                 String headerName = conn.getHeaderFieldKey(i);
                 String headerValue = conn.getHeaderField(i);
 
+                Log.d(LOG_TAG, headerName==null ? "" : headerName);
+                Log.d(LOG_TAG, headerValue==null ? "" : headerValue);
+
                 if (headerName == null && headerValue == null) {
                     break;
                 }
 
-                if (headerName != null && headerName.equals("Content-Disposition")) {
+                if (headerName != null && headerName.toLowerCase().equals("content-disposition")) {
                     String[] tmp = headerValue.split("\'");
                     String fileName = tmp[tmp.length-1];
+
+                    Log.d(LOG_TAG, headerValue);
+                    Log.d(LOG_TAG, fileName);
+
                     int c = fileName.lastIndexOf('.');
                     c = c > 0 ? c : fileName.length();
                     String fileEx = c > 0 ? fileName.substring(c+1) : "";
@@ -60,33 +68,45 @@ public class DownloadTask extends AsyncTask<String, Integer, String> {
                     filePath = tmpPath;
 
                     Log.d(LOG_TAG, filePath);
-                } else if (headerName != null && headerName.equals("Content-Length")) {
+                } else if (headerName != null && headerName.toLowerCase().equals("content-length")) {
                     total = Integer.parseInt(headerValue);
                 }
 
             }
 
             BufferedInputStream inputStream = new BufferedInputStream(conn.getInputStream());
-            FileOutputStream outputStream = new FileOutputStream(new File(filePath));
+            FileOutputStream outputStream;
 
-            int count = 0;
-            int read = 0;
-            int num = 8096;
-            byte[] buf = new byte[num];
-            while (true) {
-                read = inputStream.read(buf, 0, num);
-                if (read == -1)
-                    break;
+            try {
+                outputStream = new FileOutputStream(new File(filePath));
 
-                outputStream.write(buf, 0, read);
-                count += read;
-                //Log.d(LOG_TAG, String.format("%d / %d", count, total));
-                publishProgress((int) ((double) count / total * 100));
+                int count = 0;
+                int read = 0;
+                int num = 8096;
+                byte[] buf = new byte[num];
+                while (true) {
+                    read = inputStream.read(buf, 0, num);
+                    if (read == -1)
+                        break;
+
+                    outputStream.write(buf, 0, read);
+                    count += read;
+                    //Log.d(LOG_TAG, String.format("%d / %d", count, total));
+                    publishProgress((int) ((double) count / total * 100));
+                }
+
+                inputStream.close();
+                outputStream.close();
+            } catch (FileNotFoundException e) {
+                BufferedOutputStream stream = new BufferedOutputStream(System.out);
+                int t = 0;
+                while (t != -1) {
+                    t = inputStream.read();
+                    stream.write(t);
+                }
+                stream.close();
+                return null;
             }
-
-            inputStream.close();
-            outputStream.close();
-
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return null;

@@ -58,9 +58,9 @@
 
                 <data android:scheme="http" />
                 <data android:host="lms.nthu.edu.tw" />
-                <data android:pathPrefix="/course" />
-                <data android:pathPrefix="/home" />
-                <data android:pathPrefix="/sys/read_attach" />
+                <data android:pathPrefix="/course/" />
+                <data android:pathPrefix="/course.php" />
+                <data android:pathPrefix="/home.php" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
