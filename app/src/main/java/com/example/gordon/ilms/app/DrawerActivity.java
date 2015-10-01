@@ -71,7 +71,7 @@ public class DrawerActivity extends BaseActivity {
 
         newestAnnouncement = new PrimaryDrawerItem()
                 .withName("最新公告")
-                .withIcon(R.drawable.ic_new_releases_yellow_36dp)
+                .withIcon(R.drawable.ic_info_yellow_24dp)
                 .withIconColor(getResources().getColor(R.color.yellow_primary))
                 .withSelectedTextColor(getResources().getColor(R.color.yellow_primary))
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {

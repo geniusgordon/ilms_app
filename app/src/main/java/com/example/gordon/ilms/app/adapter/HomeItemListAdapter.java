@@ -54,7 +54,7 @@ public class HomeItemListAdapter extends ListAdapter<HomeItem> {
                     img.setImageResource(R.drawable.ic_description_black_36dp);
                     break;
                 case HomeItem.ANNOUNCE:
-                    img.setImageResource(R.drawable.ic_new_releases_black_36dp);
+                    img.setImageResource(R.drawable.ic_info_black_36dp);
                     break;
             }
         }
