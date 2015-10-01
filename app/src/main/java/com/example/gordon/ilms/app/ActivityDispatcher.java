@@ -2,15 +2,22 @@ package com.example.gordon.ilms.app;
 
 import android.app.Activity;
 import android.app.DownloadManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
+import android.webkit.MimeTypeMap;
 
+import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.http.DownloadTask;
 import com.example.gordon.ilms.model.Course;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
@@ -19,6 +26,8 @@ import java.util.Objects;
  */
 public class ActivityDispatcher extends Activity {
     final static String LOG_TAG = "ActivityDispatcher";
+
+    private static int downloadId = 0;
 
     private static Class[] activitiesToOpen = {
             MainActivity.class,
@@ -38,8 +47,53 @@ public class ActivityDispatcher extends Activity {
         Log.d(LOG_TAG, uri.toString());
 
         if (uri.getEncodedPath().startsWith("/sys/read_attach")) {
-            new DownloadTask().execute(uri.toString(),
+            final NotificationManager mNotifyManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+            mBuilder.setContentTitle("Downloading")
+                    .setSmallIcon(R.drawable.ic_file_download_white_48dp);
+
+            final int id = downloadId;
+            downloadId++;
+
+            DownloadTask task = new DownloadTask() {
+                @Override
+                protected void onProgressUpdate(Integer... values) {
+                    mBuilder.setContentInfo(values[0]+"%");
+                    mBuilder.setProgress(100, values[0], false);
+                    mNotifyManager.notify(id, mBuilder.build());
+                }
+
+                @Override
+                protected void onPostExecute(String filePath) {
+                    if (filePath != null) {
+                        int c = filePath.lastIndexOf('.');
+                        String fileEx = c > 0 ? filePath.substring(c+1) : "";
+                        String[] tmp = filePath.split("/");
+                        String fileName = tmp[tmp.length-1];
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setDataAndType(Uri.fromFile(new File(filePath)),
+                                MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileEx));
+
+                        PendingIntent pendingIntent = PendingIntent.
+                                getActivity(ActivityDispatcher.this, 0, intent, 0);
+
+                        mBuilder.setContentTitle("Download complete")
+                                .setContentText(fileName)
+                                .setProgress(0, 0, false)
+                                .setContentIntent(pendingIntent);
+                    } else {
+                        mBuilder.setContentTitle("Download failed")
+                                .setSmallIcon(R.drawable.ic_warning_white_48dp)
+                                .setProgress(0, 0, false);
+                    }
+                    mNotifyManager.notify(id, mBuilder.build());
+                }
+            };
+
+            task.execute(uri.toString(),
                     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath());
+            finish();
             return;
         }
 

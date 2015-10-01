@@ -16,12 +16,12 @@ import java.net.URL;
 /**
  * Created by gordon on 10/1/15.
  */
-public class DownloadTask extends AsyncTask<String, Integer, Boolean> {
+public class DownloadTask extends AsyncTask<String, Integer, String> {
 
     final static String LOG_TAG = "DownloadTask";
 
     @Override
-    protected Boolean doInBackground(String... params) {
+    protected String doInBackground(String... params) {
         String filePath = params[1];
         Log.d(LOG_TAG, filePath);
         try {
@@ -89,9 +89,11 @@ public class DownloadTask extends AsyncTask<String, Integer, Boolean> {
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            return null;
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
+        return filePath;
     }
 }
