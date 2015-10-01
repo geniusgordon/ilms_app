@@ -43,7 +43,7 @@ public class HomeItemListRequest extends BaseRequest<List<HomeItem>> {
     };
 
     public HomeItemListRequest(Response.Listener<List<HomeItem>> listener, Response.ErrorListener errorListener) {
-        super(Method.GET, URL, listener, errorListener);
+        super(Medthod.GET, URL, listener, errorListener);
     }
 
     @Override

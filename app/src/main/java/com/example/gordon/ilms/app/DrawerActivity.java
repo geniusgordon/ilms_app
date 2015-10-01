@@ -184,7 +184,7 @@ public class DrawerActivity extends BaseActivity {
         c.setId(19025);
         c.setChi_title("CPE for testing");
         courseList.getCourses().add(c);*/
-        
+
         for (final Course course: courseList.getCourses()) {
             drawer.addItem(new SecondaryDrawerItem()
                     .withIcon(R.drawable.ic_view_list_black_24dp)

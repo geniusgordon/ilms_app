@@ -52,10 +52,12 @@ public class CourseListRequest extends BaseRequest<CourseList> {
         Log.d(LOG_TAG, "semester: " + semester);
         Elements elements = document.select(".mnuItem a");
         for (Element element: elements) {
+            Log.d(LOG_TAG, element.html());
         //    Course course = new Course();
         //    course.setId();
-            if (element.attr("href").split("/").length == 3) {
-                String id = element.attr("href").split("/")[2];
+            String[] hrefSplit = element.attr("href").split("/");
+            if (hrefSplit.length == 3 && hrefSplit[1].equals("course")) {
+                String id = hrefSplit[2];
                 Course course = new Course();
                 course.setTitle(element.html());
                 course.setId(Long.parseLong(id));
