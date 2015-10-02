@@ -1,24 +1,20 @@
 package com.example.gordon.ilms.app;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import com.android.volley.NoConnectionError;
 import com.android.volley.Response;
-import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
 import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.http.CourseListRequest;
-import com.example.gordon.ilms.http.LoginRequest;
-import com.example.gordon.ilms.http.ProfileRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Account;
 import com.example.gordon.ilms.model.Course;
@@ -35,8 +31,6 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
-
-import java.util.List;
 
 import it.sephiroth.android.library.picasso.Picasso;
 import it.sephiroth.android.library.picasso.PicassoTools;
@@ -187,8 +181,7 @@ public class DrawerActivity extends BaseActivity {
         item.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
             @Override
             public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {
-                Intent intent = new Intent(DrawerActivity.this, ProfileActivity.class);
-                startActivity(intent);
+                openProfile();
                 return true;
             }
         });
@@ -281,5 +274,20 @@ public class DrawerActivity extends BaseActivity {
                         }
                     }));
         }
+    }
+
+    private void openProfile() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.profile_card, null);
+        ((TextView) view.findViewById(R.id.name)).setText(account.getName());
+        ((TextView) view.findViewById(R.id.stdudentId)).setText(account.getStudentId());
+        ((TextView) view.findViewById(R.id.email)).setText(account.getEmail());
+        ((TextView) view.findViewById(R.id.lastLogin)).setText(account.getLastLogin());
+        ((TextView) view.findViewById(R.id.loginCount)).setText(account.getLoginCount());
+        ImageView imageView = (ImageView) view.findViewById(R.id.profile_image);
+        Picasso.with(imageView.getContext()).load(Uri.parse(account.getAvatarUrl())).into(imageView);
+        builder.setView(view);
+        builder.show();
     }
 }

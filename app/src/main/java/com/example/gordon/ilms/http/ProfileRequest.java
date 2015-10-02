@@ -42,7 +42,7 @@ public class ProfileRequest extends BaseRequest<Account> {
         c = info.indexOf(":");
         account.setName(info.substring(c+1));
 
-        info = profile.select("div:nth-child(2) > div:nth-child(2)").text();
+        info = document.select("#profile > div:nth-child(2) > div:nth-child(2)").text();
         c = info.indexOf(":");
         account.setLastLogin(info.substring(c+1));
 
@@ -52,6 +52,7 @@ public class ProfileRequest extends BaseRequest<Account> {
 
         Log.d(LOG_TAG, account.getName());
         Log.d(LOG_TAG, account.getAvatarUrl());
+        Log.d(LOG_TAG, account.getLastLogin());
         Log.d(LOG_TAG, account.getLoginCount());
 
         return Response.success(account, HttpHeaderParser.parseCacheHeaders(response));

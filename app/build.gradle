@@ -30,4 +30,5 @@ dependencies {
     }
     compile 'com.github.clans:fab:1.6.1'
     compile 'it.sephiroth.android.library.picasso:picasso:2.5.2.3'
+    compile 'de.hdodenhof:circleimageview:2.0.0'
 }

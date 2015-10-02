@@ -5,6 +5,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.gordon.ilms.app.LoginActivity">
 
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
@@ -86,5 +91,6 @@
 
         </RelativeLayout>
     </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>
