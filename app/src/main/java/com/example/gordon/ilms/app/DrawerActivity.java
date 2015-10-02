@@ -14,6 +14,7 @@ import com.android.volley.VolleyError;
 import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.http.CourseListRequest;
 import com.example.gordon.ilms.http.LoginRequest;
+import com.example.gordon.ilms.http.ProfileRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Account;
 import com.example.gordon.ilms.model.Course;
@@ -51,6 +52,8 @@ public class DrawerActivity extends BaseActivity {
     protected void initDrawer() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        account = Preferences.getInstance(getApplicationContext()).getAccount();
 
         accountHeader = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -180,6 +183,24 @@ public class DrawerActivity extends BaseActivity {
                         })
         );
         getCourseList();
+        getAccountProfile();
+    }
+
+    public void getAccountProfile() {
+        if (!(account.getAvatarUrl() == null || account.getAvatarUrl().equals("")))
+            return;
+
+        ProfileRequest request = new ProfileRequest(new Response.Listener<Account>() {
+            @Override
+            public void onResponse(Account response) {
+                account.setName(response.getName());
+                account.setAvatarUrl(response.getAvatarUrl());
+                account.setLastLogin(response.getLastLogin());
+                account.setLoginCount(response.getLoginCount());
+                Preferences.getInstance(getApplicationContext()).saveAccount(account);
+            }
+        }, errorListener);
+        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 
     private void getCourseList() {
@@ -197,15 +218,7 @@ public class DrawerActivity extends BaseActivity {
                         Preferences.getInstance(getApplicationContext()).saveCourseList(courseList);
                         updateDrawerAfterLogin();
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                            Toast.makeText(getApplicationContext(), "網路不穩，請稍後再試", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
+                }, errorListener
         );
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }

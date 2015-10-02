@@ -9,11 +9,17 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 /**
  * Created by gordon on 9/28/15.
  */
 public class Preferences {
     final static String ILMS = "ilms";
+    final static String ACCOUNT = "account";
     final static String STUDENT_ID = "student_id";
     final static String EMAIL = "email";
     final static String COOKIE = "cookie";
@@ -40,23 +46,26 @@ public class Preferences {
     }
 
     public void saveAccount(Account account) {
+        String accountStr = "";
+        try {
+            accountStr = account.toJsonString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         settings.edit()
-                .putString(STUDENT_ID, account.getStudentId())
-                .putString(EMAIL, account.getEmail())
+                .putString(ACCOUNT, accountStr)
                 .apply();
         Log.d("Preferences", "save account " + account.getStudentId());
     }
 
     public Account getAccount() {
-        Account account = new Account();
-        account.setStudentId(settings.getString(STUDENT_ID, ""));
-        account.setEmail(settings.getString(EMAIL, ""));
-        if (account.getStudentId().equals("") || account.getEmail().equals("")) {
-            Log.d("Preferences", "get account null");
+        String accountStr = settings.getString(ACCOUNT, "");
+        try {
+            return Account.fromJson(accountStr);
+        } catch (JSONException e) {
+            e.printStackTrace();
             return null;
         }
-        Log.d("Preferences", "get account " + account.getStudentId());
-        return account;
     }
 
     public void saveCookie(String cookie) {
@@ -74,6 +83,7 @@ public class Preferences {
 
     public void logout() {
         settings.edit()
+                .remove(ACCOUNT)
                 .remove(STUDENT_ID)
                 .remove(EMAIL)
                 .remove(COOKIE)

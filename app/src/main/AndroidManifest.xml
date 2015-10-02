@@ -23,11 +23,11 @@
         </activity>
         <activity
             android:name=".app.NewestForumActivity"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask" >
         </activity>
         <activity
             android:name=".app.NewestMaterialActivity"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask" >
         </activity>
         <activity
             android:name=".app.CourseActivity"
@@ -82,6 +82,10 @@
         <activity
             android:name=".app.ComposeActivity"
             android:label="@string/title_activity_compose" >
+        </activity>
+        <activity
+            android:name=".app.ProfileActivity"
+            android:label="@string/title_activity_profile" >
         </activity>
     </application>
 

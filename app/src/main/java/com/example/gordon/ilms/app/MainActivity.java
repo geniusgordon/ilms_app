@@ -20,7 +20,9 @@ import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.app.adapter.HomeItemListAdapter;
 import com.example.gordon.ilms.http.HomeItemListRequest;
 import com.example.gordon.ilms.http.NewestAnnouncementRequest;
+import com.example.gordon.ilms.http.ProfileRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
+import com.example.gordon.ilms.model.Account;
 import com.example.gordon.ilms.model.HomeItem;
 import com.example.gordon.ilms.model.Preferences;
 
@@ -47,17 +49,6 @@ public class MainActivity extends DrawerActivity {
                 msgTxt.setText("尚未登入");
             else
                 msgTxt.setText("");
-        }
-    };
-    protected Response.ErrorListener errorListener = new Response.ErrorListener() {
-        @Override
-        public void onErrorResponse(VolleyError error) {
-            if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                msgTxt.setText("無法連線，請稍後再試");
-                Toast.makeText(getApplicationContext(), "無法連線，請稍後再試", Toast.LENGTH_SHORT).show();
-            }
-            progressBar.setVisibility(View.INVISIBLE);
-            swipeRefreshLayout.setRefreshing(false);
         }
     };
 

@@ -45,10 +45,8 @@ public class PostDetailActivity extends BaseActivity {
     final static String LOG_TAG = "PostDetailActivity";
     final static int REPLY = 2;
 
-    final static int SELECT_TITLE = 1;
     final static int SELECT_AUTHOR = 2;
 
-    final static int COPY_TITLE = 1;
     final static int COPY_NAME = 2;
     final static int COPY_ID = 3;
     final static int COPY_EMAIL = 4;
