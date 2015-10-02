@@ -1,5 +1,7 @@
 package com.example.gordon.ilms.app;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -11,6 +13,7 @@ import android.transition.Explode;
 import android.transition.Fade;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,14 +45,30 @@ public class PostDetailActivity extends BaseActivity {
     final static String LOG_TAG = "PostDetailActivity";
     final static int REPLY = 2;
 
+    final static int SELECT_TITLE = 1;
+    final static int SELECT_AUTHOR = 2;
+
+    final static int COPY_TITLE = 1;
+    final static int COPY_NAME = 2;
+    final static int COPY_ID = 3;
+    final static int COPY_EMAIL = 4;
+    final static int SEND_EMAIL = 5;
+
+    private String selectedName;
+    private String selectedID;
+    private String selectedEmail;
+
     private LinearLayout replyLayout;
     private Toolbar toolbar;
     private ProgressBar progressBar;
     private FloatingActionButton btn;
+    private ViewGroup titleLayout;
 
     private Post post;
     private Course course;
     private String title;
+
+    ClipboardManager clipboardManager;
 
     private ReplyListRequest request;
 
@@ -64,6 +83,8 @@ public class PostDetailActivity extends BaseActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_detail);
+
+        clipboardManager= (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 
         course = (Course) getIntent().getSerializableExtra("course");
         post = (Post) getIntent().getSerializableExtra("post");
@@ -92,8 +113,66 @@ public class PostDetailActivity extends BaseActivity {
         getSupportActionBar().setTitle("");
 
         ((TextView) findViewById(R.id.title)).setText(title);
+        titleLayout = (ViewGroup) findViewById(R.id.titleLayout);
+        registerForContextMenu(titleLayout);
 
         getReplies();
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        if (v.getId() == R.id.titleLayout) {
+            menu.add(SELECT_TITLE, COPY_TITLE, Menu.NONE, "複製標題");
+        } else if (v.getId() == R.id.header) {
+            menu.add(SELECT_AUTHOR, COPY_NAME, Menu.NONE, "複製名字");
+            menu.add(SELECT_AUTHOR, COPY_ID, Menu.NONE, "複製學號");
+            menu.add(SELECT_AUTHOR, COPY_EMAIL, Menu.NONE, "複製信箱");
+            menu.add(SELECT_AUTHOR, SEND_EMAIL, Menu.NONE, "寄信給他");
+            selectedName = ((TextView) v.findViewById(R.id.author)).getText().toString();
+            selectedID = ((TextView) v.findViewById(R.id.account)).getText().toString();
+            selectedEmail = ((TextView) v.findViewById(R.id.email)).getText().toString();
+        }
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        int gid = item.getGroupId();
+        int id = item.getItemId();
+        if (gid == SELECT_TITLE && id == COPY_TITLE) {
+            ClipData clipData = ClipData.newPlainText("text", title);
+            clipboardManager.setPrimaryClip(clipData);
+            Toast.makeText(getApplicationContext(), "已複製到剪貼簿", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        if (gid == SELECT_AUTHOR) {
+            ClipData clipData;
+            switch (id) {
+                case COPY_NAME:
+                    clipData = ClipData.newPlainText("text", selectedName);
+                    clipboardManager.setPrimaryClip(clipData);
+                    Toast.makeText(getApplicationContext(), "已複製到剪貼簿", Toast.LENGTH_SHORT).show();
+                    break;
+                case COPY_ID:
+                    clipData = ClipData.newPlainText("text", selectedID);
+                    clipboardManager.setPrimaryClip(clipData);
+                    Toast.makeText(getApplicationContext(), "已複製到剪貼簿", Toast.LENGTH_SHORT).show();
+                    break;
+                case COPY_EMAIL:
+                    clipData = ClipData.newPlainText("text", selectedEmail);
+                    clipboardManager.setPrimaryClip(clipData);
+                    Toast.makeText(getApplicationContext(), "已複製到剪貼簿", Toast.LENGTH_SHORT).show();
+                    break;
+                case SEND_EMAIL:
+                    Uri uri = Uri.parse("mailto:" + selectedEmail);
+                    Log.d(LOG_TAG, uri.toString());
+                    Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+                    startActivity(intent);
+                    break;
+            }
+            return true;
+        }
+        return super.onContextItemSelected(item);
     }
 
     @Override
@@ -158,6 +237,8 @@ public class PostDetailActivity extends BaseActivity {
                     for (Reply reply: response.getReplies()) {
                         ViewGroup view = (ViewGroup) layoutInflater.inflate(R.layout.reply_item, null);
                         ReplyViewHolder viewHolder = new ReplyViewHolder(view, reply);
+                        View replyHeader = viewHolder.getView().findViewById(R.id.header);
+                        registerForContextMenu(replyHeader);
                         replyLayout.addView(viewHolder.getView());
                     }
                     progressBar.setVisibility(View.INVISIBLE);
