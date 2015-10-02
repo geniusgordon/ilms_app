@@ -17,6 +17,7 @@ import org.jsoup.nodes.Element;
 public class ProfileRequest extends BaseRequest<Account> {
 
     final static String URL = "http://lms.nthu.edu.tw/home.php";
+    final static String BASE_URL = "http://lms.nthu.edu.tw";
     final static String LOG_TAG = "ProfileRequest";
 
     public ProfileRequest(Response.Listener<Account> listener, Response.ErrorListener errorListener) {
@@ -31,7 +32,7 @@ public class ProfileRequest extends BaseRequest<Account> {
         Document document = Jsoup.parse(responseHtml);
         Element profile = document.select("#profile").first();
 
-        String avatarUrl = URL + profile.select("img").attr("src");
+        String avatarUrl = BASE_URL + profile.select("img").attr("src");
         account.setAvatarUrl(avatarUrl);
 
         int c;

@@ -1,10 +1,14 @@
 package com.example.gordon.ilms.app;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.NoConnectionError;
@@ -30,8 +34,12 @@ import com.mikepenz.materialdrawer.model.ProfileSettingDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.util.DrawerImageLoader;
 
 import java.util.List;
+
+import it.sephiroth.android.library.picasso.Picasso;
+import it.sephiroth.android.library.picasso.PicassoTools;
 
 /**
  * Created by gordon on 9/26/15.
@@ -54,6 +62,8 @@ public class DrawerActivity extends BaseActivity {
         setSupportActionBar(toolbar);
 
         account = Preferences.getInstance(getApplicationContext()).getAccount();
+
+        initImageLoader();
 
         accountHeader = new AccountHeaderBuilder()
                 .withActivity(this)
@@ -165,10 +175,25 @@ public class DrawerActivity extends BaseActivity {
 
     private void addAccount(Account account) {
         accountHeader.removeProfile(0);
-        accountHeader.addProfiles(
-                new ProfileDrawerItem()
-                        .withName(account.getStudentId())
-                        .withEmail(account.getEmail()),
+
+        ProfileDrawerItem item = new ProfileDrawerItem()
+                    .withName(account.getStudentId())
+                    .withIcon(account.getAvatarUrl())
+                    .withEmail(account.getEmail());
+
+        if (account.getAvatarUrl() != null)
+            item.withIcon(account.getAvatarUrl());
+
+        item.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+            @Override
+            public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {
+                Intent intent = new Intent(DrawerActivity.this, ProfileActivity.class);
+                startActivity(intent);
+                return true;
+            }
+        });
+
+        accountHeader.addProfiles(item,
                 new ProfileSettingDrawerItem()
                         .withName("登出")
                         .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
@@ -183,24 +208,32 @@ public class DrawerActivity extends BaseActivity {
                         })
         );
         getCourseList();
-        getAccountProfile();
     }
 
-    public void getAccountProfile() {
-        if (!(account.getAvatarUrl() == null || account.getAvatarUrl().equals("")))
-            return;
-
-        ProfileRequest request = new ProfileRequest(new Response.Listener<Account>() {
+    public void initImageLoader() {
+        DrawerImageLoader.init(new DrawerImageLoader.IDrawerImageLoader() {
             @Override
-            public void onResponse(Account response) {
-                account.setName(response.getName());
-                account.setAvatarUrl(response.getAvatarUrl());
-                account.setLastLogin(response.getLastLogin());
-                account.setLoginCount(response.getLoginCount());
-                Preferences.getInstance(getApplicationContext()).saveAccount(account);
+            public void set(ImageView imageView, Uri uri, Drawable placeholder) {
+                Log.d("ImageLoader set", uri.toString());
+                PicassoTools.clearCache(Picasso.with(getApplicationContext()));
+                Picasso.with(imageView.getContext()).load(uri).placeholder(placeholder).into(imageView);
             }
-        }, errorListener);
-        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+
+            @Override
+            public void cancel(ImageView imageView) {
+                Picasso.with(imageView.getContext()).cancelRequest(imageView);
+            }
+
+            @Override
+            public Drawable placeholder(Context ctx) {
+                return null;
+            }
+
+            @Override
+            public Drawable placeholder(Context context, String s) {
+                return null;
+            }
+        });
     }
 
     private void getCourseList() {

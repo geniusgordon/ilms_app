@@ -29,4 +29,5 @@ dependencies {
         transitive = true
     }
     compile 'com.github.clans:fab:1.6.1'
+    compile 'it.sephiroth.android.library.picasso:picasso:2.5.2.3'
 }

@@ -23,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.http.LoginRequest;
+import com.example.gordon.ilms.http.ProfileRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Account;
 import com.example.gordon.ilms.model.LoginStatus;
@@ -32,11 +33,26 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private Account account;
+
     private Toolbar toolbar;
     private EditText usernameTxt;
     private EditText passwordTxt;
     private Button loginBtn;
     private ProgressBar loginProgressBar;
+
+    private Response.ErrorListener errorListener = new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            error.printStackTrace();
+            if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                Toast.makeText(getApplicationContext(), "無法連線，請稍後再試", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "帳密有誤", Toast.LENGTH_SHORT).show();
+            }
+            loginProgressBar.setVisibility(View.INVISIBLE);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,28 +107,33 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(LoginStatus response) {
                     Log.d("Login response", response.getEmail());
-                    Account account = new Account();
+                    account = new Account();
                     account.setStudentId(username);
                     account.setEmail(response.getEmail());
-                    Intent intent = new Intent();
-                    intent.putExtra("account", account);
-                    Preferences.getInstance(getApplicationContext()).saveAccount(account);
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    getAccountProfile();
                 }
-            },
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    error.printStackTrace();
-                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                        Toast.makeText(getApplicationContext(), "無法連線，請稍後再試", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "帳密有誤", Toast.LENGTH_SHORT).show();
-                    }
-                    loginProgressBar.setVisibility(View.INVISIBLE);
-                }
-            });
+            }, errorListener);
+        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+    }
+
+    public void getAccountProfile() {
+        if (!(account.getAvatarUrl() == null || account.getAvatarUrl().equals("")))
+            return;
+
+        ProfileRequest request = new ProfileRequest(new Response.Listener<Account>() {
+            @Override
+            public void onResponse(Account response) {
+                account.setName(response.getName());
+                account.setAvatarUrl(response.getAvatarUrl());
+                account.setLastLogin(response.getLastLogin());
+                account.setLoginCount(response.getLoginCount());
+                Preferences.getInstance(getApplicationContext()).saveAccount(account);
+                Intent intent = new Intent();
+                intent.putExtra("account", account);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        }, errorListener);
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 }
