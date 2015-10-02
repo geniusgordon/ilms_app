@@ -62,7 +62,6 @@ public class PostDetailActivity extends BaseActivity {
     private Toolbar toolbar;
     private ProgressBar progressBar;
     private FloatingActionButton btn;
-    private ViewGroup titleLayout;
 
     private Post post;
     private Course course;
@@ -113,17 +112,13 @@ public class PostDetailActivity extends BaseActivity {
         getSupportActionBar().setTitle("");
 
         ((TextView) findViewById(R.id.title)).setText(title);
-        titleLayout = (ViewGroup) findViewById(R.id.titleLayout);
-        registerForContextMenu(titleLayout);
 
         getReplies();
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        if (v.getId() == R.id.titleLayout) {
-            menu.add(SELECT_TITLE, COPY_TITLE, Menu.NONE, "複製標題");
-        } else if (v.getId() == R.id.header) {
+       if (v.getId() == R.id.header) {
             menu.add(SELECT_AUTHOR, COPY_NAME, Menu.NONE, "複製名字");
             menu.add(SELECT_AUTHOR, COPY_ID, Menu.NONE, "複製學號");
             menu.add(SELECT_AUTHOR, COPY_EMAIL, Menu.NONE, "複製信箱");
@@ -139,12 +134,6 @@ public class PostDetailActivity extends BaseActivity {
     public boolean onContextItemSelected(MenuItem item) {
         int gid = item.getGroupId();
         int id = item.getItemId();
-        if (gid == SELECT_TITLE && id == COPY_TITLE) {
-            ClipData clipData = ClipData.newPlainText("text", title);
-            clipboardManager.setPrimaryClip(clipData);
-            Toast.makeText(getApplicationContext(), "已複製到剪貼簿", Toast.LENGTH_SHORT).show();
-            return true;
-        }
         if (gid == SELECT_AUTHOR) {
             ClipData clipData;
             switch (id) {

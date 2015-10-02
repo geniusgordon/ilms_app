@@ -36,26 +36,19 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:id="@+id/titleLayout"
+            <TextView
+                android:id="@+id/title"
+                android:text="AAAAAAAAAAAAAAAAAAAAAAAAAA"
+                android:padding="16dp"
+                android:textIsSelectable="true"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                style="@style/Base.Widget.AppCompat.Button.Borderless">
-
-                <TextView
-                    android:id="@+id/title"
-                    android:text="AAAAAAAAAAAAAAAAAAAAAAAAAA"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
-                    />
-
-            </RelativeLayout>
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+                />
 
             <LinearLayout
                 android:id="@+id/reply_layout"
-                android:layout_below="@id/titleLayout"
+                android:layout_below="@id/title"
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
