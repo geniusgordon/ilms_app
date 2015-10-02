@@ -7,6 +7,7 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.transition.Explode;
 import android.transition.Fade;
 import android.util.Log;
 import android.util.TypedValue;
@@ -117,7 +118,7 @@ public class PostDetailActivity extends BaseActivity {
             String url = this.request.getOpenUrl();
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(url));
-            startActivity(intent);
+            startActivity(Intent.createChooser(intent, "開啟網頁版iLms"));
             return true;
         }
 

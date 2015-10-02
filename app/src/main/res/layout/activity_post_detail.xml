@@ -7,6 +7,12 @@
     android:background="#fff"
     tools:context="com.example.gordon.ilms.app.PostDetailActivity">
 
+    <RelativeLayout
+        android:transitionName="open_item"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -68,6 +74,8 @@
 
         </RelativeLayout>
     </ScrollView>
+
+    </RelativeLayout>
 
     <com.github.clans.fab.FloatingActionButton
         android:id="@+id/reply_btn"

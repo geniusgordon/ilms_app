@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
+import android.transition.Fade;
 import android.transition.Slide;
 import android.util.Log;
 import android.view.Menu;
@@ -63,6 +64,8 @@ public class ForumActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+            getWindow().setSharedElementEnterTransition(new Fade());
+            getWindow().setSharedElementExitTransition(new Fade());
             getWindow().setEnterTransition(new Explode());
             getWindow().setExitTransition(new Explode());
         }
@@ -106,7 +109,7 @@ public class ForumActivity extends BaseActivity {
                 intent.putExtra("post", post);
                 intent.putExtra("course", course);
 
-                Pair<View, String> p1 = Pair.create((View) listView, "open_item");
+                Pair<View, String> p1 = Pair.create((View) parent, "open_item");
                 Pair<View, String> p2 = Pair.create((View) btn, "fab");
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation(ForumActivity.this, p1, p2);

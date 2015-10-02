@@ -92,7 +92,7 @@ public class DetailActivity<T extends CourseItem> extends BaseActivity {
             String url = this.request.getOpenUrl();
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(url));
-            startActivity(Intent.createChooser(intent, "開啟iLms網頁版"));
+            startActivity(Intent.createChooser(intent, "開啟網頁版iLms"));
             return true;
         }
 

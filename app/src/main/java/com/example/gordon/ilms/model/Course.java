@@ -51,15 +51,25 @@ public class Course implements Serializable {
     public static String[] splitTitle(String title) {
         String chi_title = title;
         String eng_title = "";
-        for (int i = 0; i < title.length(); i++) {
+        for (int i = title.length()-1; i > 0; i--) {
             char c = title.charAt(i);
-            if (('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z')) {
-                chi_title = title.substring(0, i);
-                eng_title = title.substring(i);
+            if (!isEngTitleChar(c)) {
+                chi_title = title.substring(0, i+1);
+                eng_title = title.substring(i+1);
                 break;
             }
         }
         return new String[]{chi_title, eng_title};
+    }
+
+    public static boolean isEngTitleChar(char c) {
+        if ('A' <= c && c <= 'Z')
+            return true;
+        if ('a' <= c && c <= 'z')
+            return true;
+        if (c == ' ' || c == '(' || c == ')')
+            return true;
+        return false;
     }
 
     public String toJsonString() throws JSONException {

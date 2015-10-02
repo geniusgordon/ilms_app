@@ -105,6 +105,8 @@ public class MainActivity extends DrawerActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        listAdapter.clearItems();
+        getHomeItem();
         drawer.setSelection(newestAnnouncement);
     }
 

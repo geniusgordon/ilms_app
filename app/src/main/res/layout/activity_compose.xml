@@ -75,7 +75,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp" />
 
-            <RelativeLayout
+            <ScrollView
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
@@ -87,7 +87,7 @@
                     android:hint="內容"
                     android:background="@android:color/transparent"
                     android:id="@+id/content"  />
-            </RelativeLayout>
+            </ScrollView>
 
             <RelativeLayout
                 android:layout_alignParentBottom="true"
