@@ -1,122 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
+    android:id="@+id/profileLayout"
     android:background="?attr/colorPrimary"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <RelativeLayout
-        android:layout_centerHorizontal="true"
         android:id="@+id/top"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="192dp" >
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_marginLeft="16dp"
-            android:id="@+id/profile_image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/bg_account"
-            app:civ_border_width="2dp"
-            app:civ_border_color="#FF000000"/>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_toRightOf="@+id/profile_image"
-            android:layout_alignTop="@+id/profile_image"
-            android:paddingTop="24dp"
-            android:paddingLeft="26dp"
+        <RelativeLayout
+            android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
-            android:layout_height="150dp">
-
-            <RelativeLayout
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical"
+                android:paddingTop="24dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="150dp">
 
-                <TextView
-                    android:text="Gordon"
-                    android:id="@+id/name"
+                <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Base.TextAppearance.AppCompat.Large" />
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Gordon"
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Base.TextAppearance.AppCompat.Large" />
+
+                    <TextView
+                        android:text="102062312"
+                        android:id="@+id/stdudentId"
+                        android:paddingLeft="2dp"
+                        android:layout_alignBottom="@+id/name"
+                        android:layout_toRightOf="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
 
                 <TextView
-                    android:text="102062312"
-                    android:id="@+id/stdudentId"
-                    android:paddingLeft="2dp"
-                    android:layout_alignBottom="@+id/name"
-                    android:layout_toRightOf="@+id/name"
+                    android:text="geniusgordon@gmail.com"
+                    android:id="@+id/email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-            </RelativeLayout>
-
-            <TextView
-                android:text="geniusgordon@gmail.com"
-                android:id="@+id/email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <LinearLayout
-                android:paddingTop="16dp"
-                android:layout_weight="1"
-                android:layout_below="@id/email"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:paddingTop="16dp"
                     android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent">
-                    <TextView
-                        android:text="最後登入"
-                        style="@style/Base.TextAppearance.AppCompat"
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:text="123456"
-                        android:id="@+id/lastLogin"
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    android:layout_below="@id/email"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
 
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent">
-                    <TextView
-                        android:text="登入次數"
-                        style="@style/Base.TextAppearance.AppCompat"
-                        android:layout_gravity="center"
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_weight="1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:text="123"
-                        android:id="@+id/loginCount"
-                        android:layout_gravity="center"
+                        android:layout_height="fill_parent">
+                        <TextView
+                            android:text="最後登入"
+                            style="@style/Base.TextAppearance.AppCompat"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:text="123456"
+                            android:id="@+id/lastLogin"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_weight="1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="fill_parent">
+                        <TextView
+                            android:text="登入次數"
+                            style="@style/Base.TextAppearance.AppCompat"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:text="123"
+                            android:id="@+id/loginCount"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
-
-        </LinearLayout>
+        </RelativeLayout>
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_below="@+id/top"
-        android:background="@color/primary_dark"
+        android:background="?attr/colorPrimaryDark"
         android:layout_width="fill_parent"
         android:layout_height="?android:attr/actionBarSize">
-
     </RelativeLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="162dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/bg_account"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FF000000"/>
 
 </RelativeLayout>
