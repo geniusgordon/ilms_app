@@ -60,6 +60,7 @@ public class Preferences {
 
     public Account getAccount() {
         String accountStr = settings.getString(ACCOUNT, "");
+        Log.d("Prefs getAccount", accountStr==null?"":accountStr);
         try {
             return Account.fromJson(accountStr);
         } catch (JSONException e) {

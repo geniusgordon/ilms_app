@@ -165,6 +165,7 @@ public class DrawerActivity extends BaseActivity {
                 account = (Account) data.getSerializableExtra("account");
                 Log.d("On Result", account.getStudentId());
                 Log.d("On Result", account.getEmail());
+                Intent intent = new Intent(DrawerActivity.this, MainActivity.class);
                 addAccount(account);
             }
         }
@@ -202,7 +203,7 @@ public class DrawerActivity extends BaseActivity {
                             @Override
                             public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {
                                 Preferences.getInstance(getApplicationContext()).logout();
-                                finish();
+                                finishAffinity();
                                 Intent intent = new Intent(DrawerActivity.this, MainActivity.class);
                                 startActivity(intent);
                                 return true;
@@ -272,10 +273,10 @@ public class DrawerActivity extends BaseActivity {
                 .withName("課程  " + courseList.getSemester());
         drawer.addItem(courseHeader);
 
-        Course c = new Course();
+        /*Course c = new Course();
         c.setId(22921);
         c.setChi_title("社群軟體 for testing");
-        courseList.getCourses().add(c);
+        courseList.getCourses().add(c);*/
 
         for (final Course course: courseList.getCourses()) {
             drawer.addItem(new SecondaryDrawerItem()
