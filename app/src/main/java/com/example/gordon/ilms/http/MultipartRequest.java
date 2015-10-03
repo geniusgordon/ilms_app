@@ -131,9 +131,8 @@ public class MultipartRequest extends BaseRequest<String> {
     }
 
     @Override
-    protected Response<String> parseNetworkResponse(NetworkResponse response) {
-        String result = new String(response.data);
-        return Response.success(result, HttpHeaderParser.parseCacheHeaders(response));
+    protected String parseResponseHtml(String responseHtml) {
+        return responseHtml;
     }
 
     private void writeData(DataOutputStream os, String field, String value) throws IOException {

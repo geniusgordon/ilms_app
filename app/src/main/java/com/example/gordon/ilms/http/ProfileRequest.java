@@ -25,10 +25,9 @@ public class ProfileRequest extends BaseRequest<Account> {
     }
 
     @Override
-    protected Response<Account> parseNetworkResponse(NetworkResponse response) {
+    protected Account parseResponseHtml(String responseHtml) {
         Account account = new Account();
 
-        String responseHtml = new String(response.data);
         Document document = Jsoup.parse(responseHtml);
         Element profile = document.select("#profile").first();
 
@@ -55,6 +54,6 @@ public class ProfileRequest extends BaseRequest<Account> {
         Log.d(LOG_TAG, account.getLastLogin());
         Log.d(LOG_TAG, account.getLoginCount());
 
-        return Response.success(account, HttpHeaderParser.parseCacheHeaders(response));
+        return account;
     }
 }

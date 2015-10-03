@@ -38,9 +38,8 @@ public class AnnouncementListRequest extends BaseRequest<List<Announcement>> {
     }
 
     @Override
-    protected Response<List<Announcement>> parseNetworkResponse(NetworkResponse response) {
+    protected List<Announcement> parseResponseHtml(String responseHtml) {
         List<Announcement> announcements = new ArrayList<Announcement>();
-        String responseHtml = new String(response.data);
         Document document = Jsoup.parse(responseHtml);
         Elements elements = document.select(".BlockItem");
 
@@ -68,7 +67,6 @@ public class AnnouncementListRequest extends BaseRequest<List<Announcement>> {
             Log.d(LOG_TAG, timeStr);
             Log.d(LOG_TAG, popularityStr);
         }
-        return Response.success(announcements, HttpHeaderParser.parseCacheHeaders(response));
+        return announcements;
     }
-
 }

@@ -36,8 +36,7 @@ public class HomeworkRequest extends BaseRequest<Homework> {
     }
 
     @Override
-    protected Response<Homework> parseNetworkResponse(NetworkResponse response) {
-        String responseHtml = new String(response.data);
+    protected Homework parseResponseHtml(String responseHtml) {
         Document document = Jsoup.parse(responseHtml);
 
         homework.setTitle(document.select("#main > div.infoPath > span.curr").text());
@@ -63,6 +62,6 @@ public class HomeworkRequest extends BaseRequest<Homework> {
             homework.addAttachment(attachment);
         }
 
-        return Response.success(homework, HttpHeaderParser.parseCacheHeaders(response));
+        return homework;
     }
 }

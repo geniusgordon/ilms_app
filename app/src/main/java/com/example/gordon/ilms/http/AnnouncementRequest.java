@@ -45,13 +45,11 @@ public class AnnouncementRequest extends BaseRequest<Announcement> {
     }
 
     @Override
-    protected Response<Announcement> parseNetworkResponse(NetworkResponse response) {
-        String responseStr = new String(response.data);
-
+    protected Announcement parseResponseHtml(String responseHtml) {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
         try {
-            JSONObject news = new JSONObject(responseStr).getJSONObject("news");
+            JSONObject news = new JSONObject(responseHtml).getJSONObject("news");
             announcement.setContent(news.getString("note"));
             try {
                 String attach = news.getString("attach");
@@ -67,10 +65,10 @@ public class AnnouncementRequest extends BaseRequest<Announcement> {
                 e.printStackTrace();
             }
         } catch (JSONException e) {
-            return Response.error(new VolleyError("Json parse error"));
+            return null;
         }
 
-        return Response.success(announcement, HttpHeaderParser.parseCacheHeaders(response));
+        return announcement;
     }
 
     @Override

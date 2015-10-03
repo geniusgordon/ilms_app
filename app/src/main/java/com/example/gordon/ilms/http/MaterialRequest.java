@@ -36,8 +36,7 @@ public class MaterialRequest extends BaseRequest<Material> {
     }
 
     @Override
-    protected Response<Material> parseNetworkResponse(NetworkResponse response) {
-        String responseHtml = new String(response.data);
+    protected Material parseResponseHtml(String responseHtml) {
         Document document = Jsoup.parse(responseHtml);
 
         material.setTitle(document.select("#doc > div.title").text().trim());
@@ -72,6 +71,6 @@ public class MaterialRequest extends BaseRequest<Material> {
             material.addAttachment(attachment);
         }
 
-        return Response.success(material, HttpHeaderParser.parseCacheHeaders(response));
+        return material;
     }
 }

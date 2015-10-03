@@ -47,10 +47,9 @@ public class HomeItemListRequest extends BaseRequest<List<HomeItem>> {
     }
 
     @Override
-    protected Response<List<HomeItem>> parseNetworkResponse(NetworkResponse response) {
+    protected List<HomeItem> parseResponseHtml(String responseHtml) {
         List<HomeItem> homeItems = new ArrayList<HomeItem>();
-        String resonseHtml = new String(response.data);
-        Document document = Jsoup.parse(resonseHtml);
+        Document document = Jsoup.parse(responseHtml);
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -92,6 +91,6 @@ public class HomeItemListRequest extends BaseRequest<List<HomeItem>> {
         if (homeItems.size() == cssSelect.length)
             homeItems.clear();
 
-        return Response.success(homeItems, HttpHeaderParser.parseCacheHeaders(response));
+        return homeItems;
     }
 }

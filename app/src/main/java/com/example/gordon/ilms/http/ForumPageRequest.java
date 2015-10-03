@@ -21,8 +21,7 @@ public class ForumPageRequest extends BaseRequest<Integer> {
     }
 
     @Override
-    protected Response<Integer> parseNetworkResponse(NetworkResponse response) {
-        String responseHtml = new String(response.data);
+    protected Integer parseResponseHtml(String responseHtml) {
         Document document = Jsoup.parse(responseHtml);
 
         Elements elements = document.select(".page span");
@@ -30,6 +29,6 @@ public class ForumPageRequest extends BaseRequest<Integer> {
         if (page <= 0)
             page = 1;
 
-        return Response.success(page, HttpHeaderParser.parseCacheHeaders(response));
+        return page;
     }
 }

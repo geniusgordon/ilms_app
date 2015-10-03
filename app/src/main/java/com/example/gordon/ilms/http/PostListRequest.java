@@ -36,9 +36,8 @@ public class PostListRequest extends BaseRequest<List<Post>> {
     }
 
     @Override
-    protected Response<List<Post>> parseNetworkResponse(NetworkResponse response) {
+    protected List<Post> parseResponseHtml(String responseHtml) {
         List<Post> posts = new ArrayList<Post>();
-        String responseHtml = new String(response.data);
         Document document = Jsoup.parse(responseHtml);
 
         Elements tr = document.select("tr");
@@ -48,7 +47,7 @@ public class PostListRequest extends BaseRequest<List<Post>> {
 
             Elements td = tr.eq(i).select("td");
             if (tr.size() == 2 && td.size() == 1)
-                return Response.success(posts, HttpHeaderParser.parseCacheHeaders(response));
+                return posts;
 
             DateFormat df = new SimpleDateFormat("MM-dd hh:mm");
 
@@ -79,6 +78,6 @@ public class PostListRequest extends BaseRequest<List<Post>> {
             posts.add(post);
         }
 
-        return Response.success(posts, HttpHeaderParser.parseCacheHeaders(response));
+        return posts;
     }
 }

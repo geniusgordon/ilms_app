@@ -31,9 +31,8 @@ public class HomeworkListRequest extends BaseRequest<List<Homework>> {
     }
 
     @Override
-    protected Response<List<Homework>> parseNetworkResponse(NetworkResponse response) {
+    protected List<Homework> parseResponseHtml(String responseHtml) {
         List<Homework> homeworks = new ArrayList<Homework>();
-        String responseHtml = new String(response.data);
         Document document = Jsoup.parse(responseHtml);
 
         Elements tr = document.select("tr");
@@ -59,7 +58,6 @@ public class HomeworkListRequest extends BaseRequest<List<Homework>> {
             homeworks.add(homework);
         }
 
-        return Response.success(homeworks, HttpHeaderParser.parseCacheHeaders(response));
+        return homeworks;
     }
-
 }

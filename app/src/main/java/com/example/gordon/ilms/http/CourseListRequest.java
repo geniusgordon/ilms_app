@@ -39,22 +39,21 @@ public class CourseListRequest extends BaseRequest<CourseList> {
     }
 
     @Override
-    protected Response<CourseList> parseNetworkResponse(NetworkResponse response) {
+    protected CourseList parseResponseHtml(String responseHtml) {
         CourseList courseList = new CourseList();
         List<Course> courses = new ArrayList<Course>();
-        String responseHtml = new String(response.data);
         Document document = Jsoup.parse(responseHtml);
 
         if (responseHtml.contains("權限不足"))
-            return Response.error(new VolleyError("login error"));
+            return null;
 
         String semester = document.select("#left > div:nth-child(1) > div.mnuBody > div.hint").html();
         Log.d(LOG_TAG, "semester: " + semester);
         Elements elements = document.select(".mnuItem a");
         for (Element element: elements) {
             Log.d(LOG_TAG, element.html());
-        //    Course course = new Course();
-        //    course.setId();
+            //    Course course = new Course();
+            //    course.setId();
             String[] hrefSplit = element.attr("href").split("/");
             if (hrefSplit.length == 3 && hrefSplit[1].equals("course")) {
                 String id = hrefSplit[2];
@@ -69,7 +68,6 @@ public class CourseListRequest extends BaseRequest<CourseList> {
         }
         courseList.setSemester(semester);
         courseList.setCourses(courses);
-        return Response.success(courseList, HttpHeaderParser.parseCacheHeaders(response));
+        return courseList;
     }
-
 }

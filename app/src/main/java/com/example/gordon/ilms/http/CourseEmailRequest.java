@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.CourseEmail;
@@ -25,15 +26,16 @@ public class CourseEmailRequest extends BaseRequest<CourseEmail> {
     }
 
     @Override
-    protected Response<CourseEmail> parseNetworkResponse(NetworkResponse response) {
+    protected CourseEmail parseResponseHtml(String responseHtml) {
         CourseEmail courseEmail = new CourseEmail();
-        String responseHtml = new String(response.data);
         Document document = Jsoup.parse(responseHtml);
 
         String courseName = document.select("#main div.infoPath a:first-child").text();
         courseEmail.setCourseName(courseName);
 
         Log.d(LOG_TAG, courseName);
+        Log.d(LOG_TAG, getUrl());
+        Log.d(LOG_TAG, getOriginUrl());
 
         Element e1 = document.select("#menu > div.box").last().select("div.boxBody > div:nth-child(5)").first();
         Element e2 = document.select("#menu > div.box").last().select("div.boxBody > div:nth-child(6)").first();
@@ -63,6 +65,6 @@ public class CourseEmailRequest extends BaseRequest<CourseEmail> {
             }
         }
 
-        return Response.success(courseEmail, HttpHeaderParser.parseCacheHeaders(response));
+        return courseEmail;
     }
 }

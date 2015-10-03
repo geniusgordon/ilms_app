@@ -41,10 +41,9 @@ public class ReplyListRequest extends BaseRequest<ReplyList> {
     }
 
     @Override
-    protected Response<ReplyList> parseNetworkResponse(NetworkResponse response) {
+    protected ReplyList parseResponseHtml(String responseHtml) {
         ReplyList replyList = new ReplyList();
         List<Reply> replies = new ArrayList<Reply>();
-        String responseHtml = new String(response.data);
 
         try {
             JSONObject postJson = new JSONObject(responseHtml).getJSONObject("posts");
@@ -83,12 +82,12 @@ public class ReplyListRequest extends BaseRequest<ReplyList> {
             }
         } catch (JSONException e) {
             e.printStackTrace();
-            return Response.error(new VolleyError("Json error"));
+            return null;
         }
 
         replyList.setReplies(replies);
 
-        return Response.success(replyList, HttpHeaderParser.parseCacheHeaders(response));
+        return replyList;
     }
 
     @Override

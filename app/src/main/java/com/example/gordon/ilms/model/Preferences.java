@@ -88,7 +88,7 @@ public class Preferences {
                 .remove(EMAIL)
                 .remove(COOKIE)
                 .remove(COURSE_LIST)
-                .apply();
+                .commit();
     }
 
     public void saveCourseList(CourseList courseList) {

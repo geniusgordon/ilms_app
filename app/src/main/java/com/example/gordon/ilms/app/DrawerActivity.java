@@ -255,10 +255,10 @@ public class DrawerActivity extends BaseActivity {
                 .withName("課程  " + courseList.getSemester());
         drawer.addItem(courseHeader);
 
-        /*Course c = new Course();
-        c.setId(19025);
-        c.setChi_title("CPE for testing");
-        courseList.getCourses().add(c);*/
+        Course c = new Course();
+        c.setId(22921);
+        c.setChi_title("社群軟體 for testing");
+        courseList.getCourses().add(c);
 
         for (final Course course: courseList.getCourses()) {
             drawer.addItem(new SecondaryDrawerItem()
