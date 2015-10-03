@@ -23,89 +23,91 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <ScrollView
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-
-            <EditText
-                android:id="@+id/title"
-                android:hint="標題"
-                android:padding="16dp"
-                android:background="@android:color/transparent"
-                android:layout_width="fill_parent"
-                android:layout_height="?android:attr/listPreferredItemHeight" />
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="#ccc"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp" />
+            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="?android:attr/listPreferredItemHeight">
-
-                <TextView
-                    android:text="暱稱"
-                    android:gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    style="@style/Base.TextAppearance.AppCompat.Medium" />
+                android:layout_height="fill_parent">
 
                 <EditText
-                    android:id="@+id/name"
+                    android:id="@+id/title"
+                    android:hint="標題"
+                    android:padding="16dp"
                     android:background="@android:color/transparent"
-                    android:paddingLeft="48dp"
                     android:layout_width="fill_parent"
-                    android:layout_gravity="center"
                     android:layout_height="?android:attr/listPreferredItemHeight" />
 
-            </LinearLayout>
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="#ccc"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp" />
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="#ccc"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp" />
 
-            <ScrollView
-                android:layout_weight="1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="?android:attr/listPreferredItemHeight">
+
+                    <TextView
+                        android:text="暱稱"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        style="@style/Base.TextAppearance.AppCompat.Medium" />
+
+                    <EditText
+                        android:id="@+id/name"
+                        android:background="@android:color/transparent"
+                        android:paddingLeft="48dp"
+                        android:layout_width="fill_parent"
+                        android:layout_gravity="center"
+                        android:layout_height="?android:attr/listPreferredItemHeight" />
+
+                </LinearLayout>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="#ccc"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp" />
 
                 <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:hint="內容"
-                    android:background="@android:color/transparent"
-                    android:id="@+id/content"  />
-            </ScrollView>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="16dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:paddingBottom="?android:attr/listPreferredItemHeight"
+                        android:hint="內容"
+                        android:background="@android:color/transparent"
+                        android:id="@+id/content"  />
 
-            <RelativeLayout
-                android:layout_alignParentBottom="true"
-                android:paddingLeft="16dp"
-                android:layout_width="fill_parent"
-                android:layout_height="?android:attr/listPreferredItemHeight"
-                style="@style/Widget.AppCompat.CompoundButton.CheckBox">
+            </LinearLayout>
+        </ScrollView>
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:checked="true"
-                    android:buttonTint="#607D8B"
-                    android:text="Add &quot;Sent from my Android&quot; at the end"
-                    android:id="@+id/checkBox" />
-            </RelativeLayout>
+        <RelativeLayout
+            android:layout_alignParentBottom="true"
+            android:paddingLeft="16dp"
+            android:layout_width="fill_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            style="@style/Widget.AppCompat.CompoundButton.CheckBox">
 
-        </LinearLayout>
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:checked="true"
+                android:buttonTint="#607D8B"
+                android:text="Add &quot;Sent from my Android&quot; at the end"
+                android:id="@+id/checkBox" />
+        </RelativeLayout>
 
         <ProgressBar
             style="?android:attr/progressBarStyleLarge"

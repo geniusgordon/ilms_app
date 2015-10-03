@@ -73,6 +73,9 @@ public class ComposeActivity extends AppCompatActivity {
             titleEdit.setText(title);
         }
 
+        String name = Preferences.getInstance(getApplicationContext()).getAccount().getName();
+        nameEdit.setText(name);
+
         progressBar.setVisibility(View.INVISIBLE);
         sending = false;
 
