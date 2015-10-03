@@ -1,23 +1,8 @@
-package com.example.gordon.ilms.http;
+package com.example.gordon.ilms.http.main;
 
-import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
-import com.android.volley.toolbox.HttpHeaderParser;
-import com.example.gordon.ilms.model.Announcement;
-import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.HomeItem;
-import com.example.gordon.ilms.model.Preferences;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**

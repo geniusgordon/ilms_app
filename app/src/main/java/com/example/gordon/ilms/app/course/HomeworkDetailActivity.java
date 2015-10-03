@@ -13,7 +13,7 @@ import com.android.volley.Response;
 import com.example.gordon.ilms.HtmlFix;
 import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.app.ActivityDispatcher;
-import com.example.gordon.ilms.http.HomeworkRequest;
+import com.example.gordon.ilms.http.detail.HomeworkRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Attachment;
 import com.example.gordon.ilms.model.Course;

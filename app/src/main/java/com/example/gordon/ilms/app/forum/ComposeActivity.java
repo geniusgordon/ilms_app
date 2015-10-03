@@ -18,13 +18,12 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.gordon.ilms.R;
-import com.example.gordon.ilms.http.ForumPostRequest;
+import com.example.gordon.ilms.http.forum.ForumPostRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.Preferences;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ComposeActivity extends AppCompatActivity {

@@ -1,10 +1,11 @@
-package com.example.gordon.ilms.http;
+package com.example.gordon.ilms.http.forum;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.example.gordon.ilms.http.BaseRequest;
 import com.example.gordon.ilms.model.Attachment;
 import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.Post;
@@ -47,6 +48,10 @@ public class ReplyListRequest extends BaseRequest<ReplyList> {
 
         try {
             JSONObject postJson = new JSONObject(responseHtml).getJSONObject("posts");
+            boolean status = postJson.getBoolean("status");
+            if (!status)
+                return null;
+
             replyList.setTitle(postJson.getString("title"));
 
             JSONArray itemsJson = postJson.getJSONArray("items");

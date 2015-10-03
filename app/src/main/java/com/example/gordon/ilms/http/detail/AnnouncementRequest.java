@@ -1,4 +1,4 @@
-package com.example.gordon.ilms.http;
+package com.example.gordon.ilms.http.detail;
 
 import android.util.Log;
 
@@ -8,6 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.example.gordon.ilms.http.BaseRequest;
 import com.example.gordon.ilms.model.Announcement;
 import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.Preferences;

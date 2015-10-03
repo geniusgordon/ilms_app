@@ -10,7 +10,7 @@ import android.view.View;
 import com.android.volley.Response;
 import com.example.gordon.ilms.HtmlFix;
 import com.example.gordon.ilms.app.ActivityDispatcher;
-import com.example.gordon.ilms.http.MaterialRequest;
+import com.example.gordon.ilms.http.detail.MaterialRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Attachment;
 import com.example.gordon.ilms.model.Course;

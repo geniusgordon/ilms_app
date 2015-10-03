@@ -12,7 +12,7 @@ import android.widget.AdapterView;
 import com.android.volley.Response;
 import com.example.gordon.ilms.app.course.AnnouncementDetailActivity;
 import com.example.gordon.ilms.app.adapter.AnnouncementListAdapter;
-import com.example.gordon.ilms.http.AnnouncementListRequest;
+import com.example.gordon.ilms.http.course.AnnouncementListRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Announcement;
 

@@ -30,9 +30,10 @@ import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.app.ActivityDispatcher;
 import com.example.gordon.ilms.app.BaseActivity;
 import com.example.gordon.ilms.app.adapter.PostListAdapter;
-import com.example.gordon.ilms.http.ForumPageRequest;
-import com.example.gordon.ilms.http.PostListRequest;
+import com.example.gordon.ilms.http.forum.ForumPageRequest;
+import com.example.gordon.ilms.http.forum.PostListRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
+import com.example.gordon.ilms.http.ResponseMessage;
 import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.Post;
 import com.github.clans.fab.FloatingActionButton;
@@ -45,7 +46,6 @@ public class ForumActivity extends BaseActivity {
     final static int COMPOSE = 1;
 
     private Toolbar toolbar;
-    private TextView msgTxt;
     private ProgressBar progressBar;
     private FloatingActionButton btn;
 
@@ -211,7 +211,17 @@ public class ForumActivity extends BaseActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                            Toast.makeText(ForumActivity.this, "網路不穩，請稍後再試", Toast.LENGTH_SHORT).show();
+                            setMessage(ResponseMessage.TIMEOUT);
+                        } else {
+                            setMessage(ResponseMessage.NO_PERMISSION);
+                            btn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Toast.makeText(getApplicationContext(),
+                                            ResponseMessage.getMessage(ResponseMessage.NO_PERMISSION),
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                         progressBar.setVisibility(View.INVISIBLE);
                         swipeRefreshLayout.setRefreshing(false);

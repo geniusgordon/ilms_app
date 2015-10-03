@@ -1,9 +1,10 @@
-package com.example.gordon.ilms.http;
+package com.example.gordon.ilms.http.forum;
 
 import android.util.Log;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
+import com.example.gordon.ilms.http.MultipartRequest;
 
 import java.io.File;
 import java.util.HashMap;

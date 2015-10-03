@@ -28,8 +28,9 @@ import com.android.volley.VolleyError;
 import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.app.ActivityDispatcher;
 import com.example.gordon.ilms.app.BaseActivity;
-import com.example.gordon.ilms.http.ReplyListRequest;
+import com.example.gordon.ilms.http.forum.ReplyListRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
+import com.example.gordon.ilms.http.ResponseMessage;
 import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.Post;
 import com.example.gordon.ilms.model.Reply;
@@ -85,6 +86,8 @@ public class PostDetailActivity extends BaseActivity {
         replyLayout = (LinearLayout) findViewById(R.id.reply_layout);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         btn = (FloatingActionButton) findViewById(R.id.reply_btn);
+
+        msgTxt = (TextView) findViewById(R.id.msgTxt);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,7 +233,9 @@ public class PostDetailActivity extends BaseActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                        Toast.makeText(getApplicationContext(), "無法連線，請稍後再試", Toast.LENGTH_SHORT).show();
+                        setMessage(ResponseMessage.TIMEOUT);
+                    } else {
+                        setMessage(ResponseMessage.NO_PERMISSION);
                     }
                     progressBar.setVisibility(View.INVISIBLE);                }
             });

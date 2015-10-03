@@ -12,7 +12,7 @@ import android.widget.AdapterView;
 import com.android.volley.Response;
 import com.example.gordon.ilms.app.course.HomeworkDetailActivity;
 import com.example.gordon.ilms.app.adapter.HomeworkListAdapter;
-import com.example.gordon.ilms.http.HomeworkListRequest;
+import com.example.gordon.ilms.http.course.HomeworkListRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Homework;
 

@@ -1,4 +1,4 @@
-package com.example.gordon.ilms.http;
+package com.example.gordon.ilms.http.main;
 
 import com.android.volley.Response;
 import com.example.gordon.ilms.model.HomeItem;

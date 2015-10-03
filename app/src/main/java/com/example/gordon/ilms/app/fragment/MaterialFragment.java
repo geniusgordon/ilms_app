@@ -12,7 +12,7 @@ import android.widget.AdapterView;
 import com.android.volley.Response;
 import com.example.gordon.ilms.app.course.MaterialDetailActivity;
 import com.example.gordon.ilms.app.adapter.MaterialListAdapter;
-import com.example.gordon.ilms.http.MaterialListRequest;
+import com.example.gordon.ilms.http.course.MaterialListRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Material;
 

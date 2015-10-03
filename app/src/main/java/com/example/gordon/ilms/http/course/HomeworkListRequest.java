@@ -1,4 +1,4 @@
-package com.example.gordon.ilms.http;
+package com.example.gordon.ilms.http.course;
 
 import android.util.Log;
 
@@ -6,6 +6,7 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.example.gordon.ilms.http.BaseRequest;
 import com.example.gordon.ilms.model.Homework;
 
 import org.jsoup.Jsoup;

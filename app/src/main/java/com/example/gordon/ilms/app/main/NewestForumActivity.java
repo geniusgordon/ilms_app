@@ -3,11 +3,10 @@ package com.example.gordon.ilms.app.main;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.app.ActivityDispatcher;
-import com.example.gordon.ilms.http.NewestForumRequest;
+import com.example.gordon.ilms.http.main.NewestForumRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 
 /**

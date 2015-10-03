@@ -22,7 +22,7 @@ import com.example.gordon.ilms.app.ActivityDispatcher;
 import com.example.gordon.ilms.app.DrawerActivity;
 import com.example.gordon.ilms.app.adapter.CourseFragmentPagerAdapter;
 import com.example.gordon.ilms.app.forum.ForumActivity;
-import com.example.gordon.ilms.http.CourseEmailRequest;
+import com.example.gordon.ilms.http.course.CourseEmailRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.CourseEmail;

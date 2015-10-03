@@ -1,10 +1,11 @@
-package com.example.gordon.ilms.http;
+package com.example.gordon.ilms.http.forum;
 
 import android.util.Log;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.example.gordon.ilms.http.BaseRequest;
 import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.Homework;
 import com.example.gordon.ilms.model.Post;
@@ -39,6 +40,9 @@ public class PostListRequest extends BaseRequest<List<Post>> {
     protected List<Post> parseResponseHtml(String responseHtml) {
         List<Post> posts = new ArrayList<Post>();
         Document document = Jsoup.parse(responseHtml);
+
+        if (document.select("#main").size() == 0)
+            return null;
 
         Elements tr = document.select("tr");
         for (int i = 1; i < tr.size(); i++) {

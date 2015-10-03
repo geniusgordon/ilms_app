@@ -24,7 +24,7 @@ import java.util.Random;
 public class MultipartRequest extends BaseRequest<String> {
 
 //    final static String URL = "http://httpbin.org/post";
-    final static String LOG_TAG = "MultipartRequest";
+    public final static String LOG_TAG = "MultipartRequest";
 
     /** Useful values for writing multipart/form-data */
     private static char[] boundaryChoices = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXY".toCharArray();

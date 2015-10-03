@@ -22,7 +22,7 @@ import com.example.gordon.ilms.app.course.CourseActivity;
 import com.example.gordon.ilms.app.main.MainActivity;
 import com.example.gordon.ilms.app.main.NewestForumActivity;
 import com.example.gordon.ilms.app.main.NewestMaterialActivity;
-import com.example.gordon.ilms.http.CourseListRequest;
+import com.example.gordon.ilms.http.main.CourseListRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.http.ResponseMessage;
 import com.example.gordon.ilms.model.Account;

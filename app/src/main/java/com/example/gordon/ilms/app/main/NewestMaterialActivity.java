@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.app.ActivityDispatcher;
-import com.example.gordon.ilms.http.NewestMaterialRequest;
+import com.example.gordon.ilms.http.main.NewestMaterialRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 
 /**
