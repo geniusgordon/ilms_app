@@ -1,4 +1,4 @@
-package com.example.gordon.ilms.app;
+package com.example.gordon.ilms.app.course;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -6,20 +6,15 @@ import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
-import com.android.volley.NoConnectionError;
 import com.android.volley.Response;
-import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
 import com.example.gordon.ilms.HtmlFix;
+import com.example.gordon.ilms.app.ActivityDispatcher;
 import com.example.gordon.ilms.http.AnnouncementRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Announcement;
 import com.example.gordon.ilms.model.Course;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 /**
@@ -55,15 +50,7 @@ public class AnnouncementDetailActivity extends DetailActivity<Announcement> {
                         contentTxt.append(HtmlFix.correctLinkPaths(Html.fromHtml(response.getAttachment())));
                         progressBar.setVisibility(View.INVISIBLE);
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    Toast.makeText(getApplicationContext(), "無法連線，請稍後再試", Toast.LENGTH_SHORT).show();
-                }
-                progressBar.setVisibility(View.INVISIBLE);
-            }
-        });
+                }, errorListener);
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 

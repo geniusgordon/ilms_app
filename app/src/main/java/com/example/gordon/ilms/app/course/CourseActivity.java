@@ -1,6 +1,5 @@
-package com.example.gordon.ilms.app;
+package com.example.gordon.ilms.app.course;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -19,7 +18,10 @@ import android.view.Window;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.gordon.ilms.R;
+import com.example.gordon.ilms.app.ActivityDispatcher;
+import com.example.gordon.ilms.app.DrawerActivity;
 import com.example.gordon.ilms.app.adapter.CourseFragmentPagerAdapter;
+import com.example.gordon.ilms.app.forum.ForumActivity;
 import com.example.gordon.ilms.http.CourseEmailRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Course;
@@ -27,11 +29,8 @@ import com.example.gordon.ilms.model.CourseEmail;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
-import java.text.ParseException;
-
 public class CourseActivity extends DrawerActivity {
     final static String LOG_TAG = "CourseActivity";
-
 
     private Course course;
 

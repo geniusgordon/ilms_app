@@ -1,4 +1,4 @@
-package com.example.gordon.ilms.app;
+package com.example.gordon.ilms.app.main;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -10,19 +10,19 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.NoConnectionError;
 import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.example.gordon.ilms.R;
+import com.example.gordon.ilms.app.ActivityDispatcher;
+import com.example.gordon.ilms.app.DrawerActivity;
 import com.example.gordon.ilms.app.adapter.HomeItemListAdapter;
 import com.example.gordon.ilms.http.HomeItemListRequest;
 import com.example.gordon.ilms.http.NewestAnnouncementRequest;
-import com.example.gordon.ilms.http.ProfileRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
-import com.example.gordon.ilms.model.Account;
+import com.example.gordon.ilms.http.ResponseMessage;
 import com.example.gordon.ilms.model.HomeItem;
 import com.example.gordon.ilms.model.Preferences;
 
@@ -35,7 +35,6 @@ public class MainActivity extends DrawerActivity {
     private HomeItemListAdapter listAdapter;
     private ProgressBar progressBar;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private TextView msgTxt;
 
     protected HomeItemListRequest request;
     protected Response.Listener<List<HomeItem>> listener = new Response.Listener<List<HomeItem>>() {
@@ -46,9 +45,21 @@ public class MainActivity extends DrawerActivity {
             swipeRefreshLayout.setRefreshing(false);
 
             if (Preferences.getInstance(getApplicationContext()).getAccount() == null)
-                msgTxt.setText("尚未登入");
+                setMessage(ResponseMessage.NOT_LOGIN);
             else
-                msgTxt.setText("");
+                setMessage(ResponseMessage.OK);
+        }
+    };
+
+    protected Response.ErrorListener errorListener = new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                setMessage(ResponseMessage.TIMEOUT);
+            } else {
+                setMessage(ResponseMessage.NOT_LOGIN);
+            }
+            progressBar.setVisibility(View.INVISIBLE);
         }
     };
 
@@ -61,9 +72,9 @@ public class MainActivity extends DrawerActivity {
         getSupportActionBar().setTitle("最新公告");
         drawer.setSelection(newestAnnouncement);
 
+        msgTxt = (TextView) findViewById(R.id.msgTxt);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
-        msgTxt = (TextView) findViewById(R.id.msg);
 
         listAdapter = new HomeItemListAdapter(this, new ArrayList<HomeItem>());
         listAdapter.setShowHeader(false);

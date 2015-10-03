@@ -1,4 +1,4 @@
-package com.example.gordon.ilms.app;
+package com.example.gordon.ilms.app.forum;
 
 import android.content.Context;
 import android.text.Html;

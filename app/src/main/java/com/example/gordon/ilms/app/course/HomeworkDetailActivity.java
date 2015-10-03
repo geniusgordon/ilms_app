@@ -1,4 +1,4 @@
-package com.example.gordon.ilms.app;
+package com.example.gordon.ilms.app.course;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -8,21 +8,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import com.android.volley.NoConnectionError;
 import com.android.volley.Response;
-import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
 import com.example.gordon.ilms.HtmlFix;
 import com.example.gordon.ilms.R;
+import com.example.gordon.ilms.app.ActivityDispatcher;
 import com.example.gordon.ilms.http.HomeworkRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Attachment;
 import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.Homework;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -65,15 +61,7 @@ public class HomeworkDetailActivity extends DetailActivity<Homework> {
                         contentTxt.append(Html.fromHtml(stringBuilder.toString()));
                     }
                 }
-            },
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                        Toast.makeText(getApplicationContext(), "無法連線，請稍後再試", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+            }, errorListener);
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 

@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".app.MainActivity"
+            android:name=".app.main.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask" >
             <intent-filter>
@@ -22,15 +22,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".app.NewestForumActivity"
+            android:name=".app.main.NewestForumActivity"
             android:launchMode="singleTask" >
         </activity>
         <activity
-            android:name=".app.NewestMaterialActivity"
+            android:name=".app.main.NewestMaterialActivity"
             android:launchMode="singleTask" >
         </activity>
         <activity
-            android:name=".app.CourseActivity"
+            android:name=".app.course.CourseActivity"
             android:label="@string/title_activity_course" >
         </activity>
         <activity
@@ -38,23 +38,23 @@
             android:label="@string/title_activity_login" >
         </activity>
         <activity
-            android:name=".app.AnnouncementDetailActivity"
+            android:name=".app.course.AnnouncementDetailActivity"
             android:label="@string/title_activity_detail" >
         </activity>
         <activity
-            android:name=".app.MaterialDetailActivity"
+            android:name=".app.course.MaterialDetailActivity"
             android:label="@string/title_activity_detail" >
         </activity>
         <activity
-            android:name=".app.HomeworkDetailActivity"
+            android:name=".app.course.HomeworkDetailActivity"
             android:label="@string/title_activity_detail" >
         </activity>
         <activity
-            android:name=".app.ForumActivity"
+            android:name=".app.forum.ForumActivity"
             android:label="@string/title_activity_forum" >
         </activity>
         <activity
-            android:name=".app.PostDetailActivity"
+            android:name=".app.forum.PostDetailActivity"
             android:label="@string/title_activity_post_detail" >
         </activity>
         <activity android:name=".app.ActivityDispatcher" >
@@ -80,12 +80,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".app.ComposeActivity"
+            android:name=".app.forum.ComposeActivity"
             android:label="@string/title_activity_compose" >
-        </activity>
-        <activity
-            android:name=".app.ProfileActivity"
-            android:label="@string/title_activity_profile" >
         </activity>
     </application>
 

@@ -1,4 +1,4 @@
-package com.example.gordon.ilms.app;
+package com.example.gordon.ilms.app.forum;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -6,12 +6,10 @@ import android.os.Build;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
 import android.transition.Fade;
-import android.transition.Slide;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,12 +27,13 @@ import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.example.gordon.ilms.R;
+import com.example.gordon.ilms.app.ActivityDispatcher;
+import com.example.gordon.ilms.app.BaseActivity;
 import com.example.gordon.ilms.app.adapter.PostListAdapter;
 import com.example.gordon.ilms.http.ForumPageRequest;
 import com.example.gordon.ilms.http.PostListRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Course;
-import com.example.gordon.ilms.model.Material;
 import com.example.gordon.ilms.model.Post;
 import com.github.clans.fab.FloatingActionButton;
 

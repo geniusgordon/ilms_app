@@ -1,41 +1,20 @@
 package com.example.gordon.ilms.app.fragment;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.util.Pair;
-import android.transition.Explode;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.NoConnectionError;
 import com.android.volley.Response;
-import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
-import com.example.gordon.ilms.R;
-import com.example.gordon.ilms.app.AnnouncementDetailActivity;
-import com.example.gordon.ilms.app.DetailActivity;
+import com.example.gordon.ilms.app.course.AnnouncementDetailActivity;
 import com.example.gordon.ilms.app.adapter.AnnouncementListAdapter;
-import com.example.gordon.ilms.app.adapter.HomeworkListAdapter;
 import com.example.gordon.ilms.http.AnnouncementListRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Announcement;
-import com.example.gordon.ilms.model.Course;
-import com.example.gordon.ilms.model.Homework;
 
 import java.util.ArrayList;
 import java.util.List;

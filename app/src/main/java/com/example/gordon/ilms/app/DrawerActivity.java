@@ -11,11 +11,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.NoConnectionError;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
 import com.example.gordon.ilms.R;
+import com.example.gordon.ilms.app.course.CourseActivity;
+import com.example.gordon.ilms.app.main.MainActivity;
+import com.example.gordon.ilms.app.main.NewestForumActivity;
+import com.example.gordon.ilms.app.main.NewestMaterialActivity;
 import com.example.gordon.ilms.http.CourseListRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
+import com.example.gordon.ilms.http.ResponseMessage;
 import com.example.gordon.ilms.model.Account;
 import com.example.gordon.ilms.model.Course;
 import com.example.gordon.ilms.model.CourseList;
@@ -49,7 +58,7 @@ public class DrawerActivity extends BaseActivity {
     protected PrimaryDrawerItem newestForum;
     protected PrimaryDrawerItem newestMaterial;
 
-    final static int LOGIN = 1;
+    public final static int LOGIN = 1;
 
     protected void initDrawer() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -244,8 +253,16 @@ public class DrawerActivity extends BaseActivity {
                         Preferences.getInstance(getApplicationContext()).saveCourseList(courseList);
                         updateDrawerAfterLogin();
                     }
-                }, errorListener
-        );
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    Toast.makeText(getApplicationContext(),
+                            ResponseMessage.getMessage(ResponseMessage.TIMEOUT),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 

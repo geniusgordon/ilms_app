@@ -1,7 +1,6 @@
 package com.example.gordon.ilms.app;
 
 import android.app.Activity;
-import android.app.DownloadManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -14,12 +13,17 @@ import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import com.example.gordon.ilms.R;
+import com.example.gordon.ilms.app.course.AnnouncementDetailActivity;
+import com.example.gordon.ilms.app.course.CourseActivity;
+import com.example.gordon.ilms.app.course.HomeworkDetailActivity;
+import com.example.gordon.ilms.app.course.MaterialDetailActivity;
+import com.example.gordon.ilms.app.forum.ForumActivity;
+import com.example.gordon.ilms.app.forum.PostDetailActivity;
+import com.example.gordon.ilms.app.main.MainActivity;
 import com.example.gordon.ilms.http.DownloadTask;
-import com.example.gordon.ilms.model.Course;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Objects;
 
 /**
  * Created by gordon on 9/30/15.

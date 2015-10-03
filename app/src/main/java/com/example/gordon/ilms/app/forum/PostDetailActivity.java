@@ -1,18 +1,14 @@
-package com.example.gordon.ilms.app;
+package com.example.gordon.ilms.app.forum;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.transition.Explode;
 import android.transition.Fade;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -31,6 +26,8 @@ import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.example.gordon.ilms.R;
+import com.example.gordon.ilms.app.ActivityDispatcher;
+import com.example.gordon.ilms.app.BaseActivity;
 import com.example.gordon.ilms.http.ReplyListRequest;
 import com.example.gordon.ilms.http.RequestQueueSingleton;
 import com.example.gordon.ilms.model.Course;
@@ -38,8 +35,6 @@ import com.example.gordon.ilms.model.Post;
 import com.example.gordon.ilms.model.Reply;
 import com.example.gordon.ilms.model.ReplyList;
 import com.github.clans.fab.FloatingActionButton;
-
-import java.util.List;
 
 public class PostDetailActivity extends BaseActivity {
     final static String LOG_TAG = "PostDetailActivity";
