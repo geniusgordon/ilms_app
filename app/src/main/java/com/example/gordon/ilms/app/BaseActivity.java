@@ -15,7 +15,7 @@ import com.android.volley.VolleyError;
 /**
  * Created by gordon on 9/30/15.
  */
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
     final static String LOG_TAG = "BaseActivity";
 
     protected Response.ErrorListener errorListener = new Response.ErrorListener() {

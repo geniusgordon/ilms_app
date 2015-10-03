@@ -46,25 +46,24 @@ public class AnnouncementDetailActivity extends DetailActivity<Announcement> {
             titleTxt.setText(title);
 
         request = new AnnouncementRequest(course, item,
-            new Response.Listener<Announcement>() {
-                @Override
-                public void onResponse(Announcement response) {
-                    AnnouncementDetailActivity.this.item = response;
-                    contentTxt.setText(HtmlFix.correctLinkPaths(Html.fromHtml(response.getContent())));
-                    contentTxt.append("\n\n");
-                    contentTxt.append(HtmlFix.correctLinkPaths(Html.fromHtml(response.getAttachment())));
-                    progressBar.setVisibility(View.INVISIBLE);
-                }
-            },
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                        Toast.makeText(getApplicationContext(), "無法連線，請稍後再試", Toast.LENGTH_SHORT).show();
+                new Response.Listener<Announcement>() {
+                    @Override
+                    public void onResponse(Announcement response) {
+                        AnnouncementDetailActivity.this.item = response;
+                        contentTxt.setText(HtmlFix.correctLinkPaths(Html.fromHtml(response.getContent())));
+                        contentTxt.append("\n\n");
+                        contentTxt.append(HtmlFix.correctLinkPaths(Html.fromHtml(response.getAttachment())));
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
-                    progressBar.setVisibility(View.INVISIBLE);
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    Toast.makeText(getApplicationContext(), "無法連線，請稍後再試", Toast.LENGTH_SHORT).show();
                 }
-            });
+                progressBar.setVisibility(View.INVISIBLE);
+            }
+        });
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 
@@ -104,4 +103,5 @@ public class AnnouncementDetailActivity extends DetailActivity<Announcement> {
             return null;
         }
     }
+
 }

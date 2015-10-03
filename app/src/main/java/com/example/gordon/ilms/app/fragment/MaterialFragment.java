@@ -79,17 +79,7 @@ public class MaterialFragment extends CoursePageFragment<Material> {
                             msgTxt.setText("目前尚無資料");
                         }
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                            Toast.makeText(getContext(), "無法連線，請稍後再試", Toast.LENGTH_SHORT).show();
-                        }
-                        progressBar.setVisibility(View.INVISIBLE);
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                });
+                }, this);
         RequestQueueSingleton.getInstance(getContext()).addToRequestQueue(request);
     }
 }

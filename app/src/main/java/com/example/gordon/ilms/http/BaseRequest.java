@@ -33,10 +33,15 @@ public abstract class BaseRequest<T> extends Request<T> {
 
     @Override
     protected Response<T> parseNetworkResponse(NetworkResponse response) {
-        T parsed = parseResponseHtml(new String(response.data));
-        if (parsed == null)
+        try {
+            T parsed = parseResponseHtml(new String(response.data));
+            if (parsed == null)
+                return Response.error(new VolleyError());
+            return Response.success(parsed, HttpHeaderParser.parseCacheHeaders(response));
+        } catch (Exception e) {
+            e.printStackTrace();
             return Response.error(new VolleyError());
-        return Response.success(parsed, HttpHeaderParser.parseCacheHeaders(response));
+        }
     }
 
     @Override

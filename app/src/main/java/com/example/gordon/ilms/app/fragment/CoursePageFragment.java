@@ -12,10 +12,15 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.volley.NoConnectionError;
+import com.android.volley.Response;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
 import com.example.gordon.ilms.R;
 import com.example.gordon.ilms.app.adapter.AnnouncementListAdapter;
 import com.example.gordon.ilms.app.adapter.HomeworkListAdapter;
 import com.example.gordon.ilms.app.adapter.ListAdapter;
+import com.example.gordon.ilms.http.ResponseMessage;
 import com.example.gordon.ilms.model.Announcement;
 import com.example.gordon.ilms.model.Course;
 
@@ -24,7 +29,7 @@ import java.util.ArrayList;
 /**
  * Created by gordon on 9/26/15.
  */
-public abstract class CoursePageFragment<T> extends Fragment {
+public class CoursePageFragment<T> extends Fragment implements Response.ErrorListener {
     final static String LOG_TAG = "CoursePageFragment";
     protected Course course;
 
@@ -71,5 +76,21 @@ public abstract class CoursePageFragment<T> extends Fragment {
     public void refreshList() {
         msgTxt.setText("");
         listAdapter.clearItems();
+    }
+
+    public void setMsg(int t) {
+        String msg = ResponseMessage.getMessage(t);
+        msgTxt.setText(msg);
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+            setMsg(ResponseMessage.TIMEOUT);
+        } else {
+            setMsg(ResponseMessage.NO_PERMISSION);
+        }
+        progressBar.setVisibility(View.INVISIBLE);
+        swipeRefreshLayout.setRefreshing(false);
     }
 }
