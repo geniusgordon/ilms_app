@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:theme="@style/AppTheme.White"
     android:background="#fff"
-    tools:context="com.example.gordon.ilms.app.forum.PostDetailActivity">
+    tools:context="com.geniusgordon.ilms.app.forum.PostDetailActivity">
 
     <RelativeLayout
         android:transitionName="open_item"

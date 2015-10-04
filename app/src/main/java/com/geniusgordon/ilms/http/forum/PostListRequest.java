@@ -1,0 +1,83 @@
+package com.geniusgordon.ilms.http.forum;
+
+import android.util.Log;
+
+import com.android.volley.Response;
+import com.geniusgordon.ilms.http.BaseRequest;
+import com.geniusgordon.ilms.model.Course;
+import com.geniusgordon.ilms.model.Post;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by gordon on 9/29/15.
+ */
+public class PostListRequest extends BaseRequest<List<Post>> {
+
+    final static String URL = "http://lms.nthu.edu.tw/course.php?courseID=%s&f=forumlist&page=%d";
+    final static String LOG_TAG = "PostListRequest";
+
+    private Course course;
+
+    public PostListRequest(Course course, int page, Response.Listener<List<Post>> listener, Response.ErrorListener errorListener) {
+        super(Method.GET, String.format(URL, course.getId(), page), listener, errorListener);
+        this.course = course;
+    }
+
+    @Override
+    protected List<Post> parseResponseHtml(String responseHtml) {
+        List<Post> posts = new ArrayList<Post>();
+        Document document = Jsoup.parse(responseHtml);
+
+        if (document.select("#main").size() == 0)
+            return null;
+
+        Elements tr = document.select("tr");
+        for (int i = 1; i < tr.size(); i++) {
+            if (i%2 == 0)
+                continue;
+
+            Elements td = tr.eq(i).select("td");
+            if (tr.size() == 2 && td.size() == 1)
+                return posts;
+
+            DateFormat df = new SimpleDateFormat("MM-dd hh:mm");
+
+            Post post = new Post();
+            post.setId(Long.parseLong(td.eq(0).text()));
+            post.setTitle(td.eq(1).select("a").eq(0).text().trim());
+            post.setCount(Long.parseLong(td.eq(2).select("span").eq(0).text()));
+
+            String last = td.eq(3).text().trim();
+            try {
+                post.setLastTime(df.parse(last.substring(1, 12)));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            try {
+                Log.d(LOG_TAG, last);
+                post.setLastName(last.substring(16));
+            } catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+                post.setLastName("");
+            }
+//            Log.d(LOG_TAG, String.valueOf(post.getCount()));
+//            Log.d(LOG_TAG, post.getTitle());
+//            Log.d(LOG_TAG, String.valueOf(post.getId()));
+//            Log.d(LOG_TAG, df.format(post.getLastTime()));
+//            Log.d(LOG_TAG, post.getLastName());
+
+            posts.add(post);
+        }
+
+        return posts;
+    }
+}

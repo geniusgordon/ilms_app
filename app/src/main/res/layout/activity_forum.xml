@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:background="#fff"
-    tools:context="com.example.gordon.ilms.app.forum.ForumActivity">
+    tools:context="com.geniusgordon.ilms.app.forum.ForumActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"

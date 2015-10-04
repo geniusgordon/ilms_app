@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:theme="@style/AppTheme.White"
     android:background="#fff"
-    tools:context="com.example.gordon.ilms.app.forum.ComposeActivity">
+    tools:context="com.geniusgordon.ilms.app.forum.ComposeActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
