@@ -34,6 +34,9 @@ public class HomeworkListRequest extends BaseRequest<List<Homework>> {
         List<Homework> homeworks = new ArrayList<Homework>();
         Document document = Jsoup.parse(responseHtml);
 
+        if (document.select("#main").size() == 0)
+            return null;
+
         Elements tr = document.select("tr");
         for (int i = 1; i < tr.size(); i++) {
             Elements td = tr.eq(i).select("td");

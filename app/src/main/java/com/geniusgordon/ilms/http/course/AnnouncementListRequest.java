@@ -22,7 +22,7 @@ import java.util.List;
  * Created by gordon on 9/28/15.
  */
 public class AnnouncementListRequest extends BaseRequest<List<Announcement>> {
-    final static String URL = "http://lms.nthu.edu.tw/course.php?courseID=%d&f=activity";
+    final static String URL = "http://lms.nthu.edu.tw/course.php?courseID=%d&f=news";
     final static String LOG_TAG = "AncmtListRequest";
 
     public AnnouncementListRequest(Long courseId, Response.Listener<List<Announcement>> listener, Response.ErrorListener errorListener) {
@@ -33,35 +33,40 @@ public class AnnouncementListRequest extends BaseRequest<List<Announcement>> {
     protected List<Announcement> parseResponseHtml(String responseHtml) {
         List<Announcement> announcements = new ArrayList<Announcement>();
         Document document = Jsoup.parse(responseHtml);
-        Elements elements = document.select(".BlockItem");
 
         if (document.select("#main").size() == 0)
             return null;
 
-        for (Element element: elements) {
-            String idStr = element.select("a").attr("href").split("\\(")[1].split(",")[0];
-            String timeStr = element.select("span").attr("title");
-            String popularityStr = element.select("div:nth-child(2)").last().html();
+        Elements tr = document.select("tr");
+        for (int i = 1; i < tr.size(); i++) {
+            if (i%2 == 0)
+                continue;
+
+            Elements td = tr.eq(i).select("td");
+
+            if (tr.size() == 2 && td.size() == 1)
+                return announcements;
+
+            Announcement announcement = new Announcement();
+            announcement.setId(Long.parseLong(td.eq(0).text()));
+            announcement.setTitle(td.eq(1).select("a").eq(0).text().trim());
+            announcement.setPopularity(Long.parseLong(td.eq(2).text()));
 
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-            Announcement announcement = new Announcement();
-            announcement.setTitle(element.select("a").html());
-            announcement.setId(Long.parseLong(idStr));
-            announcement.setPopularity(Long.parseLong(popularityStr));
             try {
-                announcement.setTime(df.parse(timeStr));
+                announcement.setTime(df.parse(td.eq(3).select("span").attr("title")));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
-            announcements.add(announcement);
-
+            Log.d(LOG_TAG, String.valueOf(announcement.getId()));
             Log.d(LOG_TAG, announcement.getTitle());
-            Log.d(LOG_TAG, idStr);
-            Log.d(LOG_TAG, timeStr);
-            Log.d(LOG_TAG, popularityStr);
+            Log.d(LOG_TAG, String.valueOf(announcement.getPopularity()));
+
+            announcements.add(announcement);
         }
+
         return announcements;
     }
 }

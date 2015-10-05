@@ -32,6 +32,9 @@ public class MaterialListRequest extends BaseRequest<List<Material>> {
         Document document = Jsoup.parse(responseHtml);
         Elements tr = document.select("tr");
 
+        if (document.select("#main").size() == 0)
+            return null;
+
         for (int i = 1; i < tr.size(); i++) {
             Elements td = tr.eq(i).select("td");
 
