@@ -43,7 +43,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
         fab:menu_fab_label="寄信給教授或助教"
-        fab:menu_icon="@drawable/ic_send_white_24dp"
+        fab:menu_icon="@drawable/ic_email_white_24dp"
         style="@style/Widget.Design.FloatingActionButton" />
 
 
