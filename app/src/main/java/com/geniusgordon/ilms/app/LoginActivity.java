@@ -18,9 +18,11 @@ import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.geniusgordon.ilms.R;
+import com.geniusgordon.ilms.http.LoginAsyncTask;
 import com.geniusgordon.ilms.http.LoginRequest;
 import com.geniusgordon.ilms.http.ProfileRequest;
 import com.geniusgordon.ilms.http.RequestQueueSingleton;
+import com.geniusgordon.ilms.http.ResponseMessage;
 import com.geniusgordon.ilms.model.Account;
 import com.geniusgordon.ilms.model.LoginStatus;
 import com.geniusgordon.ilms.model.Preferences;
@@ -94,20 +96,45 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login() {
         loginProgressBar.setVisibility(View.VISIBLE);
-        final String username = usernameTxt.getText().toString();
+        final  String username = usernameTxt.getText().toString();
         String password = passwordTxt.getText().toString();
-        LoginRequest request = new LoginRequest(username, password,
-            new Response.Listener<LoginStatus>() {
-                @Override
-                public void onResponse(LoginStatus response) {
-                    Log.d("Login response", response.getEmail());
-                    account = new Account();
-                    account.setStudentId(username);
-                    account.setEmail(response.getEmail());
-                    getAccountProfile();
+//        LoginRequest request = new LoginRequest(username, password,
+//            new Response.Listener<LoginStatus>() {
+//                @Override
+//                public void onResponse(LoginStatus response) {
+//                    Log.d("Login response", response.getEmail());
+//                    account = new Account();
+//                    account.setStudentId(username);
+//                    account.setEmail(response.getEmail());
+//                    getAccountProfile();
+//                }
+//            }, errorListener);
+//        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+
+        LoginAsyncTask task = new LoginAsyncTask() {
+            @Override
+            protected void onPostExecute(LoginStatus loginStatus) {
+                super.onPostExecute(loginStatus);
+                if (loginStatus != null) {
+                    if (loginStatus.isStatus()) {
+                        Log.d("Login", loginStatus.getEmail());
+                        account = new Account();
+                        account.setStudentId(username);
+                        account.setEmail(loginStatus.getEmail());
+                        getAccountProfile();
+                    } else {
+                        Log.d("Login", loginStatus.getMsg());
+                        loginProgressBar.setVisibility(View.INVISIBLE);
+                        if (loginStatus.getMsg() != null)
+                            Toast.makeText(getApplicationContext(), loginStatus.getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            ResponseMessage.getMessage(ResponseMessage.TIMEOUT), Toast.LENGTH_SHORT).show();
                 }
-            }, errorListener);
-        RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+            }
+        };
+        task.execute(username, password);
     }
 
     public void getAccountProfile() {

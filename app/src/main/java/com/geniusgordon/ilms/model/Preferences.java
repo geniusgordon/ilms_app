@@ -56,7 +56,7 @@ public class Preferences {
         try {
             return Account.fromJson(accountStr);
         } catch (JSONException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return null;
         }
     }
