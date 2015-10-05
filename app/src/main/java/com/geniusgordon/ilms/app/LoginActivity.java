@@ -131,6 +131,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext(),
                             ResponseMessage.getMessage(ResponseMessage.TIMEOUT), Toast.LENGTH_SHORT).show();
+                    loginProgressBar.setVisibility(View.INVISIBLE);
                 }
             }
         };

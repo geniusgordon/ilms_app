@@ -70,8 +70,8 @@ public class Preferences {
     }
 
     public String getCookie() {
-        String cookie = settings.getString(COOKIE, "");
-        return cookie;
+        Log.d("Cookie", settings.getString(COOKIE, ""));
+        return settings.getString(COOKIE, "");
     }
 
     public void logout() {
@@ -81,7 +81,7 @@ public class Preferences {
                 .remove(EMAIL)
                 .remove(COOKIE)
                 .remove(COURSE_LIST)
-                .commit();
+                .apply();
     }
 
     public void saveCourseList(CourseList courseList) {
