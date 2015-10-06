@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
+import android.text.method.ScrollingMovementMethod;
 import android.transition.Fade;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -81,7 +82,6 @@ public class DetailActivity<T extends CourseItem> extends BaseActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         contentTxt.setMovementMethod(LinkMovementMethod.getInstance());
-
     }
 
     @Override

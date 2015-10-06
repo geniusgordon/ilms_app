@@ -28,7 +28,7 @@ public class AnnouncementFragment extends CoursePageFragment<Announcement> {
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
+        final View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
 
         listAdapter = new AnnouncementListAdapter(getContext(), new ArrayList<Announcement>());
         listView.setAdapter(listAdapter);
@@ -41,14 +41,14 @@ public class AnnouncementFragment extends CoursePageFragment<Announcement> {
                 intent.putExtra("course", course);
 
                 ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation(getActivity(), view, "");
+                        makeSceneTransitionAnimation(getActivity(), fragmentView, "open_item");
                 getActivity().startActivity(intent, options.toBundle());
             }
         });
 
         refreshList();
 
-        return view;
+        return fragmentView;
     }
 
     public void refreshList() {
