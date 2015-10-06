@@ -18,11 +18,13 @@ import com.android.volley.VolleyError;
 import com.geniusgordon.ilms.R;
 import com.geniusgordon.ilms.app.ActivityDispatcher;
 import com.geniusgordon.ilms.app.DrawerActivity;
+import com.geniusgordon.ilms.app.LoginActivity;
 import com.geniusgordon.ilms.app.adapter.HomeItemListAdapter;
 import com.geniusgordon.ilms.http.main.HomeItemListRequest;
 import com.geniusgordon.ilms.http.main.NewestAnnouncementRequest;
 import com.geniusgordon.ilms.http.RequestQueueSingleton;
 import com.geniusgordon.ilms.http.ResponseMessage;
+import com.geniusgordon.ilms.model.Account;
 import com.geniusgordon.ilms.model.HomeItem;
 import com.geniusgordon.ilms.model.Preferences;
 
@@ -120,7 +122,7 @@ public class MainActivity extends DrawerActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == LOGIN && resultCode == RESULT_OK) {
+        if (requestCode == LOGIN_REQUEST && resultCode == RESULT_OK) {
             listAdapter.clearItems();
             progressBar.setVisibility(View.VISIBLE);
             getHomeItem();

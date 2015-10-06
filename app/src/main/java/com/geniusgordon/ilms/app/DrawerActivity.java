@@ -58,7 +58,7 @@ public class DrawerActivity extends BaseActivity {
     protected PrimaryDrawerItem newestForum;
     protected PrimaryDrawerItem newestMaterial;
 
-    public final static int LOGIN = 1;
+    public final static int LOGIN_REQUEST = 1;
 
     protected void initDrawer() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -78,7 +78,8 @@ public class DrawerActivity extends BaseActivity {
                                     @Override
                                     public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {
                                         Intent intent = new Intent(DrawerActivity.this, LoginActivity.class);
-                                        startActivityForResult(intent, LOGIN);
+                                        startActivity(intent);
+//                                        startActivityForResult(intent, LOGIN_REQUEST);
                                         return true;
                                     }
                                 })
@@ -160,15 +161,15 @@ public class DrawerActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == LOGIN) {
-            if (resultCode == RESULT_OK) {
-                account = (Account) data.getSerializableExtra("account");
-                Log.d("On Result", account.getStudentId());
-                Log.d("On Result", account.getEmail());
-                Intent intent = new Intent(DrawerActivity.this, MainActivity.class);
-                addAccount(account);
-            }
-        }
+//        if (requestCode == LOGIN_REQUEST) {
+//            if (resultCode == RESULT_OK) {
+//                account = (Account) data.getSerializableExtra("account");
+//                Log.d("On Result", account.getStudentId());
+//                Log.d("On Result", account.getEmail());
+//                Intent intent = new Intent(DrawerActivity.this, MainActivity.class);
+//                addAccount(account);
+//            }
+//        }
     }
 
     private void checkHasAccount() {

@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.geniusgordon.ilms.R;
+import com.geniusgordon.ilms.app.main.MainActivity;
 import com.geniusgordon.ilms.http.LoginAsyncTask;
 import com.geniusgordon.ilms.http.LoginRequest;
 import com.geniusgordon.ilms.http.ProfileRequest;
@@ -150,10 +151,9 @@ public class LoginActivity extends AppCompatActivity {
                 account.setLastLogin(response.getLastLogin());
                 account.setLoginCount(response.getLoginCount());
                 Preferences.getInstance(getApplicationContext()).saveAccount(account);
-                Intent intent = new Intent();
-                intent.putExtra("account", account);
-                setResult(RESULT_OK, intent);
-                finish();
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                finishAffinity();
+                startActivity(intent);
             }
         }, errorListener);
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);

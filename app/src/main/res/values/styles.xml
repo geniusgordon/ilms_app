@@ -31,4 +31,9 @@
         <item name="colorAccent">#FF5252</item>
     </style>
 
+    <style name="AppTheme.Red" parent="AppTheme">
+        <item name="colorPrimary">#F44336</item>
+        <item name="colorPrimaryDark">#D32F2F</item>
+        <item name="colorAccent">#03A9F4</item>
+    </style>
 </resources>
