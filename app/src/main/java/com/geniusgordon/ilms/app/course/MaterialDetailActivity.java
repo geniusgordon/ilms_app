@@ -33,6 +33,7 @@ public class MaterialDetailActivity extends DetailActivity<Material> {
 
         final String timeStr = item.getTimeStr(new SimpleDateFormat("yyyy/MM/dd"));
 
+        iconImg.setImageResource(R.drawable.ic_description_black_36dp);
         titleTxt.setText(item.getTitle());
         authorTxt.setText(item.getAuthor());
         timeTxt.setText(timeStr);

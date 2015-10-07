@@ -33,6 +33,7 @@ public class AnnouncementDetailActivity extends DetailActivity<Announcement> {
         String title = getIntent().getStringExtra("title");
         String timeStr = item.getTimeStr(new SimpleDateFormat("yyyy/MM/dd"));
 
+        iconImg.setImageResource(R.drawable.ic_info_black_36dp);
         titleTxt.setText(item.getTitle());
         authorTxt.setText(getString(R.string.announcement));
         timeTxt.setText(timeStr);

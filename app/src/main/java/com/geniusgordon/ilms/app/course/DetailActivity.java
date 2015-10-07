@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -34,6 +35,7 @@ public class DetailActivity<T extends CourseItem> extends BaseActivity {
     protected T item;
     protected Course course;
 
+    protected ImageView iconImg;
     protected TextView titleTxt;
     protected TextView authorTxt;
     protected TextView timeTxt;
@@ -76,6 +78,7 @@ public class DetailActivity<T extends CourseItem> extends BaseActivity {
 
         msgTxt = (TextView) findViewById(R.id.msgTxt);
 
+        iconImg = (ImageView) findViewById(R.id.icon_img);
         titleTxt = (TextView) findViewById(R.id.title);
         authorTxt = (TextView) findViewById(R.id.author);
         timeTxt = (TextView) findViewById(R.id.time);

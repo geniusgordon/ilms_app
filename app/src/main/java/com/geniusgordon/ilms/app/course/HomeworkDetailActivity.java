@@ -38,6 +38,7 @@ public class HomeworkDetailActivity extends DetailActivity<Homework> {
 
         String timeStr = item.getTimeStr(new SimpleDateFormat("yyyy/MM/dd"));
 
+        iconImg.setImageResource(R.drawable.ic_assignment_black_48dp);
         titleTxt.setText(item.getTitle());
         authorTxt.setText(getResources().getString(R.string.homework));
         timeTxt.setText(timeStr);
