@@ -20,10 +20,8 @@ import com.android.volley.VolleyError;
 import com.geniusgordon.ilms.R;
 import com.geniusgordon.ilms.app.main.MainActivity;
 import com.geniusgordon.ilms.http.LoginAsyncTask;
-import com.geniusgordon.ilms.http.LoginRequest;
 import com.geniusgordon.ilms.http.ProfileRequest;
 import com.geniusgordon.ilms.http.RequestQueueSingleton;
-import com.geniusgordon.ilms.http.ResponseMessage;
 import com.geniusgordon.ilms.model.Account;
 import com.geniusgordon.ilms.model.LoginStatus;
 import com.geniusgordon.ilms.model.Preferences;
@@ -43,9 +41,11 @@ public class LoginActivity extends AppCompatActivity {
         public void onErrorResponse(VolleyError error) {
             error.printStackTrace();
             if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                Toast.makeText(getApplicationContext(), "無法連線，請稍後再試", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.timeout), Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(getApplicationContext(), "帳密有誤", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),
+                        getString(R.string.incorrect_user_passwd),
+                        Toast.LENGTH_SHORT).show();
             }
             loginProgressBar.setVisibility(View.INVISIBLE);
         }
@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("登入");
+        getSupportActionBar().setTitle(getString(R.string.login));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         usernameTxt = (EditText) findViewById(R.id.username);
@@ -99,7 +99,8 @@ public class LoginActivity extends AppCompatActivity {
         final  String username = usernameTxt.getText().toString();
         String password = passwordTxt.getText().toString();
         if (username.trim().length() == 0 || password.trim().length() == 0) {
-            Toast.makeText(getApplicationContext(), "帳密不得為空", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),
+                    getString(R.string.empty_user_passwd), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -135,8 +136,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), loginStatus.getMsg(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(),
-                            ResponseMessage.getMessage(ResponseMessage.TIMEOUT), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.timeout), Toast.LENGTH_SHORT).show();
                     loginProgressBar.setVisibility(View.INVISIBLE);
                 }
             }

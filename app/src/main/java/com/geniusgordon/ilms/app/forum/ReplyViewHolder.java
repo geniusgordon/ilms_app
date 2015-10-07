@@ -1,5 +1,6 @@
 package com.geniusgordon.ilms.app.forum;
 
+import android.content.Context;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
@@ -19,6 +20,7 @@ import java.text.SimpleDateFormat;
  */
 public class ReplyViewHolder {
 
+    private Context context;
     private ViewGroup mView;
     private View header;
     private TextView authorTxt;
@@ -31,8 +33,9 @@ public class ReplyViewHolder {
     private boolean folded;
     private Reply reply;
 
-    public ReplyViewHolder(ViewGroup view, Reply reply) {
+    public ReplyViewHolder(Context context, ViewGroup view, Reply reply) {
         folded = false;
+        this.context = context;
         this.reply = reply;
 
         mView = view;
@@ -78,7 +81,8 @@ public class ReplyViewHolder {
 
         if (reply.getAttachments().size() > 0) {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("<br><br><p><strong>附件</strong><br><br>");
+            String attachmentStr = context.getString(R.string.attachment);
+            stringBuilder.append("<br><br><p><strong>" + attachmentStr + "</strong><br><br>");
             for (Attachment attach : reply.getAttachments()) {
                 String a = "<a href='%s'>%s</a>&nbsp;%s<br><br>";
                 stringBuilder.append(String.format(a, attach.getUrl(), attach.getTitle(), attach.getSize()));

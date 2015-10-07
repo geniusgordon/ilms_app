@@ -13,6 +13,7 @@ import com.geniusgordon.ilms.model.HomeItem;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by gordon on 9/30/15.
@@ -39,8 +40,12 @@ public class HomeItemListAdapter extends ListAdapter<HomeItem> {
             view.setClickable(false);
         } else {
             view = mLayoutInflater.inflate(R.layout.list_item, parent, false);
-            ((TextView) view.findViewById(R.id.author)).setText(Course.splitTitle(item.getCourseName())[0]);
-
+            Locale current = context.getResources().getConfiguration().locale;
+            if (current.getLanguage().equals("zh")) {
+                ((TextView) view.findViewById(R.id.author)).setText(Course.splitTitle(item.getCourseName())[0]);
+            } else {
+                ((TextView) view.findViewById(R.id.author)).setText(Course.splitTitle(item.getCourseName())[1]);
+            }
             DateFormat df = new SimpleDateFormat("MM/dd");
             String timeStr = item.getDate()==null ? "" :df.format(item.getDate());
             ((TextView) view.findViewById(R.id.time)).setText(timeStr);

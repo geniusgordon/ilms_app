@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.android.volley.Response;
+import com.geniusgordon.ilms.R;
 import com.geniusgordon.ilms.app.course.AnnouncementDetailActivity;
 import com.geniusgordon.ilms.app.adapter.AnnouncementListAdapter;
 import com.geniusgordon.ilms.http.course.AnnouncementListRequest;
@@ -62,7 +63,7 @@ public class AnnouncementFragment extends CoursePageFragment<Announcement> {
                         swipeRefreshLayout.setRefreshing(false);
 
                         if (listAdapter.getCount() == 0) {
-                            msgTxt.setText("目前尚無公告");
+                            msgTxt.setText(getString(R.string.no_announcement));
                         }
                     }
                 }, this);

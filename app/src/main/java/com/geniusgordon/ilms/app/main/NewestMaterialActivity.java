@@ -18,7 +18,7 @@ public class NewestMaterialActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme_Blue);
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle("最新文件");
+        getSupportActionBar().setTitle(getString(R.string.latest_document));
         drawer.setSelection(newestMaterial);
     }
 

@@ -31,7 +31,6 @@ import com.geniusgordon.ilms.app.AnalyticsApplication;
 import com.geniusgordon.ilms.app.BaseActivity;
 import com.geniusgordon.ilms.http.forum.ReplyListRequest;
 import com.geniusgordon.ilms.http.RequestQueueSingleton;
-import com.geniusgordon.ilms.http.ResponseMessage;
 import com.geniusgordon.ilms.model.Course;
 import com.geniusgordon.ilms.model.Post;
 import com.geniusgordon.ilms.model.Reply;
@@ -125,10 +124,10 @@ public class PostDetailActivity extends BaseActivity {
                     .setLabel(this.getClass().getSimpleName())
                     .build());
 
-            menu.add(SELECT_AUTHOR, COPY_NAME, Menu.NONE, "複製名字");
-            menu.add(SELECT_AUTHOR, COPY_ID, Menu.NONE, "複製學號");
-            menu.add(SELECT_AUTHOR, COPY_EMAIL, Menu.NONE, "複製信箱");
-            menu.add(SELECT_AUTHOR, SEND_EMAIL, Menu.NONE, "寄信給他");
+            menu.add(SELECT_AUTHOR, COPY_NAME, Menu.NONE, getString(R.string.copy_name));
+            menu.add(SELECT_AUTHOR, COPY_ID, Menu.NONE, getString(R.string.copy_student_id));
+            menu.add(SELECT_AUTHOR, COPY_EMAIL, Menu.NONE, getString(R.string.copy_email));
+            menu.add(SELECT_AUTHOR, SEND_EMAIL, Menu.NONE, getString(R.string.email_him));
             selectedName = ((TextView) v.findViewById(R.id.author)).getText().toString();
             selectedID = ((TextView) v.findViewById(R.id.account)).getText().toString();
             selectedEmail = ((TextView) v.findViewById(R.id.email)).getText().toString();
@@ -146,17 +145,17 @@ public class PostDetailActivity extends BaseActivity {
                 case COPY_NAME:
                     clipData = ClipData.newPlainText("text", selectedName);
                     clipboardManager.setPrimaryClip(clipData);
-                    Toast.makeText(getApplicationContext(), "已複製到剪貼簿", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.copy_to_clipboard), Toast.LENGTH_SHORT).show();
                     break;
                 case COPY_ID:
                     clipData = ClipData.newPlainText("text", selectedID);
                     clipboardManager.setPrimaryClip(clipData);
-                    Toast.makeText(getApplicationContext(), "已複製到剪貼簿", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.copy_to_clipboard), Toast.LENGTH_SHORT).show();
                     break;
                 case COPY_EMAIL:
                     clipData = ClipData.newPlainText("text", selectedEmail);
                     clipboardManager.setPrimaryClip(clipData);
-                    Toast.makeText(getApplicationContext(), "已複製到剪貼簿", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.copy_to_clipboard), Toast.LENGTH_SHORT).show();
                     break;
                 case SEND_EMAIL:
                     Uri uri = Uri.parse("mailto:" + selectedEmail);
@@ -192,7 +191,7 @@ public class PostDetailActivity extends BaseActivity {
             String url = this.request.getOpenUrl();
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(url));
-            startActivity(Intent.createChooser(intent, "開啟網頁版iLms"));
+            startActivity(Intent.createChooser(intent, getString(R.string.open_browser)));
             return true;
         }
 
@@ -231,7 +230,7 @@ public class PostDetailActivity extends BaseActivity {
                     LayoutInflater layoutInflater = LayoutInflater.from(PostDetailActivity.this);
                     for (Reply reply: response.getReplies()) {
                         ViewGroup view = (ViewGroup) layoutInflater.inflate(R.layout.reply_item, null);
-                        ReplyViewHolder viewHolder = new ReplyViewHolder(view, reply);
+                        ReplyViewHolder viewHolder = new ReplyViewHolder(getApplicationContext(), view, reply);
                         View replyHeader = viewHolder.getView().findViewById(R.id.header);
                         registerForContextMenu(replyHeader);
                         replyLayout.addView(viewHolder.getView());
@@ -243,9 +242,9 @@ public class PostDetailActivity extends BaseActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                        setMessage(ResponseMessage.TIMEOUT);
+                        setMessage(R.string.timeout);
                     } else {
-                        setMessage(ResponseMessage.NO_PERMISSION);
+                        setMessage(R.string.no_permission);
                     }
                     progressBar.setVisibility(View.INVISIBLE);                }
             });

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.android.volley.Response;
+import com.geniusgordon.ilms.R;
 import com.geniusgordon.ilms.app.course.MaterialDetailActivity;
 import com.geniusgordon.ilms.app.adapter.MaterialListAdapter;
 import com.geniusgordon.ilms.http.course.MaterialListRequest;
@@ -61,7 +62,7 @@ public class MaterialFragment extends CoursePageFragment<Material> {
                         swipeRefreshLayout.setRefreshing(false);
 
                         if (listAdapter.getCount() == 0) {
-                            msgTxt.setText("目前尚無資料");
+                            msgTxt.setText(getString(R.string.no_data));
                         }
                     }
                 }, this);

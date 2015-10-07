@@ -32,8 +32,10 @@ public class PostListAdapter extends ListAdapter<Post> {
 
         ((TextView) view.findViewById(R.id.popularity)).setText(String.valueOf(post.getCount()));
         ((TextView) view.findViewById(R.id.title)).setText(post.getTitle());
+
+        String lastPost = context.getResources().getString(R.string.last_post);
         ((TextView) view.findViewById(R.id.author))
-                .setText(String.format("最後發表: %s, %s", post.getLastName(), time));
+                .setText(String.format("%s: %s, %s", lastPost, post.getLastName(), time));
         ((TextView) view.findViewById(R.id.time)).setText("");
 
         return view;

@@ -18,7 +18,6 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.geniusgordon.ilms.R;
 import com.geniusgordon.ilms.app.adapter.ListAdapter;
-import com.geniusgordon.ilms.http.ResponseMessage;
 import com.geniusgordon.ilms.model.Course;
 
 /**
@@ -74,16 +73,16 @@ public class CoursePageFragment<T> extends Fragment implements Response.ErrorLis
     }
 
     public void setMsg(int t) {
-        String msg = ResponseMessage.getMessage(t);
+        String msg = getString(t);
         msgTxt.setText(msg);
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-            setMsg(ResponseMessage.TIMEOUT);
+            setMsg(R.string.timeout);
         } else {
-            setMsg(ResponseMessage.NO_PERMISSION);
+            setMsg(R.string.no_permission);
         }
         progressBar.setVisibility(View.INVISIBLE);
         swipeRefreshLayout.setRefreshing(false);

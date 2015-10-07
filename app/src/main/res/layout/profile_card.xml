@@ -62,7 +62,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent">
                         <TextView
-                            android:text="最後登入"
+                            android:text="@string/last_login"
                             style="@style/Base.TextAppearance.AppCompat"
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"
@@ -81,7 +81,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent">
                         <TextView
-                            android:text="登入次數"
+                            android:text="@string/login_count"
                             style="@style/Base.TextAppearance.AppCompat"
                             android:layout_gravity="center"
                             android:layout_width="wrap_content"

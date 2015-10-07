@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">iLms</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">設定</string>
+    <string name="title_activity_course">CourseActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_forum">ForumActivity</string>
+    <string name="title_activity_post_detail">PostDetailActivity</string>
+    <string name="title_activity_compose">ComposeActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_enter">EnterActivity</string>
+
+    <string name="announcement">公告</string>
+    <string name="material">教材</string>
+    <string name="homework">作業</string>
+    <string name="last_post">最後發表</string>
+    <string name="open_browser">開啟網頁版iLms</string>
+    <string name="attachment">附件</string>
+    <string name="new_discussion">發表討論</string>
+    <string name="reply">回應</string>
+    <string name="confirm_send">即將送出</string>
+    <string name="are_you_sure">你確定要送出嗎？</string>
+    <string name="send">送出</string>
+    <string name="cancel">取消</string>
+    <string name="sent">已送出</string>
+    <string name="error_occurred">發生錯誤，請稍後再試</string>
+    <string name="forum">討論區</string>
+    <string name="no_discussion">目前尚無討論</string>
+    <string name="copy_name">複製名字</string>
+    <string name="copy_student_id">複製學號</string>
+    <string name="copy_email">複製信箱</string>
+    <string name="email_him">寄信給他</string>
+    <string name="copy_to_clipboard">已複製到剪貼簿</string>
+    <string name="no_announcement">目前尚無公告</string>
+    <string name="no_data">目前尚無資料</string>
+    <string name="latest_announcement">最新公告</string>
+    <string name="latest_discussion">最新討論</string>
+    <string name="latest_document">最新文件</string>
+    <string name="login">登入</string>
+    <string name="calendar">行事曆</string>
+    <string name="logout">登出</string>
+    <string name="course">課程</string>
+    <string name="timeout">無法連線，請稍後再試</string>
+    <string name="no_permission">權限不足</string>
+    <string name="not_login">尚未登入</string>
+    <string name="incorrect_user_passwd">帳密有誤</string>
+    <string name="empty_user_passwd">帳密不得為空</string>
+    <string name="title">標題</string>
+    <string name="nickname">暱稱</string>
+    <string name="content">內容</string>
+    <string name="sent_from_android">在最後加上 &quot;Sent from my Android&quot;</string>
+    <string name="email_professor_ta">寄信給教授或助教</string>
+    <string name="last_login">最後登入</string>
+    <string name="login_count">登入次數</string>
+
+
+</resources>

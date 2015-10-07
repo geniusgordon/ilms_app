@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
-import android.text.method.ScrollingMovementMethod;
 import android.transition.Fade;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +22,6 @@ import com.geniusgordon.ilms.R;
 import com.geniusgordon.ilms.app.AnalyticsApplication;
 import com.geniusgordon.ilms.app.BaseActivity;
 import com.geniusgordon.ilms.http.BaseRequest;
-import com.geniusgordon.ilms.http.ResponseMessage;
 import com.geniusgordon.ilms.model.Course;
 import com.geniusgordon.ilms.model.CourseItem;
 import com.google.android.gms.analytics.HitBuilders;
@@ -47,9 +45,9 @@ public class DetailActivity<T extends CourseItem> extends BaseActivity {
         @Override
         public void onErrorResponse(VolleyError error) {
             if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                setMessage(ResponseMessage.TIMEOUT);
+                setMessage(R.string.not_login);
             } else {
-                setMessage(ResponseMessage.NO_PERMISSION);
+                setMessage(R.string.no_permission);
             }
             progressBar.setVisibility(View.INVISIBLE);
         }
@@ -116,7 +114,7 @@ public class DetailActivity<T extends CourseItem> extends BaseActivity {
             String url = this.request.getOpenUrl();
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(url));
-            startActivity(Intent.createChooser(intent, "開啟網頁版iLms"));
+            startActivity(Intent.createChooser(intent, getResources().getString(R.string.open_browser)));
             return true;
         }
 

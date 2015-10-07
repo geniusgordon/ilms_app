@@ -39,7 +39,7 @@ public class HomeworkDetailActivity extends DetailActivity<Homework> {
         String timeStr = item.getTimeStr(new SimpleDateFormat("yyyy/MM/dd"));
 
         titleTxt.setText(item.getTitle());
-        authorTxt.setText("作業");
+        authorTxt.setText(getResources().getString(R.string.homework));
         timeTxt.setText(timeStr);
 
         request = new HomeworkRequest(course, item,
@@ -55,7 +55,8 @@ public class HomeworkDetailActivity extends DetailActivity<Homework> {
 
                     if (item.getAttachments().size() > 0) {
                         StringBuilder stringBuilder = new StringBuilder();
-                        stringBuilder.append("<br><br><p><strong>附件</strong><br><br>");
+                        String attachmentStr = getString(R.string.attachment);
+                        stringBuilder.append("<br><br><p><strong>" + attachmentStr + "</strong><br><br>");
                         for (Attachment attach : item.getAttachments()) {
                             String a = "<a href='%s'>%s</a>&nbsp;%s<br><br>";
                             stringBuilder.append(String.format(a, attach.getUrl(), attach.getTitle(), attach.getSize()));

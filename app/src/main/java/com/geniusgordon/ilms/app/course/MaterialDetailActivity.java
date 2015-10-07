@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.android.volley.Response;
 import com.geniusgordon.ilms.HtmlFix;
+import com.geniusgordon.ilms.R;
 import com.geniusgordon.ilms.app.ActivityDispatcher;
 import com.geniusgordon.ilms.http.detail.MaterialRequest;
 import com.geniusgordon.ilms.http.RequestQueueSingleton;
@@ -49,7 +50,8 @@ public class MaterialDetailActivity extends DetailActivity<Material> {
 
                     if (item.getAttachments().size() > 0) {
                         StringBuilder stringBuilder = new StringBuilder();
-                        stringBuilder.append("<br><br><p><strong>附件</strong><br><br>");
+                        String attachmentStr = getString(R.string.attachment);
+                        stringBuilder.append("<br><br><p><strong>" + attachmentStr + "</strong><br><br>");
                         for (Attachment attach : item.getAttachments()) {
                             String a = "<a href='%s'>%s</a>&nbsp;%s<br><br>";
                             stringBuilder.append(String.format(a, attach.getUrl(), attach.getTitle(), attach.getSize()));

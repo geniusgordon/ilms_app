@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.android.volley.Response;
+import com.geniusgordon.ilms.R;
 import com.geniusgordon.ilms.app.course.HomeworkDetailActivity;
 import com.geniusgordon.ilms.app.adapter.HomeworkListAdapter;
 import com.geniusgordon.ilms.http.course.HomeworkListRequest;
@@ -62,7 +63,7 @@ public class HomeworkFragment extends CoursePageFragment<Homework> {
                         swipeRefreshLayout.setRefreshing(false);
 
                         if (listAdapter.getCount() == 0) {
-                            msgTxt.setText("目前尚無資料");
+                            msgTxt.setText(getString(R.string.no_data));
                         }
                     }
                 }, this);

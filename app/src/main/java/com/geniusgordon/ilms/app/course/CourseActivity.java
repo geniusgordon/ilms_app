@@ -32,6 +32,8 @@ import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import java.util.Locale;
+
 public class CourseActivity extends DrawerActivity {
     final static String LOG_TAG = "CourseActivity";
 
@@ -59,10 +61,13 @@ public class CourseActivity extends DrawerActivity {
 
         course = (Course) getIntent().getSerializableExtra("course");
         Log.d(LOG_TAG, course.getChi_title());
+        final Locale current = getResources().getConfiguration().locale;
+        if (current.getLanguage().equals("zh"))
+            getSupportActionBar().setTitle(course.getChi_title());
+        else
+            getSupportActionBar().setTitle(course.getEng_title());
 
-        getSupportActionBar().setTitle(course.getChi_title());
-
-        pagerAdapter = new CourseFragmentPagerAdapter(getSupportFragmentManager(), course);
+        pagerAdapter = new CourseFragmentPagerAdapter(getApplicationContext(), getSupportFragmentManager(), course);
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
@@ -74,7 +79,10 @@ public class CourseActivity extends DrawerActivity {
             new Response.Listener<CourseEmail>() {
                 @Override
                 public void onResponse(CourseEmail response) {
-                    getSupportActionBar().setTitle(Course.splitTitle(response.getCourseName())[0]);
+                    if (current.getLanguage().equals("zh"))
+                        getSupportActionBar().setTitle(Course.splitTitle(response.getCourseName())[0]);
+                    else
+                        getSupportActionBar().setTitle(Course.splitTitle(response.getCourseName())[1]);
 
                     for (final CourseEmail.Email email: response.getEmails()) {
                         FloatingActionButton btn = new FloatingActionButton(getApplicationContext());

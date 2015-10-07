@@ -17,19 +17,13 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.geniusgordon.ilms.R;
 import com.geniusgordon.ilms.app.ActivityDispatcher;
-import com.geniusgordon.ilms.app.AnalyticsApplication;
 import com.geniusgordon.ilms.app.DrawerActivity;
-import com.geniusgordon.ilms.app.LoginActivity;
 import com.geniusgordon.ilms.app.adapter.HomeItemListAdapter;
 import com.geniusgordon.ilms.http.main.HomeItemListRequest;
 import com.geniusgordon.ilms.http.main.NewestAnnouncementRequest;
 import com.geniusgordon.ilms.http.RequestQueueSingleton;
-import com.geniusgordon.ilms.http.ResponseMessage;
-import com.geniusgordon.ilms.model.Account;
 import com.geniusgordon.ilms.model.HomeItem;
 import com.geniusgordon.ilms.model.Preferences;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,9 +44,9 @@ public class MainActivity extends DrawerActivity {
             swipeRefreshLayout.setRefreshing(false);
 
             if (Preferences.getInstance(getApplicationContext()).getAccount() == null)
-                setMessage(ResponseMessage.NOT_LOGIN);
+                setMessage(R.string.not_login);
             else
-                setMessage(ResponseMessage.OK);
+                setMessage();
         }
     };
 
@@ -60,9 +54,9 @@ public class MainActivity extends DrawerActivity {
         @Override
         public void onErrorResponse(VolleyError error) {
             if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                setMessage(ResponseMessage.TIMEOUT);
+                setMessage(R.string.timeout);
             } else {
-                setMessage(ResponseMessage.NOT_LOGIN);
+                setMessage(R.string.not_login);
             }
             progressBar.setVisibility(View.INVISIBLE);
         }
@@ -74,7 +68,7 @@ public class MainActivity extends DrawerActivity {
         setContentView(R.layout.activity_main);
         initDrawer();
 
-        getSupportActionBar().setTitle("最新公告");
+        getSupportActionBar().setTitle(getString(R.string.latest_announcement));
         drawer.setSelection(newestAnnouncement);
 
         msgTxt = (TextView) findViewById(R.id.msgTxt);

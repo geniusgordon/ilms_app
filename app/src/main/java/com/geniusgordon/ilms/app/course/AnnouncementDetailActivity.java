@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.android.volley.Response;
 import com.geniusgordon.ilms.HtmlFix;
+import com.geniusgordon.ilms.R;
 import com.geniusgordon.ilms.app.ActivityDispatcher;
 import com.geniusgordon.ilms.http.detail.AnnouncementRequest;
 import com.geniusgordon.ilms.http.RequestQueueSingleton;
@@ -33,7 +34,7 @@ public class AnnouncementDetailActivity extends DetailActivity<Announcement> {
         String timeStr = item.getTimeStr(new SimpleDateFormat("yyyy/MM/dd"));
 
         titleTxt.setText(item.getTitle());
-        authorTxt.setText("課程公告");
+        authorTxt.setText(getString(R.string.announcement));
         timeTxt.setText(timeStr);
 
         title = title==null ? "" : title;

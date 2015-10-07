@@ -12,9 +12,11 @@ import java.util.List;
 public abstract class ListAdapter<T> extends BaseAdapter {
     LayoutInflater mLayoutInflater;
     List<T> items;
+    Context context;
 
     public ListAdapter(Context context, List<T> items) {
         mLayoutInflater = LayoutInflater.from(context);
+        this.context = context;
         this.items = items;
     }
 

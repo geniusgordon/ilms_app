@@ -24,7 +24,6 @@ import com.geniusgordon.ilms.app.main.NewestForumActivity;
 import com.geniusgordon.ilms.app.main.NewestMaterialActivity;
 import com.geniusgordon.ilms.http.main.CourseListRequest;
 import com.geniusgordon.ilms.http.RequestQueueSingleton;
-import com.geniusgordon.ilms.http.ResponseMessage;
 import com.geniusgordon.ilms.model.Account;
 import com.geniusgordon.ilms.model.Course;
 import com.geniusgordon.ilms.model.CourseList;
@@ -42,6 +41,8 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.util.DrawerImageLoader;
+
+import java.util.Locale;
 
 import it.sephiroth.android.library.picasso.Picasso;
 import it.sephiroth.android.library.picasso.PicassoTools;
@@ -75,7 +76,7 @@ public class DrawerActivity extends BaseActivity {
                 .withHeaderBackground(R.drawable.bg_account)
                 .addProfiles(
                         new ProfileDrawerItem()
-                                .withName("登入")
+                                .withName(getString(R.string.login))
                                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                                     @Override
                                     public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {
@@ -89,7 +90,7 @@ public class DrawerActivity extends BaseActivity {
                 .build();
 
         newestAnnouncement = new PrimaryDrawerItem()
-                .withName("最新公告")
+                .withName(getString(R.string.latest_announcement))
                 .withIcon(R.drawable.ic_info_yellow_24dp)
                 .withIconColor(getResources().getColor(R.color.yellow_primary))
                 .withSelectedTextColor(getResources().getColor(R.color.yellow_primary))
@@ -103,7 +104,7 @@ public class DrawerActivity extends BaseActivity {
                 });
 
         newestForum = new PrimaryDrawerItem()
-                .withName("最新討論")
+                .withName(getString(R.string.latest_discussion))
                 .withIcon(R.drawable.ic_group_green_36dp)
                 .withIconColor(getResources().getColor(R.color.green_primary))
                 .withSelectedTextColor(getResources().getColor(R.color.green_primary))
@@ -117,7 +118,7 @@ public class DrawerActivity extends BaseActivity {
                 });
 
         newestMaterial = new PrimaryDrawerItem()
-                .withName("最新文件")
+                .withName(getString(R.string.latest_document))
                 .withIcon(R.drawable.ic_description_blue_36dp)
                 .withIconColor(getResources().getColor(R.color.blue_primary))
                 .withSelectedTextColor(getResources().getColor(R.color.blue_primary))
@@ -133,7 +134,7 @@ public class DrawerActivity extends BaseActivity {
 
         SectionDrawerItem calendarHeader = new SectionDrawerItem()
                 .withDivider(true)
-                .withName("行事曆");
+                .withName(getString(R.string.calendar));
 
         SecondaryDrawerItem myCalendar = new SecondaryDrawerItem()
                 .withName("個人")
@@ -201,7 +202,7 @@ public class DrawerActivity extends BaseActivity {
 
         accountHeader.addProfiles(item,
                 new ProfileSettingDrawerItem()
-                        .withName("登出")
+                        .withName(getString(R.string.logout))
                         .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                             @Override
                             public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {
@@ -261,8 +262,7 @@ public class DrawerActivity extends BaseActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    Toast.makeText(getApplicationContext(),
-                            ResponseMessage.getMessage(ResponseMessage.TIMEOUT),
+                    Toast.makeText(getApplicationContext(), getString(R.string.timeout),
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -273,18 +273,18 @@ public class DrawerActivity extends BaseActivity {
     private void updateDrawerAfterLogin() {
         SectionDrawerItem courseHeader = new SectionDrawerItem()
                 .withDivider(true)
-                .withName("課程  " + courseList.getSemester());
+                .withName(getString(R.string.course) + "  " + courseList.getSemester());
         drawer.addItem(courseHeader);
 
         /*Course c = new Course();
         c.setId(23091);
         c.setChi_title("testing");
         courseList.getCourses().add(c);*/
+        Locale current = getResources().getConfiguration().locale;
 
         for (final Course course: courseList.getCourses()) {
-            drawer.addItem(new SecondaryDrawerItem()
+            SecondaryDrawerItem item = new SecondaryDrawerItem()
                     .withIcon(R.drawable.ic_view_list_black_24dp)
-                    .withName(course.getChi_title())
                     .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                         @Override
                         public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {
@@ -293,7 +293,12 @@ public class DrawerActivity extends BaseActivity {
                             startActivity(intent);
                             return true;
                         }
-                    }));
+                    });
+            if (current.getLanguage().equals("zh"))
+                item.withName(course.getChi_title());
+            else
+                item.withName(course.getEng_title());
+            drawer.addItem(item);
         }
     }
 

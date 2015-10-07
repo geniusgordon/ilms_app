@@ -7,8 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.geniusgordon.ilms.http.ResponseMessage;
-
 /**
  * Created by gordon on 9/30/15.
  */
@@ -28,9 +26,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         return null;
     }
 
+    public void setMessage() {
+        if (msgTxt != null)
+            msgTxt.setText("");
+    }
+
     public void setMessage(int t) {
         if (msgTxt != null)
-            msgTxt.setText(ResponseMessage.getMessage(t));
+            msgTxt.setText(getString(t));
     }
 
 }

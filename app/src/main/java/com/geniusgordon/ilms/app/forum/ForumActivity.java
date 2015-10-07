@@ -33,7 +33,6 @@ import com.geniusgordon.ilms.app.adapter.PostListAdapter;
 import com.geniusgordon.ilms.http.forum.ForumPageRequest;
 import com.geniusgordon.ilms.http.forum.PostListRequest;
 import com.geniusgordon.ilms.http.RequestQueueSingleton;
-import com.geniusgordon.ilms.http.ResponseMessage;
 import com.geniusgordon.ilms.model.Course;
 import com.geniusgordon.ilms.model.Post;
 import com.github.clans.fab.FloatingActionButton;
@@ -81,7 +80,7 @@ public class ForumActivity extends BaseActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("討論區");
+        getSupportActionBar().setTitle(getString(R.string.forum));
 
         msgTxt = (TextView) findViewById(R.id.list_msg);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -203,7 +202,7 @@ public class ForumActivity extends BaseActivity {
                         gettingList = false;
 
                         if (listAdapter.getCount() == 0) {
-                            msgTxt.setText("目前尚無討論");
+                            msgTxt.setText(getString(R.string.no_discussion));
                         }
                     }
                 },
@@ -211,14 +210,13 @@ public class ForumActivity extends BaseActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                            setMessage(ResponseMessage.TIMEOUT);
+                            setMessage(R.string.timeout);
                         } else {
-                            setMessage(ResponseMessage.NO_PERMISSION);
+                            setMessage(R.string.no_permission);
                             btn.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Toast.makeText(getApplicationContext(),
-                                            ResponseMessage.getMessage(ResponseMessage.NO_PERMISSION),
+                                    Toast.makeText(getApplicationContext(), getString(R.string.no_permission),
                                             Toast.LENGTH_SHORT).show();
                                 }
                             });

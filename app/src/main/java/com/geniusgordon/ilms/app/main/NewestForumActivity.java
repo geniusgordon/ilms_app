@@ -18,7 +18,7 @@ public class NewestForumActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme_Green);
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle("最新討論");
+        getSupportActionBar().setTitle(getString(R.string.latest_discussion));
         drawer.setSelection(newestForum);
     }
 

@@ -69,9 +69,9 @@ public class ComposeActivity extends AppCompatActivity {
         checkBox = (CheckBox) findViewById(R.id.checkBox);
 
         if (action.equals("post"))
-            getSupportActionBar().setTitle("發表討論");
+            getSupportActionBar().setTitle(getString(R.string.new_discussion));
         else {
-            getSupportActionBar().setTitle("回應");
+            getSupportActionBar().setTitle(getString(R.string.reply));
             titleEdit.setKeyListener(null);
             titleEdit.setText(title);
         }
@@ -115,15 +115,15 @@ public class ComposeActivity extends AppCompatActivity {
             return;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("即將送出");
-        builder.setMessage("你確定要送出嗎？");
-        builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+        builder.setTitle(getString(R.string.confirm_send));
+        builder.setMessage(getString(R.string.are_you_sure));
+        builder.setPositiveButton(getString(R.string.send), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 send();
             }
         });
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -162,7 +162,7 @@ public class ComposeActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(getApplicationContext(), "已送出", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getString(R.string.sent), Toast.LENGTH_SHORT).show();
                         setResult(RESULT_OK);
                         finish();
                     }
@@ -170,7 +170,7 @@ public class ComposeActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "發生錯誤，請稍後再試", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getString(R.string.error_occurred), Toast.LENGTH_SHORT).show();
                         sending = false;
                         progressBar.setVisibility(View.INVISIBLE);
                     }

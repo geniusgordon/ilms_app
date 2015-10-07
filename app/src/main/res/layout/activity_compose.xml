@@ -30,11 +30,11 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/title"
-                    android:hint="標題"
+                    android:hint="@string/title"
                     android:padding="16dp"
                     android:background="@android:color/transparent"
                     android:layout_width="fill_parent"
@@ -57,7 +57,7 @@
                     android:layout_height="?android:attr/listPreferredItemHeight">
 
                     <TextView
-                        android:text="暱稱"
+                        android:text="@string/nickname"
                         android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
@@ -86,7 +86,7 @@
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp"
                         android:paddingBottom="?android:attr/listPreferredItemHeight"
-                        android:hint="內容"
+                        android:hint="@string/content"
                         android:background="@android:color/transparent"
                         android:id="@+id/content"  />
 
@@ -105,7 +105,7 @@
                 android:layout_height="fill_parent"
                 android:checked="true"
                 android:buttonTint="#607D8B"
-                android:text="Add &quot;Sent from my Android&quot; at the end"
+                android:text="@string/sent_from_android"
                 android:id="@+id/checkBox" />
         </RelativeLayout>
 

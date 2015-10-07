@@ -1,10 +1,12 @@
 package com.geniusgordon.ilms.app.adapter;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.geniusgordon.ilms.R;
 import com.geniusgordon.ilms.app.fragment.AnnouncementFragment;
 import com.geniusgordon.ilms.app.fragment.HomeworkFragment;
 import com.geniusgordon.ilms.app.fragment.MaterialFragment;
@@ -15,12 +17,14 @@ import com.geniusgordon.ilms.model.Course;
  */
 public class CourseFragmentPagerAdapter extends FragmentPagerAdapter {
     final int PAGE_COUNT = 3;
-    private final String[] title = {"公告", " 教材", "作業"};
+    private final int[] title = {R.string.announcement, R.string.material, R.string.homework};
+    private Context context;
     private Fragment[] fragments;
     private Course course;
 
-    public CourseFragmentPagerAdapter(FragmentManager fm, Course course) {
+    public CourseFragmentPagerAdapter(Context context, FragmentManager fm, Course course) {
         super(fm);
+        this.context = context;
         this.course = course;
         fragments = new Fragment[PAGE_COUNT];
         fragments[0] = new AnnouncementFragment();
@@ -46,6 +50,6 @@ public class CourseFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return title[position];
+        return context.getResources().getString(title[position]);
     }
 }
