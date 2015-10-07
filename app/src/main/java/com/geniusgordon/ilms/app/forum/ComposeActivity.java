@@ -18,10 +18,13 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.geniusgordon.ilms.R;
+import com.geniusgordon.ilms.app.AnalyticsApplication;
 import com.geniusgordon.ilms.http.forum.ForumPostRequest;
 import com.geniusgordon.ilms.http.RequestQueueSingleton;
 import com.geniusgordon.ilms.model.Course;
 import com.geniusgordon.ilms.model.Preferences;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -134,6 +137,14 @@ public class ComposeActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         String content = Html.toHtml(contentEdit.getText());
+        Tracker mTracker = AnalyticsApplication.tracker();
+
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Compose")
+                .setAction("Sent from my Android Checkbox")
+                .setLabel(this.getClass().getSimpleName())
+                .setValue(checkBox.isChecked()?1:0)
+                .build());
         if (checkBox.isChecked())
             content = content + "<br>--<br><br>Sent from my Android<br><br>";
 

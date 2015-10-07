@@ -17,6 +17,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.geniusgordon.ilms.R;
 import com.geniusgordon.ilms.app.ActivityDispatcher;
+import com.geniusgordon.ilms.app.AnalyticsApplication;
 import com.geniusgordon.ilms.app.DrawerActivity;
 import com.geniusgordon.ilms.app.LoginActivity;
 import com.geniusgordon.ilms.app.adapter.HomeItemListAdapter;
@@ -27,6 +28,8 @@ import com.geniusgordon.ilms.http.ResponseMessage;
 import com.geniusgordon.ilms.model.Account;
 import com.geniusgordon.ilms.model.HomeItem;
 import com.geniusgordon.ilms.model.Preferences;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.util.ArrayList;
 import java.util.List;

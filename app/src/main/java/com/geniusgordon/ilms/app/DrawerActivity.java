@@ -29,6 +29,8 @@ import com.geniusgordon.ilms.model.Account;
 import com.geniusgordon.ilms.model.Course;
 import com.geniusgordon.ilms.model.CourseList;
 import com.geniusgordon.ilms.model.Preferences;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -296,6 +298,13 @@ public class DrawerActivity extends BaseActivity {
     }
 
     private void openProfile() {
+        Tracker mTracker = AnalyticsApplication.tracker();
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Drawer")
+                .setAction("Open Profile")
+                .setLabel(this.getClass().getSimpleName())
+                .build());
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.profile_card, null);

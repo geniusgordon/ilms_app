@@ -19,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.geniusgordon.ilms.R;
 import com.geniusgordon.ilms.app.ActivityDispatcher;
+import com.geniusgordon.ilms.app.AnalyticsApplication;
 import com.geniusgordon.ilms.app.DrawerActivity;
 import com.geniusgordon.ilms.app.adapter.CourseFragmentPagerAdapter;
 import com.geniusgordon.ilms.app.forum.ForumActivity;
@@ -28,6 +29,8 @@ import com.geniusgordon.ilms.model.Course;
 import com.geniusgordon.ilms.model.CourseEmail;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 public class CourseActivity extends DrawerActivity {
     final static String LOG_TAG = "CourseActivity";
@@ -81,6 +84,12 @@ public class CourseActivity extends DrawerActivity {
                         btn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                Tracker mTracker = AnalyticsApplication.tracker();
+                                mTracker.send(new HitBuilders.EventBuilder()
+                                        .setCategory("Course")
+                                        .setAction("Send Email to Professor")
+                                        .setLabel(this.getClass().getSimpleName())
+                                        .build());
                                 Uri uri = Uri.parse("mailto:" + email.getEmail());
                                 Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
                                 startActivity(intent);

@@ -13,11 +13,14 @@ import com.android.volley.Response;
 import com.geniusgordon.ilms.HtmlFix;
 import com.geniusgordon.ilms.R;
 import com.geniusgordon.ilms.app.ActivityDispatcher;
+import com.geniusgordon.ilms.app.AnalyticsApplication;
 import com.geniusgordon.ilms.http.detail.HomeworkRequest;
 import com.geniusgordon.ilms.http.RequestQueueSingleton;
 import com.geniusgordon.ilms.model.Attachment;
 import com.geniusgordon.ilms.model.Course;
 import com.geniusgordon.ilms.model.Homework;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -76,6 +79,13 @@ public class HomeworkDetailActivity extends DetailActivity<Homework> {
         int id = item.getItemId();
 
         if (id == R.id.event) {
+            Tracker mTracker = AnalyticsApplication.tracker();
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("Homework")
+                    .setAction("Open Calendar")
+                    .setLabel(this.getClass().getSimpleName())
+                    .build());
+
             Intent intent = new Intent(Intent.ACTION_EDIT);
             intent.setType("vnd.android.cursor.item/event");
             intent.putExtra("allDay", true);

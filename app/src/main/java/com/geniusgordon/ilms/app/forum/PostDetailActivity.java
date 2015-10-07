@@ -27,6 +27,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.geniusgordon.ilms.R;
 import com.geniusgordon.ilms.app.ActivityDispatcher;
+import com.geniusgordon.ilms.app.AnalyticsApplication;
 import com.geniusgordon.ilms.app.BaseActivity;
 import com.geniusgordon.ilms.http.forum.ReplyListRequest;
 import com.geniusgordon.ilms.http.RequestQueueSingleton;
@@ -36,6 +37,8 @@ import com.geniusgordon.ilms.model.Post;
 import com.geniusgordon.ilms.model.Reply;
 import com.geniusgordon.ilms.model.ReplyList;
 import com.github.clans.fab.FloatingActionButton;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 public class PostDetailActivity extends BaseActivity {
     final static String LOG_TAG = "PostDetailActivity";
@@ -114,7 +117,14 @@ public class PostDetailActivity extends BaseActivity {
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-       if (v.getId() == R.id.header) {
+        if (v.getId() == R.id.header) {
+            Tracker mTracker = AnalyticsApplication.tracker();
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("PostDetail")
+                    .setAction("Open Header Context Menu")
+                    .setLabel(this.getClass().getSimpleName())
+                    .build());
+
             menu.add(SELECT_AUTHOR, COPY_NAME, Menu.NONE, "複製名字");
             menu.add(SELECT_AUTHOR, COPY_ID, Menu.NONE, "複製學號");
             menu.add(SELECT_AUTHOR, COPY_EMAIL, Menu.NONE, "複製信箱");

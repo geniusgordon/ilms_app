@@ -20,11 +20,14 @@ import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.geniusgordon.ilms.R;
+import com.geniusgordon.ilms.app.AnalyticsApplication;
 import com.geniusgordon.ilms.app.BaseActivity;
 import com.geniusgordon.ilms.http.BaseRequest;
 import com.geniusgordon.ilms.http.ResponseMessage;
 import com.geniusgordon.ilms.model.Course;
 import com.geniusgordon.ilms.model.CourseItem;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 public class DetailActivity<T extends CourseItem> extends BaseActivity {
     final static String LOG_TAG = "DetailActivity";
@@ -103,6 +106,13 @@ public class DetailActivity<T extends CourseItem> extends BaseActivity {
             supportFinishAfterTransition();
             return true;
         } else if (id == R.id.open) {
+            Tracker mTracker = AnalyticsApplication.tracker();
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("Detail")
+                    .setAction("Open in Browser")
+                    .setLabel(this.getClass().getSimpleName())
+                    .build());
+
             String url = this.request.getOpenUrl();
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(url));
