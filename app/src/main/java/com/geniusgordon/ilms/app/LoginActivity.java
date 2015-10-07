@@ -96,9 +96,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login() {
-        loginProgressBar.setVisibility(View.VISIBLE);
         final  String username = usernameTxt.getText().toString();
         String password = passwordTxt.getText().toString();
+        if (username.trim().length() == 0 || password.trim().length() == 0) {
+            Toast.makeText(getApplicationContext(), "帳密不得為空", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        loginProgressBar.setVisibility(View.VISIBLE);
 //        LoginRequest request = new LoginRequest(username, password,
 //            new Response.Listener<LoginStatus>() {
 //                @Override
