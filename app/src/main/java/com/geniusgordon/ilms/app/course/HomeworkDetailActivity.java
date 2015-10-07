@@ -1,6 +1,8 @@
 package com.geniusgordon.ilms.app.course;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
@@ -34,13 +36,16 @@ public class HomeworkDetailActivity extends DetailActivity<Homework> {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setTitle("");
 
+
         Log.d(LOG_TAG, item.getTitle());
 
-        String timeStr = item.getTimeStr(new SimpleDateFormat("yyyy/MM/dd"));
+        String timeStr = item.getTimeStr(new SimpleDateFormat("yyyy/MM/dd hh:mm"));
 
         iconImg.setImageResource(R.drawable.ic_assignment_black_48dp);
         titleTxt.setText(item.getTitle());
         authorTxt.setText(getResources().getString(R.string.homework));
+        timeTxt.setTextColor(Color.RED);
+        timeTxt.setTypeface(null, Typeface.BOLD);
         timeTxt.setText(timeStr);
 
         request = new HomeworkRequest(course, item,
@@ -52,7 +57,7 @@ public class HomeworkDetailActivity extends DetailActivity<Homework> {
                     progressBar.setVisibility(View.INVISIBLE);
 
                     titleTxt.setText(item.getTitle());
-                    timeTxt.setText(item.getTimeStr(new SimpleDateFormat("yyyy/MM/dd")));
+                    timeTxt.setText(item.getTimeStr(new SimpleDateFormat("yyyy/MM/dd hh:mm")));
 
                     if (item.getAttachments().size() > 0) {
                         StringBuilder stringBuilder = new StringBuilder();
