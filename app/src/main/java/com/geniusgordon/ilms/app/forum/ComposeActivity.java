@@ -29,15 +29,18 @@ import com.google.android.gms.analytics.Tracker;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class ComposeActivity extends AppCompatActivity {
     final static String LOG_TAG = "ComposeActivity";
 
-    private Toolbar toolbar;
-    private EditText titleEdit;
-    private EditText nameEdit;
-    private EditText contentEdit;
-    private ProgressBar progressBar;
-    private CheckBox checkBox;
+    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.title) EditText titleEdit;
+    @Bind(R.id.name) EditText nameEdit;
+    @Bind(R.id.content) EditText contentEdit;
+    @Bind(R.id.progressBar) ProgressBar progressBar;
+    @Bind(R.id.checkBox) CheckBox checkBox;
 
     private Course course;
     private String action;
@@ -52,7 +55,8 @@ public class ComposeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compose);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_black_24dp);
@@ -61,12 +65,6 @@ public class ComposeActivity extends AppCompatActivity {
         action = getIntent().getStringExtra("action");
         title = getIntent().getStringExtra("title");
         id = getIntent().getStringExtra("id");
-
-        titleEdit = (EditText) findViewById(R.id.title);
-        nameEdit = (EditText) findViewById(R.id.name);
-        contentEdit = (EditText) findViewById(R.id.content);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        checkBox = (CheckBox) findViewById(R.id.checkBox);
 
         if (action.equals("post"))
             getSupportActionBar().setTitle(getString(R.string.new_discussion));

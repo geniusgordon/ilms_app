@@ -28,12 +28,16 @@ import com.geniusgordon.ilms.model.Preferences;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class MainActivity extends DrawerActivity {
 
-    private ListView listView;
     private HomeItemListAdapter listAdapter;
-    private ProgressBar progressBar;
-    private SwipeRefreshLayout swipeRefreshLayout;
+
+    @Bind(R.id.list_view) ListView listView;
+    @Bind(R.id.progressBar) ProgressBar progressBar;
+    @Bind(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
 
     protected HomeItemListRequest request;
     protected Response.Listener<List<HomeItem>> listener = new Response.Listener<List<HomeItem>>() {
@@ -68,16 +72,15 @@ public class MainActivity extends DrawerActivity {
         setContentView(R.layout.activity_main);
         initDrawer();
 
+        ButterKnife.bind(this);
+
         getSupportActionBar().setTitle(getString(R.string.latest_announcement));
         drawer.setSelection(newestAnnouncement);
 
         msgTxt = (TextView) findViewById(R.id.msgTxt);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
 
         listAdapter = new HomeItemListAdapter(this, new ArrayList<HomeItem>());
         listAdapter.setShowHeader(false);
-        listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(listAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

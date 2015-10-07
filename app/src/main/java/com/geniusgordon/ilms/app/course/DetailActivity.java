@@ -28,6 +28,9 @@ import com.geniusgordon.ilms.model.CourseItem;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class DetailActivity<T extends CourseItem> extends BaseActivity {
     final static String LOG_TAG = "DetailActivity";
 
@@ -35,12 +38,12 @@ public class DetailActivity<T extends CourseItem> extends BaseActivity {
     protected T item;
     protected Course course;
 
-    protected ImageView iconImg;
-    protected TextView titleTxt;
-    protected TextView authorTxt;
-    protected TextView timeTxt;
-    protected TextView contentTxt;
-    protected ProgressBar progressBar;
+    @Bind(R.id.icon_img) ImageView iconImg;
+    @Bind(R.id.title) TextView titleTxt;
+    @Bind(R.id.author) TextView authorTxt;
+    @Bind(R.id.time) TextView timeTxt;
+    @Bind(R.id.content) TextView contentTxt;
+    @Bind(R.id.progressBar) ProgressBar progressBar;
 
     protected BaseRequest<T> request;
     protected Response.ErrorListener errorListener = new Response.ErrorListener() {
@@ -68,6 +71,8 @@ public class DetailActivity<T extends CourseItem> extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        ButterKnife.bind(this);
+
         item = (T) getIntent().getSerializableExtra("item");
         course = (Course) getIntent().getSerializableExtra("course");
 
@@ -77,14 +82,6 @@ public class DetailActivity<T extends CourseItem> extends BaseActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_black_24dp);
 
         msgTxt = (TextView) findViewById(R.id.msgTxt);
-
-        iconImg = (ImageView) findViewById(R.id.icon_img);
-        titleTxt = (TextView) findViewById(R.id.title);
-        authorTxt = (TextView) findViewById(R.id.author);
-        timeTxt = (TextView) findViewById(R.id.time);
-        contentTxt = (TextView) findViewById(R.id.content);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
         contentTxt.setMovementMethod(LinkMovementMethod.getInstance());
     }
 

@@ -40,18 +40,20 @@ import com.github.clans.fab.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class ForumActivity extends BaseActivity {
     final static String LOG_TAG = "ForumActivity";
     final static int COMPOSE = 1;
 
-    private Toolbar toolbar;
-    private ProgressBar progressBar;
-    private FloatingActionButton btn;
+    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.progressBar) ProgressBar progressBar;
+    @Bind(R.id.edit_btn) FloatingActionButton btn;
+    @Bind(R.id.list_view) ListView listView;
+    @Bind(R.id.swipeRefreshLayout) SwipeRefreshLayout swipeRefreshLayout;
 
     private PostListAdapter listAdapter;
-    private ListView listView;
-
-    private SwipeRefreshLayout swipeRefreshLayout;
     private boolean gettingList;
 
     private Course course;
@@ -72,20 +74,18 @@ public class ForumActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum);
 
+        ButterKnife.bind(this);
+
         course = (Course) getIntent().getSerializableExtra("course");
         page = 1;
         totalPage = 1;
         gettingList = false;
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getString(R.string.forum));
 
         msgTxt = (TextView) findViewById(R.id.list_msg);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        btn = (FloatingActionButton) findViewById(R.id.edit_btn);
-
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +97,6 @@ public class ForumActivity extends BaseActivity {
         });
 
         listAdapter = new PostListAdapter(this, new ArrayList<Post>());
-        listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(listAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -126,8 +125,6 @@ public class ForumActivity extends BaseActivity {
                     getList();
             }
         });
-
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

@@ -107,6 +107,7 @@
     <orderEntry type="library" exported="" name="annotations-12.0" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.5.2.3" level="project" />
     <orderEntry type="library" exported="" name="circleimageview-2.0.0" level="project" />
+    <orderEntry type="library" exported="" name="butterknife-7.0.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-appindexing-8.1.0" level="project" />
     <orderEntry type="library" exported="" name="materialdrawer-4.3.0" level="project" />
     <orderEntry type="library" exported="" name="okio-1.0.1" level="project" />

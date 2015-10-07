@@ -39,6 +39,9 @@ import com.github.clans.fab.FloatingActionButton;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class PostDetailActivity extends BaseActivity {
     final static String LOG_TAG = "PostDetailActivity";
     final static int REPLY = 2;
@@ -54,10 +57,10 @@ public class PostDetailActivity extends BaseActivity {
     private String selectedID;
     private String selectedEmail;
 
-    private LinearLayout replyLayout;
-    private Toolbar toolbar;
-    private ProgressBar progressBar;
-    private FloatingActionButton btn;
+    @Bind(R.id.reply_layout) LinearLayout replyLayout;
+    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.progressBar) ProgressBar progressBar;
+    @Bind(R.id.reply_btn) FloatingActionButton btn;
 
     private Post post;
     private Course course;
@@ -79,15 +82,13 @@ public class PostDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_detail);
 
+        ButterKnife.bind(this);
+
         clipboardManager= (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 
         course = (Course) getIntent().getSerializableExtra("course");
         post = (Post) getIntent().getSerializableExtra("post");
         title = post.getTitle();
-
-        replyLayout = (LinearLayout) findViewById(R.id.reply_layout);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        btn = (FloatingActionButton) findViewById(R.id.reply_btn);
 
         msgTxt = (TextView) findViewById(R.id.msgTxt);
 
@@ -103,7 +104,6 @@ public class PostDetailActivity extends BaseActivity {
             }
         });
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_black_24dp);

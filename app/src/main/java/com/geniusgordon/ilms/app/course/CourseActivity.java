@@ -34,15 +34,18 @@ import com.google.android.gms.analytics.Tracker;
 
 import java.util.Locale;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class CourseActivity extends DrawerActivity {
     final static String LOG_TAG = "CourseActivity";
 
     private Course course;
 
     private CourseFragmentPagerAdapter pagerAdapter;
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
-    private FloatingActionMenu floatingActionMenu;
+    @Bind(R.id.pager) ViewPager viewPager;
+    @Bind(R.id.tabLayout) TabLayout tabLayout;
+    @Bind(R.id.send_email_btn) FloatingActionMenu floatingActionMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,8 @@ public class CourseActivity extends DrawerActivity {
 
         initDrawer();
 
+        ButterKnife.bind(this);
+
         course = (Course) getIntent().getSerializableExtra("course");
         Log.d(LOG_TAG, course.getChi_title());
         final Locale current = getResources().getConfiguration().locale;
@@ -68,11 +73,7 @@ public class CourseActivity extends DrawerActivity {
             getSupportActionBar().setTitle(course.getEng_title());
 
         pagerAdapter = new CourseFragmentPagerAdapter(getApplicationContext(), getSupportFragmentManager(), course);
-        viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(pagerAdapter);
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        tabLayout.setupWithViewPager(viewPager);
-        floatingActionMenu = (FloatingActionMenu) findViewById(R.id.send_email_btn);
         floatingActionMenu.setBackgroundColor(Color.TRANSPARENT);
 
         CourseEmailRequest request = new CourseEmailRequest(course,

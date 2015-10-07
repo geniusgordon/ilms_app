@@ -15,6 +15,9 @@ import com.geniusgordon.ilms.model.Reply;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by gordon on 9/29/15.
  */
@@ -22,13 +25,13 @@ public class ReplyViewHolder {
 
     private Context context;
     private ViewGroup mView;
-    private View header;
-    private TextView authorTxt;
-    private TextView accountTxt;
-    private TextView emailTxt;
-    private TextView timeTxt;
-    private TextView floorTxt;
-    private TextView contentTxt;
+    @Bind(R.id.header) View header;
+    @Bind(R.id.author) TextView authorTxt;
+    @Bind(R.id.account) TextView accountTxt;
+    @Bind(R.id.email) TextView emailTxt;
+    @Bind(R.id.time) TextView timeTxt;
+    @Bind(R.id.floor) TextView floorTxt;
+    @Bind(R.id.content) TextView contentTxt;
 
     private boolean folded;
     private Reply reply;
@@ -39,13 +42,7 @@ public class ReplyViewHolder {
         this.reply = reply;
 
         mView = view;
-        header = view.findViewById(R.id.header);
-        authorTxt = (TextView) view.findViewById(R.id.author);
-        accountTxt = (TextView) view.findViewById(R.id.account);
-        emailTxt = (TextView) view.findViewById(R.id.email);
-        timeTxt = (TextView) view.findViewById(R.id.time);
-        floorTxt = (TextView) view.findViewById(R.id.floor);
-        contentTxt = (TextView) view.findViewById(R.id.content);
+        ButterKnife.bind(this, view);
 
         contentTxt.setMovementMethod(LinkMovementMethod.getInstance());
 

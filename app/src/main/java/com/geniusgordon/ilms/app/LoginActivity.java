@@ -26,15 +26,18 @@ import com.geniusgordon.ilms.model.Account;
 import com.geniusgordon.ilms.model.LoginStatus;
 import com.geniusgordon.ilms.model.Preferences;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class LoginActivity extends AppCompatActivity {
 
     private Account account;
 
-    private Toolbar toolbar;
-    private EditText usernameTxt;
-    private EditText passwordTxt;
-    private Button loginBtn;
-    private ProgressBar loginProgressBar;
+    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.username) EditText usernameTxt;
+    @Bind(R.id.password) EditText passwordTxt;
+    @Bind(R.id.loginBtn) Button loginBtn;
+    @Bind(R.id.loginProgressBar) ProgressBar loginProgressBar;
 
     private Response.ErrorListener errorListener = new Response.ErrorListener() {
         @Override
@@ -56,15 +59,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getString(R.string.login));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        usernameTxt = (EditText) findViewById(R.id.username);
-        passwordTxt = (EditText) findViewById(R.id.password);
-        loginBtn = (Button) findViewById(R.id.loginBtn);
-        loginProgressBar = (ProgressBar) findViewById(R.id.loginProgressBar);
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
