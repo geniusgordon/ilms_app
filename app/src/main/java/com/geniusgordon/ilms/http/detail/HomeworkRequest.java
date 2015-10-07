@@ -48,6 +48,8 @@ public class HomeworkRequest extends BaseRequest<Homework> {
         }
 
         homework.setDescription(tr.eq(6).select("td").eq(1).html());
+
+        homework.getAttachments().clear();
         Elements links = tr.eq(7).select("td").eq(1).select("a");
         for (int i = 0; i < links.size(); i++) {
             Element a = links.get(i);
