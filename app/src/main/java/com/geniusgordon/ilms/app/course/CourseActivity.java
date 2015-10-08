@@ -74,6 +74,7 @@ public class CourseActivity extends DrawerActivity {
 
         pagerAdapter = new CourseFragmentPagerAdapter(getApplicationContext(), getSupportFragmentManager(), course);
         viewPager.setAdapter(pagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
         floatingActionMenu.setBackgroundColor(Color.TRANSPARENT);
 
         CourseEmailRequest request = new CourseEmailRequest(course,
