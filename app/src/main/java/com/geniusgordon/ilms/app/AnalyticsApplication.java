@@ -52,7 +52,7 @@ public class AnalyticsApplication extends Application {
     public void onCreate() {
         super.onCreate();
         analytics = GoogleAnalytics.getInstance(this);
-        analytics.setDryRun(true);
+        //analytics.setDryRun(true);
 
         tracker = analytics.newTracker("UA-68526607-1");
         tracker.enableExceptionReporting(true);
