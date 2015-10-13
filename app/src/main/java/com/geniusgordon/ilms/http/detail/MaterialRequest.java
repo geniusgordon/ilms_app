@@ -54,19 +54,23 @@ public class MaterialRequest extends BaseRequest<Material> {
             e.printStackTrace();
         }
 
-        Log.d(LOG_TAG, material.getTitle());
-        Log.d(LOG_TAG, material.getTimeStr(df));
+//        Log.d(LOG_TAG, material.getTitle());
+//        Log.d(LOG_TAG, material.getTimeStr(df));
 
         material.setContent(document.select(".doc .article").html());
 
         material.getAttachments().clear();
-        Elements elements = document.select("div.attach div.block");
+        Elements elements = document.select("div.attach div.block div");
         for (Element element: elements) {
             Attachment attachment = new Attachment();
 
             attachment.setId(Long.parseLong(element.select("a:first-child").attr("href").split("=")[1]));
             attachment.setTitle(element.select("a:first-child").attr("title"));
             attachment.setSize(element.select("span").html());
+
+            Log.d(LOG_TAG, String.valueOf(attachment.getId()));
+            Log.d(LOG_TAG, attachment.getTitle());
+            Log.d(LOG_TAG, attachment.getSize());
 
             material.addAttachment(attachment);
         }
