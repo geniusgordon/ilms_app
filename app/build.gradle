@@ -8,8 +8,8 @@ android {
         applicationId "com.geniusgordon.ilms"
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 8
-        versionName "1.3.2"
+        versionCode 9
+        versionName "1.3.3"
     }
     buildTypes {
         release {
