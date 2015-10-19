@@ -60,6 +60,7 @@ public class DrawerActivity extends BaseActivity {
     protected PrimaryDrawerItem newestAnnouncement;
     protected PrimaryDrawerItem newestForum;
     protected PrimaryDrawerItem newestMaterial;
+    protected PrimaryDrawerItem mySchedule;
 
     public final static int LOGIN_REQUEST = 1;
 
@@ -132,17 +133,17 @@ public class DrawerActivity extends BaseActivity {
                 });
 
 
-        SectionDrawerItem calendarHeader = new SectionDrawerItem()
-                .withDivider(true)
-                .withName(getString(R.string.calendar));
-
-        SecondaryDrawerItem myCalendar = new SecondaryDrawerItem()
-                .withName("個人")
-                .withIcon(R.drawable.ic_event_black_24dp);
-
-        SecondaryDrawerItem schoolCalendar = new SecondaryDrawerItem()
-                .withName("校園")
-                .withIcon(R.drawable.ic_event_black_24dp);
+        mySchedule = new PrimaryDrawerItem()
+                .withIcon(R.drawable.ic_event_black_24dp)
+                .withName(getString(R.string.my_schedule))
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        Intent intent = new Intent(DrawerActivity.this, MySchedule.class);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
 
         drawer = new DrawerBuilder()
                 .withActivity(this)
@@ -151,10 +152,8 @@ public class DrawerActivity extends BaseActivity {
                 .addDrawerItems(
                         newestAnnouncement,
                         newestForum,
-                        newestMaterial
-                        //calendarHeader,
-                        //myCalendar,
-                        //schoolCalendar
+                        newestMaterial,
+                        mySchedule
                 )
                 .withSelectedItem(-1)
                 .build();

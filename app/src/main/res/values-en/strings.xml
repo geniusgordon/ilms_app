@@ -54,6 +54,7 @@
     <string name="email_professor_ta">Send email to professor or TA</string>
     <string name="last_login">Last Access</string>
     <string name="login_count">Access Times</string>
+    <string name="my_schedule">My Schedule</string>
 
 
 </resources>
