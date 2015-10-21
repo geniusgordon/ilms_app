@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp" >
+
+    <RelativeLayout
+        android:id="@+id/list_icon"
+        android:layout_width="56dp"
+        android:layout_height="fill_parent"
+        android:padding="2dp">
+
+        <TextView
+            android:id="@+id/date"
+            android:text="10"
+            android:textColor="#000"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            style="@style/Base.TextAppearance.AppCompat.Large" />
+        <TextView
+            android:id="@+id/weekday"
+            android:text="Wed"
+            android:layout_below="@id/date"
+            android:textColor="#555"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            />
+    </RelativeLayout>
+
+    <LinearLayout android:id="@+id/list_item"
+        android:layout_toRightOf="@+id/list_icon"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/title"
+            android:text="AAAAAAAAAAAAAABBBBBBBBBBBCCC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceListItem"
+            />
+
+        <TextView
+            android:id="@+id/course"
+            android:text="BBBBBBB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textAlignment="viewStart"
+            />
+    </LinearLayout>
+
+</RelativeLayout>

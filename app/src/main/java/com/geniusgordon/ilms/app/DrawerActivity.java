@@ -139,7 +139,7 @@ public class DrawerActivity extends BaseActivity {
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        Intent intent = new Intent(DrawerActivity.this, MySchedule.class);
+                        Intent intent = new Intent(DrawerActivity.this, MyScheduleActivity.class);
                         startActivity(intent);
                         return true;
                     }
