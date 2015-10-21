@@ -7,9 +7,9 @@ import java.util.Date;
  * Created by gordon on 10/19/15.
  */
 public class Event {
-    public static int EVENT = 1;
-    public static int HOMEWORK = 2;
-    public static int TEST = 3;
+    final public static int EVENT = 1;
+    final public static int HOMEWORK = 2;
+    final public static int TEST = 3;
 
     Date date;
     String title;

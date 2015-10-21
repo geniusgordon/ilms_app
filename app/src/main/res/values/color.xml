@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="white_ripple_background">#FFF</color>
-    <color name="white_ripple">#aaa</color>
     <color name="blue_primary">#2196F3</color>
     <color name="green_primary">#4CAF50</color>
     <color name="yellow_primary">#FFC107</color>
+    <color name="blue_ripple">#0d47a1</color>
 </resources>

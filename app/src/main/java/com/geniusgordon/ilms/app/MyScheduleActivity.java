@@ -53,6 +53,8 @@ public class MyScheduleActivity extends DrawerActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme_Grey);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_schedule);
         initDrawer();
