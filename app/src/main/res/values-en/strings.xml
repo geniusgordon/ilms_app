@@ -42,7 +42,7 @@
     <string name="calendar">Calendar</string>
     <string name="logout">Logout</string>
     <string name="course">Course</string>
-    <string name="timeout">Cannot connect to server, try again later</string>
+    <string name="timeout">Cannot connect to server\ntry again later</string>
     <string name="no_permission">No Permission</string>
     <string name="not_login">Not logged in</string>
     <string name="incorrect_user_passwd">Incorrect username or password</string>
@@ -54,7 +54,9 @@
     <string name="email_professor_ta">Send email to professor or TA</string>
     <string name="last_login">Last Access</string>
     <string name="login_count">Access Times</string>
-    <string name="my_schedule">My Schedule</string>
+    <string name="my_schedule">My Calendar</string>
+    <string name="school_schedule">Campus Calendar</string>
+    <string name="title_activity_my_schedule"></string>
 
 
 </resources>

@@ -1,9 +1,11 @@
-package com.geniusgordon.ilms.http;
+package com.geniusgordon.ilms.http.schedule;
 
 import android.util.Log;
 
 import com.android.volley.Response;
+import com.geniusgordon.ilms.http.BaseRequest;
 import com.geniusgordon.ilms.model.Course;
+import com.geniusgordon.ilms.model.DateWithEvents;
 import com.geniusgordon.ilms.model.Event;
 
 import org.jsoup.Jsoup;
@@ -15,12 +17,16 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by gordon on 10/19/15.
  */
-public class MyScheduleRequest extends BaseRequest<List<Event>> {
+public class MyScheduleRequest extends BaseRequest<List<DateWithEvents>> {
 
     static String URL = "http://lms.nthu.edu.tw/home.php?f=calendar&date=%d-%d&mode=l";
     static String BASE_URL = "http://lms.nthu.edu.tw";
@@ -32,15 +38,16 @@ public class MyScheduleRequest extends BaseRequest<List<Event>> {
     int year;
     int month;
 
-    public MyScheduleRequest(int year, int month, Response.Listener<List<Event>> listener, Response.ErrorListener errorListener) {
+    public MyScheduleRequest(int year, int month, Response.Listener<List<DateWithEvents>> listener, Response.ErrorListener errorListener) {
         super(Method.GET, String.format(URL, year, month), listener, errorListener);
         this.year = year;
         this.month = month;
     }
 
     @Override
-    protected List<Event> parseResponseHtml(String responseHtml) {
-        List<Event> events = new ArrayList<Event>();
+    protected List<DateWithEvents> parseResponseHtml(String responseHtml) {
+        List<Event> events = new ArrayList<>();
+
         Document document = Jsoup.parse(responseHtml);
         Elements tr = document.select("tr");
 
@@ -86,6 +93,12 @@ public class MyScheduleRequest extends BaseRequest<List<Event>> {
             events.add(event);
         }
 
-        return events;
+        List<DateWithEvents> dateWithEventsList = new ArrayList<DateWithEvents>();
+        Calendar cal = Calendar.getInstance();
+        cal.set(year, month-1, 1);
+        dateWithEventsList.add(new DateWithEvents(true, cal.getTime()));
+        dateWithEventsList.addAll(DateWithEvents.fromEventList(events));
+
+        return dateWithEventsList;
     }
 }

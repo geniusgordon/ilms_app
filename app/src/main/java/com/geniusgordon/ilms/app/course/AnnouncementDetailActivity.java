@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
 /**
  * Created by gordon on 9/28/15.
  */
-public class    AnnouncementDetailActivity extends DetailActivity<Announcement> {
+public class AnnouncementDetailActivity extends DetailActivity<Announcement> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

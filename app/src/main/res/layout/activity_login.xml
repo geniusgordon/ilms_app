@@ -38,7 +38,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:padding="24dp"
-            android:layout_below="@+id/appBarLayout">
+            android:layout_below="@+id/appBarLayout"
+            android:id="@+id/relativeLayout">
 
             <EditText
                 android:layout_width="fill_parent"

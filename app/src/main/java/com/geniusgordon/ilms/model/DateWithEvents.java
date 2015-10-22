@@ -15,9 +15,13 @@ public class DateWithEvents {
     List<Event> events;
 
     public DateWithEvents(boolean isHeader, Date date) {
+        this(isHeader, date, new ArrayList<Event>());
+    }
+
+    public DateWithEvents(boolean isHeader, Date date, List<Event> events) {
         this.isHeader = isHeader;
         this.date = date;
-        events = new ArrayList<Event>();
+        this.events = events;
     }
 
     public boolean isHeader() {

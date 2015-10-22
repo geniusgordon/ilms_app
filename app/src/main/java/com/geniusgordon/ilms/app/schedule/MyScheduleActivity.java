@@ -1,7 +1,6 @@
-package com.geniusgordon.ilms.app;
+package com.geniusgordon.ilms.app.schedule;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,13 +14,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.geniusgordon.ilms.R;
+import com.geniusgordon.ilms.app.DrawerActivity;
 import com.geniusgordon.ilms.app.adapter.EventListAdapter;
-import com.geniusgordon.ilms.app.adapter.HomeItemListAdapter;
-import com.geniusgordon.ilms.http.MyScheduleRequest;
 import com.geniusgordon.ilms.http.RequestQueueSingleton;
+import com.geniusgordon.ilms.http.schedule.MyScheduleRequest;
 import com.geniusgordon.ilms.model.DateWithEvents;
 import com.geniusgordon.ilms.model.Event;
-import com.geniusgordon.ilms.model.HomeItem;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,10 +32,13 @@ import butterknife.ButterKnife;
 public class MyScheduleActivity extends DrawerActivity {
     String LOG_TAG = "MyScheduleActivity";
 
-    private EventListAdapter listAdapter;
-    @Bind(R.id.title) TextView titleTxt;
-    @Bind(R.id.list_view) ListView listView;
-    @Bind(R.id.progressBar) ProgressBar progressBar;
+    EventListAdapter listAdapter;
+    @Bind(R.id.title)
+    TextView titleTxt;
+    @Bind(R.id.list_view)
+    ListView listView;
+    @Bind(R.id.progressBar)
+    ProgressBar progressBar;
 
     Calendar currDate;
     Calendar startDate;
@@ -45,33 +46,27 @@ public class MyScheduleActivity extends DrawerActivity {
     boolean beforeRequesting;
     boolean afterRequesting;
     Request request;
-    Response.Listener afterListener = new Response.Listener<List<Event>>() {
+    Response.Listener<List<DateWithEvents>> afterListener = new Response.Listener<List<DateWithEvents>>() {
         @Override
-        public void onResponse(List<Event> response) {
+        public void onResponse(List<DateWithEvents> response) {
             progressBar.setVisibility(View.INVISIBLE);
-            DateWithEvents header = new DateWithEvents(true, endDate.getTime());
-            List<DateWithEvents> list = DateWithEvents.fromEventList(response);
-            list.add(0, header);
-            listAdapter.addItems(list);
+            listAdapter.addItems(response);
             afterRequesting = false;
 //            Log.d(LOG_TAG, String.valueOf(response.size()));
         }
     };
-    Response.Listener beforeListener = new Response.Listener<List<Event>>() {
+    Response.Listener<List<DateWithEvents>> beforeListener = new Response.Listener<List<DateWithEvents>>() {
         @Override
-        public void onResponse(List<Event> response) {
+        public void onResponse(List<DateWithEvents> response) {
             progressBar.setVisibility(View.INVISIBLE);
-            DateWithEvents header = new DateWithEvents(true, startDate.getTime());
-            List<DateWithEvents> list = DateWithEvents.fromEventList(response);
-            list.add(0, header);
 
             int index = listView.getFirstVisiblePosition();
             View v = listView.getChildAt(0);
             int top = (v == null) ? 0 : v.getTop();
 //            Log.d(LOG_TAG, "first visible: " + index);
 //            Log.d(LOG_TAG, "top: " + top);
-            listAdapter.addItems(0, list);
-            listView.setSelectionFromTop(list.size() + index, top);
+            listAdapter.addItems(0, response);
+            listView.setSelectionFromTop(response.size() + index, top);
 
             beforeRequesting = false;
         }
@@ -139,31 +134,33 @@ public class MyScheduleActivity extends DrawerActivity {
         getSupportActionBar().setTitle("");
         titleTxt.setText(getDateString(currDate));
 
+        afterRequesting = true;
+        beforeRequesting = false;
+
         listAdapter = new EventListAdapter(currDate, this, new ArrayList<DateWithEvents>());
         listView.setAdapter(listAdapter);
         listView.setOnScrollListener(onScrollListener);
 
-        afterRequesting = true;
-        beforeRequesting = false;
-        request = new MyScheduleRequest(currDate.get(Calendar.YEAR), currDate.get(Calendar.MONTH)+1, afterListener, errorListener);
+        request = getAfterRequest(currDate);
         RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 
     public void eventAfterRequest(Calendar cal) {
         if (!afterRequesting && cal.after(endDate)) {
-//            Log.d(LOG_TAG, getDateString(cal));
+            Log.d(LOG_TAG, getDateString(cal));
             endDate = cal;
             afterRequesting = true;
-            request = new MyScheduleRequest(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, afterListener, errorListener);
+            request = getAfterRequest(cal);
             RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
         }
     }
 
     public void eventBeforeRequest(Calendar cal) {
         if (!beforeRequesting && cal.before(startDate)) {
+            Log.d(LOG_TAG, getDateString(cal));
             startDate = cal;
             beforeRequesting = true;
-            request = new MyScheduleRequest(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, beforeListener, errorListener);
+            request = getBeforeRequest(cal);
             RequestQueueSingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
         }
     }
@@ -182,6 +179,14 @@ public class MyScheduleActivity extends DrawerActivity {
             listView.smoothScrollToPositionFromTop(listAdapter.getTodayInd(), 0, 100);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public Request getBeforeRequest(Calendar date) {
+        return new MyScheduleRequest(date.get(Calendar.YEAR), date.get(Calendar.MONTH)+1, beforeListener, errorListener);
+    }
+
+    public Request getAfterRequest(Calendar date) {
+        return new MyScheduleRequest(date.get(Calendar.YEAR), date.get(Calendar.MONTH)+1, afterListener, errorListener);
     }
 
 }

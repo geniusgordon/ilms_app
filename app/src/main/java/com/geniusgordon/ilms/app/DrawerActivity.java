@@ -22,6 +22,8 @@ import com.geniusgordon.ilms.app.course.CourseActivity;
 import com.geniusgordon.ilms.app.main.MainActivity;
 import com.geniusgordon.ilms.app.main.NewestForumActivity;
 import com.geniusgordon.ilms.app.main.NewestMaterialActivity;
+import com.geniusgordon.ilms.app.schedule.MyScheduleActivity;
+import com.geniusgordon.ilms.app.schedule.SchoolScheduleActivity;
 import com.geniusgordon.ilms.http.main.CourseListRequest;
 import com.geniusgordon.ilms.http.RequestQueueSingleton;
 import com.geniusgordon.ilms.model.Account;
@@ -61,6 +63,7 @@ public class DrawerActivity extends BaseActivity {
     protected PrimaryDrawerItem newestForum;
     protected PrimaryDrawerItem newestMaterial;
     protected PrimaryDrawerItem mySchedule;
+    protected PrimaryDrawerItem schoolSchedule;
 
     public final static int LOGIN_REQUEST = 1;
 
@@ -145,6 +148,18 @@ public class DrawerActivity extends BaseActivity {
                     }
                 });
 
+        schoolSchedule = new PrimaryDrawerItem()
+                .withIcon(R.drawable.ic_event_note_black_24dp)
+                .withName(getString(R.string.school_schedule))
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        Intent intent = new Intent(DrawerActivity.this, SchoolScheduleActivity.class);
+                        startActivity(intent);
+                        return true;
+                    }
+                });
+
         drawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
@@ -153,7 +168,8 @@ public class DrawerActivity extends BaseActivity {
                         newestAnnouncement,
                         newestForum,
                         newestMaterial,
-                        mySchedule
+                        mySchedule,
+                        schoolSchedule
                 )
                 .withSelectedItem(-1)
                 .build();
@@ -283,7 +299,7 @@ public class DrawerActivity extends BaseActivity {
 
         for (final Course course: courseList.getCourses()) {
             SecondaryDrawerItem item = new SecondaryDrawerItem()
-                    //.withIcon(R.drawable.ic_view_list_black_24dp)
+                    .withIcon(R.drawable.ic_view_list_black_24dp)
                     .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                         @Override
                         public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {

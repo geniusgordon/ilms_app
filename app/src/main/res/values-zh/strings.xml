@@ -55,6 +55,7 @@
     <string name="last_login">最後登入</string>
     <string name="login_count">登入次數</string>
     <string name="my_schedule">個人行事曆</string>
+    <string name="school_schedule">校園行事曆</string>
 
 
 </resources>

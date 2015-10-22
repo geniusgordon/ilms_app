@@ -122,8 +122,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".app.MyScheduleActivity"
+            android:name=".app.schedule.MyScheduleActivity"
             android:label="@string/title_activity_my_schedule" >
+        </activity>
+        <activity
+            android:name=".app.schedule.SchoolScheduleActivity"
+            android:label="@string/title_activity_school_schedule" >
         </activity>
     </application>
 
