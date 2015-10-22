@@ -10,12 +10,18 @@ import java.util.List;
  * Created by gordon on 10/20/15.
  */
 public class DateWithEvents {
+    boolean isHeader;
     Date date;
     List<Event> events;
 
-    public DateWithEvents(Date date) {
+    public DateWithEvents(boolean isHeader, Date date) {
+        this.isHeader = isHeader;
         this.date = date;
         events = new ArrayList<Event>();
+    }
+
+    public boolean isHeader() {
+        return isHeader;
     }
 
     public void addEvent(Event event) {
@@ -42,10 +48,12 @@ public class DateWithEvents {
             if (last == null || !e.getDate().equals(last.date)) {
                 if (last != null)
                     new_events.add(last);
-                last = new DateWithEvents(e.getDate());
+                last = new DateWithEvents(false, e.getDate());
             }
             last.addEvent(e);
         }
+        if (last != null)
+            new_events.add(last);
 
         return new_events;
     }

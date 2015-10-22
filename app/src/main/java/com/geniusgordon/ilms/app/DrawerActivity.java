@@ -283,7 +283,7 @@ public class DrawerActivity extends BaseActivity {
 
         for (final Course course: courseList.getCourses()) {
             SecondaryDrawerItem item = new SecondaryDrawerItem()
-                    .withIcon(R.drawable.ic_view_list_black_24dp)
+                    //.withIcon(R.drawable.ic_view_list_black_24dp)
                     .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                         @Override
                         public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {

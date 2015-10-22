@@ -4,8 +4,8 @@
     tools:context="com.geniusgordon.ilms.app.MyScheduleActivity">
 
     <item
-        android:id="@+id/date"
-        android:title="Pick date"
+        android:id="@+id/today"
+        android:title="Today"
         app:showAsAction="always"
         android:icon="@drawable/ic_event_white_24dp" />
 

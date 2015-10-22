@@ -40,6 +40,11 @@ public abstract class ListAdapter<T> extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void addItems(int location, List<T> items) {
+        this.items.addAll(location, items);
+        notifyDataSetChanged();
+    }
+
     public void clearItems() {
         this.items.clear();
         notifyDataSetChanged();

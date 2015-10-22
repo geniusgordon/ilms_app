@@ -16,6 +16,15 @@
             android:layout_width="match_parent"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
 
+            <TextView
+                android:id="@+id/title"
+                android:text="2015 / 10"
+                android:textColor="#fff"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                style="@style/Base.TextAppearance.AppCompat.Title" />
+
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
@@ -28,6 +37,7 @@
             android:id="@id/list_view"
             android:divider="@null"
             android:dividerHeight="0dp"
+            android:listSelector="@android:color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 

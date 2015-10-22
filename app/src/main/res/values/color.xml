@@ -4,4 +4,6 @@
     <color name="green_primary">#4CAF50</color>
     <color name="yellow_primary">#FFC107</color>
     <color name="blue_ripple">#0d47a1</color>
+    <color name="green_ripple">#1b5e20</color>
+    <color name="yellow_ripple">#ff6f00</color>
 </resources>

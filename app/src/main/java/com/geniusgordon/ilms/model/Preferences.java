@@ -70,7 +70,7 @@ public class Preferences {
     }
 
     public String getCookie() {
-        Log.d("Cookie", settings.getString(COOKIE, ""));
+//        Log.d("Cookie", settings.getString(COOKIE, ""));
         return settings.getString(COOKIE, "");
     }
 

@@ -58,9 +58,12 @@ public class MyScheduleRequest extends BaseRequest<List<Event>> {
                 e.printStackTrace();
             }
 
-            for (int j = 0; j < types.length; j++)
-                if (td.eq(1).select("div").eq(0).hasClass(types[j]))
+            for (int j = 0; j < types.length; j++) {
+                if (td.eq(1).select("div").eq(0).hasClass(types[j])) {
+//                    Log.d(LOG_TAG, types[j]);
                     event.setType(j);
+                }
+            }
 
             String[] hrefSplit = td.eq(2).select("a").attr("href").split("/");
             String id = hrefSplit[2];
@@ -73,12 +76,12 @@ public class MyScheduleRequest extends BaseRequest<List<Event>> {
             if (eventUrl.startsWith("javascript"))
                 event.setUrl("");
             else
-                event.setUrl(eventUrl);
+                event.setUrl(BASE_URL + eventUrl);
 
-            Log.d(LOG_TAG, timeStr);
-            Log.d(LOG_TAG, event.getTitle());
-            Log.d(LOG_TAG, event.getCourse().getChi_title());
-            Log.d(LOG_TAG, event.getUrl());
+//            Log.d(LOG_TAG, timeStr);
+//            Log.d(LOG_TAG, event.getTitle());
+//            Log.d(LOG_TAG, event.getCourse().getChi_title());
+//            Log.d(LOG_TAG, event.getUrl());
 
             events.add(event);
         }
