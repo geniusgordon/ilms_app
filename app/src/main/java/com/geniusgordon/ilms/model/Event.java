@@ -17,6 +17,13 @@ public class Event {
     Course course;
     String url;
 
+    public Event() {
+        setType(Event.EVENT);
+        setUrl("");
+        setTitle("");
+        setCourse(null);
+    }
+
     public Date getDate() {
         return date;
     }

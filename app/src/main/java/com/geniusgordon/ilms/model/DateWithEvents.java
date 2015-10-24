@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by gordon on 10/20/15.
  */
-public class DateWithEvents {
+public class DateWithEvents implements Comparable {
     boolean isHeader;
     Date date;
     List<Event> events;
@@ -60,5 +60,18 @@ public class DateWithEvents {
             new_events.add(last);
 
         return new_events;
+    }
+
+    @Override
+    public int compareTo(Object another) {
+        DateWithEvents e = (DateWithEvents) another;
+        int ret = date.compareTo(e.getDate());
+        if (ret == 0) {
+            if (isHeader && !e.isHeader)
+                return -1;
+            if (!isHeader && e.isHeader)
+                return 1;
+        }
+        return ret;
     }
 }

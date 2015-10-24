@@ -78,10 +78,14 @@ public class EventListAdapter extends ListAdapter<DateWithEvents> {
                 });
             }
 
-            if (current.getLanguage().equals("zh")) {
-                course.setText(e.getCourse().getChi_title());
+            if (e.getCourse() != null) {
+                if (current.getLanguage().equals("zh")) {
+                    course.setText(e.getCourse().getChi_title());
+                } else {
+                    course.setText(e.getCourse().getEng_title());
+                }
             } else {
-                course.setText(e.getCourse().getEng_title());
+                course.setVisibility(View.GONE);
             }
 
 //            int[] attrs = new int[]{R.attr.selectableItemBackground};
